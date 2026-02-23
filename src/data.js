@@ -380,6 +380,304 @@ export const businesses = [
     image: "https://images.unsplash.com/photo-1595956553066-fe24a8c33395?auto=format&fit=crop&q=80&w=800",
     description: "Thalassothérapie, gommages exclusifs au sel rose du Lac Retba et hammam marocain.",
     tags: ["Hammam", "Thalasso", "Luxe"], featured: true
+  },
+  // === DONNÉES SPREADSHEETS (RÉPERTOIRES OFFICIELS 2025) ===
+  {
+    id: 41, name: "Noom Hotel Dakar Sea Plaza", category: "Hôtels", rating: "4.3", reviews: 520,
+    price: "180 000 - 400 000 FCFA", location: "Dakar - Fann Rés.", city: "Dakar",
+    address: "Rte de la Corniche Ouest", phone: "+221 33 000 00 00",
+    website: "www.noomhotels.com", hours: "24h/24", lat: 14.6951, lng: -17.4736,
+    image: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&q=80&w=800",
+    description: "Hôtel 5★ Luxe. Piscine, restaurants, bar rooftop, vue océan Atlantique.",
+    tags: ["Luxe", "Piscine", "Rooftop"], featured: true
+  },
+  {
+    id: 42, name: "Azalaï Hôtel Dakar", category: "Hôtels", rating: "4.6", reviews: 210,
+    price: "80 000 - 180 000 FCFA", location: "Dakar - Plateau", city: "Dakar",
+    address: "Rue Victor Hugo", phone: "+221 33 000 00 01",
+    website: "www.azalai.com", hours: "24h/24", lat: 14.6751, lng: -17.4693,
+    image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=800",
+    description: "Hôtel 4★ Supérieur. Piscine, restaurant, salle de conférence, bar.",
+    tags: ["Affaires", "Piscine", "Conférence"], featured: false
+  },
+  {
+    id: 43, name: "Novotel Dakar", category: "Hôtels", rating: "4.4", reviews: 450,
+    price: "90 000 - 200 000 FCFA", location: "Dakar - Plateau", city: "Dakar",
+    address: "Av. Abdoulaye Fadiga, BP 2073", phone: "+221 33 000 00 02",
+    website: "www.all.accor.com", hours: "24h/24", lat: 14.6687, lng: -17.4268,
+    image: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&q=80&w=800",
+    description: "Hôtel 4★ Chaîne. Piscine, restaurant buffet, bar, salle de sport.",
+    tags: ["Chaîne", "Piscine", "Plateau"], featured: false
+  },
+  {
+    id: 44, name: "Yaas Hotel Dakar Almadies", category: "Hôtels", rating: "4.0", reviews: 120,
+    price: "50 000 - 100 000 FCFA", location: "Dakar - Almadies", city: "Dakar",
+    address: "Route des Almadies", phone: "+221 33 000 00 03",
+    website: "www.yaashotels.com", hours: "24h/24", lat: 14.7426, lng: -17.5203,
+    image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&q=80&w=800",
+    description: "Hôtel 3★ Moderne. Petit-déjeuner inclus, restaurant, quartier animé.",
+    tags: ["Moderne", "Almadies", "Budget"], featured: false
+  },
+  {
+    id: 45, name: "Casino du Cap Vert", category: "Hôtels", rating: "4.0", reviews: 340,
+    price: "80 000 - 180 000 FCFA", location: "Dakar - Ngor", city: "Dakar",
+    address: "Route de Ngor, Cité Cosepi", phone: "+221 33 000 00 04",
+    website: "www.casinocapvert.sn", hours: "24h/24", lat: 14.7511, lng: -17.5027,
+    image: "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&q=80&w=800",
+    description: "Hôtel-Casino 4★. Casino, restaurant, piscine, navette aéroport, jardin.",
+    tags: ["Casino", "Loisirs", "Jardin"], featured: true
+  },
+  {
+    id: 46, name: "Dakar International House", category: "Hôtels", rating: "3.6", reviews: 85,
+    price: "8 000 - 25 000 FCFA", location: "Dakar - Pikine", city: "Dakar",
+    address: "Cité Kheur Khadim 164, Scat Urbam", phone: "+221 33 000 00 05",
+    website: "www.dakarhostel.com", hours: "24h/24", lat: 14.7381, lng: -17.4605,
+    image: "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&q=80&w=800",
+    description: "Auberge / Hostel. Dortoirs & chambres privées, terrasse, sécurité 24h.",
+    tags: ["Hostel", "Économique", "Voyageur"], featured: false
+  },
+  {
+    id: 47, name: "Nyéléni Maison Sahel", category: "Hôtels", rating: "4.6", reviews: 45,
+    price: "60 000 - 120 000 FCFA", location: "Dakar - Ngor", city: "Dakar",
+    address: "27 Rue YF 109", phone: "+221 33 000 00 06",
+    website: "www.nyelenimaisonsahel.sn", hours: "24h/24", lat: 14.7604, lng: -17.4843,
+    image: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&q=80&w=800",
+    description: "Maison d'hotes 4★. Vue mer, art africain, piscine, ambiance intime, WiFi.",
+    tags: ["Maison d'Hôtes", "Art", "Intime"], featured: true
+  },
+  {
+    id: 48, name: "Auberge Keur Diame", category: "Hôtels", rating: "4.4", reviews: 52,
+    price: "25 000 - 50 000 FCFA", location: "Dakar - Sicap", city: "Dakar",
+    address: "Cité Djily Mbaye 265C", phone: "+221 33 000 00 07",
+    website: "www.keurdiame.sn", hours: "24h/24", lat: 14.7626, lng: -17.4572,
+    image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=800",
+    description: "Auberge 3★. Vue océan, plage à 3 min, décor africain, terrasse.",
+    tags: ["Auberge", "Plage", "Vue Océan"], featured: false
+  },
+  {
+    id: 49, name: "Auberge du Plateau", category: "Hôtels", rating: "3.7", reviews: 94,
+    price: "20.000 - 45.000 FCFA", location: "Dakar - Plateau", city: "Dakar",
+    address: "89 Rue Amadou Assane Ndoye", phone: "+221 33 000 00 08",
+    website: "www.aubergeplateau.sn", hours: "8h-23h", lat: 14.6682, lng: -17.4377,
+    image: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&q=80&w=800",
+    description: "Auberge 2★. Centre-ville, appartements meublés, mensuel possible.",
+    tags: ["Centre-ville", "Appartement"], featured: false
+  },
+  {
+    id: 50, name: "Auberge Keurmariguen", category: "Hôtels", rating: "4.2", reviews: 65,
+    price: "30 000 - 70 000 FCFA", location: "Somone", city: "La Somone",
+    address: "Rue de la Gendarmerie", phone: "+221 33 000 00 09",
+    website: "www.keurmariguen.sn", hours: "24h/24", lat: 14.4834, lng: -17.0778,
+    image: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&q=80&w=800",
+    description: "Auberge 3★ Plage. 50m de la plage, piscine, restaurant, chiens accueil.",
+    tags: ["Somone", "Plage", "Piscine"], featured: false
+  },
+  {
+    id: 51, name: "Auberge Plein Soleil", category: "Hôtels", rating: "4.4", reviews: 48,
+    price: "20.000 - 45.000 FCFA", location: "Mbodiène", city: "Mbodiène",
+    address: "64MG+W56, Mbodiène", phone: "+221 33 000 00 10",
+    website: "www.pleinsoleil.sn", hours: "24h/24", lat: 14.2348, lng: -16.8746,
+    image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&q=80&w=800",
+    description: "Auberge Écologique. Lagune, piscine, cases, jardin tropical, restaurant.",
+    tags: ["Écologie", "Lagune", "Nature"], featured: true
+  },
+  {
+    id: 52, name: "Auberge Africa Thiossane", category: "Hôtels", rating: "3.7", reviews: 82,
+    price: "35.000 - 80.000 FCFA", location: "Saly Niakh Niakhal", city: "Saly",
+    address: "Villa 1531, Saly", phone: "+221 33 000 00 11",
+    website: "www.africathiossane.sn", hours: "24h/24", lat: 14.4271, lng: -16.9919,
+    image: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&q=80&w=800",
+    description: "Auberge 3★ Balnéaire. 7 min de la mer, jardin, restaurant, hub culturel.",
+    tags: ["Culture", "Saly", "Jardin"], featured: false
+  },
+  {
+    id: 53, name: "Auberge KEUR SHASHA", category: "Hôtels", rating: "4.3", reviews: 76,
+    price: "25 000 - 55 000 FCFA", location: "M'bour", city: "M'bour",
+    address: "M'bour, Petite Côte", phone: "+221 33 000 00 12",
+    website: "www.keurshasha.sn", hours: "24h/24", lat: 14.4228, lng: -16.9923,
+    image: "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&q=80&w=800",
+    description: "Auberge Plage 3★. Sur la plage, ambiance familiale, service chaleureux.",
+    tags: ["Plage", "Mbour", "Familial"], featured: false
+  },
+  {
+    id: 54, name: "Auberge Kayokulo", category: "Hôtels", rating: "4.0", reviews: 31,
+    price: "15 000 - 35 000 FCFA", location: "Bignona (Casamance)", city: "Bignona",
+    address: "Quartier Château d'Eau, Bignona", phone: "+221 33 000 00 13",
+    website: "www.kayokulo.sn", hours: "24h/24", lat: 12.8085, lng: -16.2284,
+    image: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&q=80&w=800",
+    description: "Auberge 3★. Climatisé, moustiquaires, TV, frigo, WiFi, jardin.",
+    tags: ["Casamance", "Confort", "Jardin"], featured: true
+  },
+  {
+    id: 55, name: "Auberge de la Cité", category: "Hôtels", rating: "3.4", reviews: 25,
+    price: "12 000 - 25 000 FCFA", location: "Richard Toll (Nord)", city: "Richard Toll",
+    address: "Launga-Richard Toll Road", phone: "+221 33 000 00 14",
+    website: "www.aubergedelacite.sn", hours: "8h-22h", lat: 16.4682, lng: -15.7040,
+    image: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&q=80&w=800",
+    description: "Auberge 2★. Design artistique, chambres simples, accueil sympathique.",
+    tags: ["Nord", "Simple", "Artistique"], featured: false
+  },
+  {
+    id: 56, name: "Restaurant Le Lagon 1", category: "Restaurants", rating: "4.4", reviews: 520,
+    price: "15 000 - 40 000 FCFA", location: "Dakar - Plateau", city: "Dakar",
+    address: "MH9C+3H9, Corniche Ouest", phone: "+221 33 000 10 01",
+    website: "www.lelagon.sn", hours: "9h00 - 00h00", lat: 14.6677, lng: -17.4285,
+    image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&q=80&w=800",
+    description: "Fruits de mer / Gastronomique. Référence marine à Dakar.",
+    tags: ["Gastronomie", "Mer", "Prestige"], featured: true
+  },
+  {
+    id: 57, name: "Restaurant La Terrasse", category: "Restaurants", rating: "4.3", reviews: 310,
+    price: "12 000 - 35 000 FCFA", location: "Dakar - Corniche", city: "Dakar",
+    address: "Bvd M.L. King, Rte Corniche Ouest", phone: "+221 33 000 10 02",
+    website: "www.laterrasse.sn", hours: "12h00 - 23h30", lat: 14.6764, lng: -17.4662,
+    image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=800",
+    description: "Internationale / Vue mer. Terrasse surplombant l'océan.",
+    tags: ["Vue mer", "Cosmopolite", "Terrasse"], featured: false
+  },
+  {
+    id: 58, name: "Restaurant Le Carré Dakar", category: "Restaurants", rating: "4.0", reviews: 290,
+    price: "8 000 - 25 000 FCFA", location: "Dakar - Almadies", city: "Dakar",
+    address: "Cor des Almadies", phone: "+221 33 000 10 03",
+    website: "www.lecarre.sn", hours: "11h-01h / 11h-03h WE", lat: 14.7410, lng: -17.5225,
+    image: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=800",
+    description: "Fusion / Bar & Brunch. Cuisine moderne et festive.",
+    tags: ["Fusion", "Brunch", "Festif"], featured: true
+  },
+  {
+    id: 59, name: "La Pointe des Almadies", category: "Restaurants", rating: "4.0", reviews: 360,
+    price: "6 000 - 20 000 FCFA", location: "Dakar - Almadies", city: "Dakar",
+    address: "Phare Pointe des Almadies", phone: "+221 33 000 10 04",
+    website: "www.lapointe.sn", hours: "12h-00h / 10h30-01h WE", lat: 14.7455, lng: -17.5281,
+    image: "https://images.unsplash.com/photo-1588964895597-cfccd6e2dbf9?auto=format&fit=crop&q=80&w=800",
+    description: "Sénégalaise & Fruits de mer. Incontournable à la pointe ouest.",
+    tags: ["Locale", "Pointe", "Authentique"], featured: false
+  },
+  {
+    id: 60, name: "La Cabane du Pêcheur", category: "Restaurants", rating: "4.2", reviews: 410,
+    price: "5 000 - 18 000 FCFA", location: "Dakar - Ngor", city: "Dakar",
+    address: "Ndeureuhnou, Almadies", phone: "+221 33 000 10 05",
+    website: "www.cabanedupecheur.sn", hours: "8h-23h", lat: 14.7498, lng: -17.5112,
+    image: "https://images.unsplash.com/photo-1530469912745-a215c6b256ea?auto=format&fit=crop&q=80&w=800",
+    description: "Fruits de mer / Beach bar. Ambiance décontractée les pieds dans l'eau.",
+    tags: ["Plage", "Ngor", "Détente"], featured: true
+  },
+  {
+    id: 61, name: "Grill Time Dakar", category: "Restaurants", rating: "4.5", reviews: 88,
+    price: "8 000 - 25 000 FCFA", location: "Dakar - Liberté", city: "Dakar",
+    address: "Voie de dégagement N", phone: "+221 33 000 10 06",
+    website: "www.grilltime.sn", hours: "12h - 02h00", lat: 14.7161, lng: -17.4708,
+    image: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=800",
+    description: "Grill / Steakhouse. Spécialités de viandes grillées.",
+    tags: ["Grillade", "Steakhouse", "Viande"], featured: false
+  },
+  {
+    id: 62, name: "Le Cabanon Dakar", category: "Restaurants", rating: "4.1", reviews: 140,
+    price: "8 000 - 22 000 FCFA", location: "Dakar - Almadies", city: "Dakar",
+    address: "Cor des Almadies, Rocca Marina", phone: "+221 33 000 10 07",
+    website: "www.cabanon.sn", hours: "12h-23h30", lat: 14.7391, lng: -17.5170,
+    image: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&q=80&w=800",
+    description: "Méditerranéenne / Vue surfeurs. Cuisine fraîche face aux vagues.",
+    tags: ["Surf", "Méditerranée", "Almadies"], featured: false
+  },
+  {
+    id: 63, name: "La Pampa", category: "Restaurants", rating: "4.1", reviews: 95,
+    price: "10 000 - 28 000 FCFA", location: "Dakar - Plateau", city: "Dakar",
+    address: "28 Av. Hassan II", phone: "+221 33 000 10 08",
+    website: "www.lapampa.sn", hours: "7h - 23h", lat: 14.6697, lng: -17.4303,
+    image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&q=80&w=800",
+    description: "Argentine / Steakhouse. Le goût du boeuf argentin.",
+    tags: ["Argentine", "Steak", "Plateau"], featured: false
+  },
+  {
+    id: 64, name: "Chez Fatou", category: "Restaurants", rating: "4.0", reviews: 305,
+    price: "5 000 - 18 000 FCFA", location: "Dakar - Almadies", city: "Dakar",
+    address: "Almadies, face océan", phone: "+221 33 000 10 09",
+    website: "www.chezfatou.sn", hours: "8h30 - 00h00", lat: 14.7409, lng: -17.5214,
+    image: "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&q=80&w=800",
+    description: "Sénégalaise / Fruits de mer. Terrasse iconique des Almadies.",
+    tags: ["Mer", "Almadies", "Incontournable"], featured: true
+  },
+  {
+    id: 65, name: "Auchan Hypermarché Mermoz", category: "Shopping", rating: "4.2", reviews: 850,
+    price: "Prix fixes", location: "Dakar - Mermoz", city: "Dakar",
+    address: "Ancienne Piste, voies de l'Alternance", phone: "+221 33 000 20 01",
+    website: "www.auchan.sn", hours: "8h00 - 00h00", lat: 14.7117, lng: -17.4762,
+    image: "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&q=80&w=800",
+    description: "Hypermarché (chaîne française). Large choix de produits.",
+    tags: ["Supermarché", "Alimentation", "Mermoz"], featured: false
+  },
+  {
+    id: 66, name: "Auchan Sacré-Cœur", category: "Shopping", rating: "3.9", reviews: 620,
+    price: "Prix fixes", location: "Dakar - Sacré-Cœur", city: "Dakar",
+    address: "N°3, Sacré-Cœur, Dakar", phone: "+221 33 000 20 02",
+    website: "www.auchan.sn", hours: "8h00 - 00h00", lat: 14.7196, lng: -17.4660,
+    image: "https://images.unsplash.com/photo-1687422809617-a7d97879b3b0?auto=format&fit=crop&q=80&w=800",
+    description: "Supermarché / Hypermarché. Pratique et accessible.",
+    tags: ["Supermarché", "Pratique", "Dakar"], featured: false
+  },
+  {
+    id: 67, name: "Numero Uno", category: "Shopping", rating: "3.8", reviews: 410,
+    price: "Varié", location: "Dakar - Parcelles", city: "Dakar",
+    address: "PGPP+VGP, Dakar", phone: "+221 33 000 20 03",
+    website: "www.numerouno.sn", hours: "9h30-21h30", lat: 14.7372, lng: -17.4637,
+    image: "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?auto=format&fit=crop&q=80&w=800",
+    description: "Centre commercial Vêtements. Marques internationales.",
+    tags: ["Habillement", "Vêtements", "Shopping"], featured: false
+  },
+  {
+    id: 68, name: "China Mall", category: "Shopping", rating: "3.8", reviews: 530,
+    price: "Varié", location: "Dakar - Liberté", city: "Dakar",
+    address: "Rue MZ 77, Liberté 5", phone: "+221 33 000 20 04",
+    website: "N/A", hours: "9h00 - 20h00", lat: 14.7046, lng: -17.4754,
+    image: "https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&q=80&w=800",
+    description: "Magasin multirayons / Import. Tout pour la maison.",
+    tags: ["Maison", "Import", "Divers"], featured: false
+  },
+  {
+    id: 69, name: "Marché Tilène (HLM)", category: "Shopping", rating: "3.8", reviews: 2100,
+    price: "Négociable", location: "Dakar - HLM", city: "Dakar",
+    address: "Avenue Cheikh Anta Diop, HLM", phone: "N/A",
+    website: "N/A", hours: "7h30 - 19h30", lat: 14.7132, lng: -17.4483,
+    image: "https://images.unsplash.com/photo-1596591606975-97ee5cef3a1e?auto=format&fit=crop&q=80&w=800",
+    description: "Marché tissu / prêt-à-porter. La référence pour le Wax.",
+    tags: ["Marché", "Tissu", "HLM"], featured: false
+  },
+  {
+    id: 70, name: "Carrefour Market Liberté 6", category: "Shopping", rating: "4.0", reviews: 420,
+    price: "Prix fixes", location: "Dakar - Liberté 6", city: "Dakar",
+    address: "VDN, Liberté 6", phone: "+221 33 000 20 05",
+    website: "www.carrefour.sn", hours: "8h30 - 22h00", lat: 14.7320, lng: -17.4570,
+    image: "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&q=80&w=800",
+    description: "Supermarché (chaîne française). Pratique pour les courses.",
+    tags: ["Supermarché", "Alimentation", "Liberté 6"], featured: false
+  },
+  {
+    id: 71, name: "Casino Supermarché Almadies", category: "Shopping", rating: "4.1", reviews: 580,
+    price: "Prix fixes", location: "Dakar - Almadies", city: "Dakar",
+    address: "Route des Almadies", phone: "+221 33 000 20 06",
+    website: "www.casinosupermarches.sn", hours: "8h00 - 22h00", lat: 14.7420, lng: -17.5100,
+    image: "https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&q=80&w=800",
+    description: "Supermarché (chaîne française). Large assortiment.",
+    tags: ["Supermarché", "Almadies", "Qualité"], featured: false
+  },
+  {
+    id: 72, name: "Marché Saint-Louis (Grand Marché)", category: "Shopping", rating: "3.7", reviews: 950,
+    price: "Négociable", location: "Saint-Louis", city: "Saint-Louis",
+    address: "Centre-ville Saint-Louis", phone: "N/A",
+    website: "N/A", hours: "7h00 - 19h00", lat: 16.0271, lng: -16.4888,
+    image: "https://images.unsplash.com/photo-1687422809617-a7d97879b3b0?auto=format&fit=crop&q=80&w=800",
+    description: "Marché historique polyvalent. Couleurs et saveurs du Nord.",
+    tags: ["Marché", "Nord", "Authentique"], featured: false
+  },
+  {
+    id: 73, name: "Marché Central de Ziguinchor", category: "Shopping", rating: "3.8", reviews: 1100,
+    price: "Négociable", location: "Ziguinchor", city: "Ziguinchor",
+    address: "Centre-ville Ziguinchor", phone: "N/A",
+    website: "N/A", hours: "7h00 - 18h00", lat: 12.5680, lng: -16.2729,
+    image: "https://images.unsplash.com/photo-1687422809617-a7d97879b3b0?auto=format&fit=crop&q=80&w=800",
+    description: "Marché alimentaire & textile. Le coeur de la Casamance.",
+    tags: ["Marché", "Casamance", "Local"], featured: false
   }
 ];
 
