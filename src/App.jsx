@@ -24,6 +24,7 @@ import SearchResults from './pages/SearchResults';
 import BusinessDetail from './pages/BusinessDetail';
 import Events from './pages/Events';
 import Talk from './pages/Talk';
+import Chatbot from './components/Chatbot';
 import heroImage from './assets/hero.jpg';
 
 const Navbar = () => {
@@ -373,6 +374,7 @@ function App() {
           </Routes>
         </main>
         <Footer />
+        <Chatbot />
       </div>
     </Router>
   );
