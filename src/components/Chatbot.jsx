@@ -28,10 +28,24 @@ const Chatbot = () => {
     }, [messages, isTyping]);
 
     const findMatches = (query) => {
-        const q = query.toLowerCase();
+        let q = query.toLowerCase();
+
+        // Handle synonyms for special needs
+        const synonyms = {
+            'accès handicapé': ['handicap', 'fauteuil', 'pmr', 'accessibilité', 'rampe'],
+            'travail à distance': ['travailler', 'bosser', 'wifi', 'coworking', 'bureau', 'réunion', 'nomade'],
+            'piscine': ['baigner', 'nage', 'plonger'],
+            'luxe': ['palace', 'chic', 'prestige', 'étoiles'],
+        };
+
+        Object.keys(synonyms).forEach(key => {
+            if (synonyms[key].some(syn => q.includes(syn))) {
+                q += ` ${key}`;
+            }
+        });
 
         // Basic NLP-like keyword matching
-        const keywords = q.split(' ').filter(word => word.length > 3);
+        const keywords = q.split(' ').filter(word => word.length > 2);
         if (keywords.length === 0) keywords.push(q);
 
         const matches = businesses.filter(b => {

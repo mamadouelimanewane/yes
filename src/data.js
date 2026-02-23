@@ -99,7 +99,7 @@ export const businesses = [
     website: "www.terrou-bi.sn", hours: "Ouvert 24h/24", lat: 14.6990, lng: -17.4800,
     image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=800",
     description: "Palace 5 étoiles sur la Corniche dakaroise avec piscine panoramique sur l'Atlantique.",
-    tags: ["Luxe", "Piscine", "Spa", "Vue mer"], featured: true
+    tags: ["Luxe", "Piscine", "Spa", "Vue mer", "Accès handicapé"], featured: true
   },
   {
     id: 11, name: "Royal Lodge Saly", category: "Hôtels", rating: "4.6", reviews: 423,
@@ -135,7 +135,7 @@ export const businesses = [
     website: "www.pullman-dakar.com", hours: "Ouvert 24h/24", lat: 14.6672, lng: -17.4300,
     image: "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&q=80&w=800",
     description: "Au cœur du quartier des affaires, hôtel 5 étoiles offrant une vue imprenable sur l'île de Gorée.",
-    tags: ["Luxe", "Affaires", "Piscine", "Vue Gorée"], featured: true
+    tags: ["Luxe", "Affaires", "Piscine", "Vue Gorée", "Travail à distance", "Accès handicapé"], featured: true
   },
   {
     id: 15, name: "Campement Keur Saloum", category: "Hôtels", rating: "4.7", reviews: 198,
@@ -164,7 +164,7 @@ export const businesses = [
     website: "www.seaplaza.sn", hours: "Lun-Dim 10h-21h", lat: 14.6935, lng: -17.4725,
     image: "https://images.unsplash.com/photo-1519567281727-8ea7363cd44a?auto=format&fit=crop&q=80&w=800",
     description: "Le premier grand centre commercial de Dakar avec boutiques de marques, cinéma et restaurants.",
-    tags: ["Centre Commercial", "Cinéma", "Mode"], featured: true
+    tags: ["Centre Commercial", "Cinéma", "Mode", "Accès handicapé"], featured: true
   },
   {
     id: 18, name: "Village Artisanal de Soumbédioune", category: "Shopping", rating: "4.7", reviews: 852,
@@ -316,7 +316,7 @@ export const businesses = [
     website: "www.hoteldjoloff.com", hours: "24h/24", lat: 14.6875, lng: -17.4690,
     image: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&q=80&w=800",
     description: "Magnifique hôtel boutique avec vue sur l'océan et un toit-terrasse très réputé pour ses brunchs.",
-    tags: ["Boutique Hôtel", "Brunch", "Rooftop"], featured: true
+    tags: ["Boutique Hôtel", "Brunch", "Rooftop", "Travail à distance"], featured: true
   },
   {
     id: 34, name: "Black & White Saly", category: "Vie Nocturne", rating: "4.2", reviews: 189,
@@ -370,7 +370,7 @@ export const businesses = [
     website: "www.radisson.com/dakar", hours: "24h/24", lat: 14.6925, lng: -17.4715,
     image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=800",
     description: "Un complexe majestueux proposant des chambres modernes, une immense piscine à débordement et plusieurs restaurants de renommée mondiale.",
-    tags: ["5 étoiles", "Piscine", "Affaires"], featured: true
+    tags: ["5 étoiles", "Piscine", "Affaires", "Travail à distance", "Accès handicapé"], featured: true
   },
   {
     id: 40, name: "Spa Maison de l'Océan", category: "Beauté & Spa", rating: "4.6", reviews: 215,
@@ -389,7 +389,7 @@ export const businesses = [
     website: "www.noomhotels.com", hours: "24h/24", lat: 14.6951, lng: -17.4736,
     image: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&q=80&w=800",
     description: "Hôtel 5★ Luxe. Piscine, restaurants, bar rooftop, vue océan Atlantique.",
-    tags: ["Luxe", "Piscine", "Rooftop"], featured: true
+    tags: ["Luxe", "Piscine", "Rooftop", "Travail à distance", "Accès handicapé", "Coworking"], featured: true
   },
   {
     id: 42, name: "Azalaï Hôtel Dakar", category: "Hôtels", rating: "4.6", reviews: 210,
@@ -398,7 +398,7 @@ export const businesses = [
     website: "www.azalai.com", hours: "24h/24", lat: 14.6751, lng: -17.4693,
     image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=800",
     description: "Hôtel 4★ Supérieur. Piscine, restaurant, salle de conférence, bar.",
-    tags: ["Affaires", "Piscine", "Conférence"], featured: false
+    tags: ["Affaires", "Piscine", "Conférence", "Travail à distance", "Accès handicapé"], featured: false
   },
   {
     id: 43, name: "Novotel Dakar", category: "Hôtels", rating: "4.4", reviews: 450,
