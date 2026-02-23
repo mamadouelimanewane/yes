@@ -80,22 +80,13 @@ const Navbar = () => {
 
 const Hero = () => {
   return (
-    <div style={{
-      position: 'relative',
-      height: '600px',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      overflow: 'hidden',
+    <div className="relative md-h-600 bg-cover bg-center bg-no-repeat flex items-center justify-center overflow-hidden" style={{
       backgroundImage: `url(${heroImage})`,
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      backgroundRepeat: 'no-repeat',
+      minHeight: '400px',
       backgroundColor: '#1f4e3d'
     }}>
       {/* Dark overlay */}
-      <div style={{
-        position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
+      <div className="absolute inset-0" style={{
         background: 'linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.65) 100%)'
       }} />
 
@@ -113,65 +104,46 @@ const Hero = () => {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.3, duration: 0.5 }}
-          style={{
-            maxWidth: '900px', margin: '0 auto',
-            background: 'rgba(255,255,255,0.15)',
-            backdropFilter: 'blur(12px)',
-            WebkitBackdropFilter: 'blur(12px)',
-            padding: '0.5rem',
-            borderRadius: '1rem',
-            display: 'flex',
-            flexWrap: 'wrap',
-            gap: '0.5rem',
-            boxShadow: '0 25px 50px rgba(0,0,0,0.3)',
-            border: '1px solid rgba(255,255,255,0.2)'
-          }}
+          className="max-w-4xl mx-auto glass p-2 rounded-2xl flex flex-col md-flex flex-wrap gap-2 shadow-2xl border border-white/20"
+          style={{ margin: '0 1rem' }}
         >
-          <div style={{ flex: 1, minWidth: '180px', display: 'flex', alignItems: 'center', gap: '0.75rem', background: 'white', color: '#374151', padding: '1rem 1.25rem', borderRadius: '0.75rem' }}>
-            <Search size={22} style={{ color: '#9ca3af', flexShrink: 0 }} />
+          <div className="flex-1 min-w-[180px] flex items-center gap-3 bg-white text-gray-700 p-4 rounded-xl">
+            <Search size={22} className="text-gray-400 shrink-0" />
             <input
               type="text"
               placeholder="Thieboudienne, Garages, Plages..."
-              style={{ width: '100%', outline: 'none', border: 'none', fontFamily: 'inherit', fontSize: '0.95rem', fontWeight: 500, color: '#374151' }}
+              className="w-full outline-none border-none font-medium text-base text-gray-800"
             />
           </div>
-          <div style={{ flex: 1, minWidth: '140px', display: 'flex', alignItems: 'center', gap: '0.75rem', background: 'white', color: '#374151', padding: '1rem 1.25rem', borderRadius: '0.75rem' }}>
-            <MapPin size={22} style={{ color: '#9ca3af', flexShrink: 0 }} />
+          <div className="flex-1 min-w-[140px] flex items-center gap-3 bg-white text-gray-700 p-4 rounded-xl">
+            <MapPin size={22} className="text-gray-400 shrink-0" />
             <input
               type="text"
               placeholder="Dakar, Saint-Louis..."
-              style={{ width: '100%', outline: 'none', border: 'none', fontFamily: 'inherit', fontSize: '0.95rem', fontWeight: 500, color: '#374151' }}
+              className="w-full outline-none border-none font-medium text-base text-gray-800"
             />
           </div>
-          <Link to="/search" style={{
-            background: 'var(--primary)', color: 'white',
-            padding: '1rem 2rem', borderRadius: '0.75rem',
-            fontWeight: 700, fontSize: '1rem',
-            display: 'flex', alignItems: 'center', gap: '0.5rem',
-            boxShadow: '0 4px 15px rgba(227,27,35,0.4)',
-            whiteSpace: 'nowrap', textDecoration: 'none'
-          }}>
-            <Search size={20} /> Rechercher
-          </Link>
+          <div className="flex w-full md-w-auto gap-2">
+            <Link to="/search" className="flex-1 bg-primary text-white p-4 px-6 md-px-8 rounded-xl font-bold text-lg flex items-center justify-center gap-2 shadow-lg hover:shadow-primary/40 transition-all active:scale-95">
+              <Search size={20} /> Rechercher
+            </Link>
+            <Link to="/search?view=map" className="flex-1 bg-gray-900 border border-gray-700 text-white p-4 px-6 rounded-xl font-bold text-lg flex items-center justify-center gap-2 shadow-lg hover:bg-black transition-all active:scale-95">
+              <MapPin size={20} className="text-accent" /> <span className="whitespace-nowrap">Cartographie</span>
+            </Link>
+          </div>
+
         </motion.div>
 
-        <div style={{ marginTop: '2rem', display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '1.5rem', fontSize: '0.95rem', fontWeight: 600 }}>
+        <div className="mt-8 flex flex-wrap justify-center gap-4 md-gap-6 text-sm md-text-base font-bold">
           {categories.slice(0, 4).map(cat => (
-            <Link to="/search" key={cat.id} style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: 'white', textDecoration: 'none' }}>
-              <span style={{
-                padding: '0.5rem',
-                background: 'rgba(255,255,255,0.15)',
-                borderRadius: '9999px',
-                border: '1px solid rgba(255,255,255,0.3)',
-                display: 'flex',
-                backdropFilter: 'blur(8px)'
-              }}>
+            <Link to="/search" key={cat.id} className="flex items-center gap-2 text-white hover:text-accent transition-colors">
+              <span className="p-2 bg-white/10 rounded-full border border-white/20 flex backdrop-blur-md">
                 {cat.id === 'rest' && <Utensils size={18} />}
                 {cat.id === 'shop' && <ShoppingBag size={18} />}
                 {cat.id === 'night' && <Music size={18} />}
                 {cat.id === 'hotel' && <Hotel size={18} />}
               </span>
-              {cat.name}
+              <span className="mobile-hide">{cat.name}</span>
             </Link>
           ))}
         </div>
@@ -249,9 +221,9 @@ const Home = () => {
 
       <section className="py-20 bg-gray-50">
         <div className="container">
-          <div className="flex items-center justify-between mb-12">
+          <div className="flex flex-col md-flex items-start md-items-center justify-between mb-8 md-mb-12 gap-4">
             <div>
-              <h2 className="text-3xl font-extrabold flex items-center gap-3">
+              <h2 className="text-2xl md-text-3xl font-extrabold flex items-center gap-3 tracking-tight">
                 <TrendingUp className="text-primary" />
                 Populaire au Sénégal
               </h2>
