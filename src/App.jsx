@@ -236,9 +236,79 @@ const Home = () => {
           </div>
 
           <div className="grid grid-cols-1 md-grid-cols-2 lg-grid-cols-3 gap-8">
-            {businesses.filter(b => b.featured).map(business => (
+            {businesses.filter(b => b.featured).slice(0, 3).map(business => (
               <BusinessCard key={business.id} business={business} />
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* NEW: Premium Selection Section */}
+      <section className="py-20 bg-gray-900 text-white relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-primary/10 skew-x-12 transform origin-right"></div>
+        <div className="container relative z-10">
+          <div className="flex flex-col md-flex items-start md-items-center justify-between mb-12 gap-6">
+            <div className="max-w-2xl">
+              <div className="flex items-center gap-2 mb-4">
+                <span className="px-3 py-1 bg-accent/20 text-accent rounded-full text-xs font-black uppercase tracking-widest border border-accent/30">
+                  Concept Elite
+                </span>
+              </div>
+              <h2 className="text-3xl md-text-4xl font-extrabold tracking-tight mb-4">
+                Sélection Premium : <span className="text-accent">Excellence & Inclusion</span>
+              </h2>
+              <p className="text-gray-400 text-lg">
+                Découvrez nos établissements coup de cœur, sélectionnés pour leur confort exceptionnel, leurs infrastructures accessibles et leurs espaces dédiés au travail nomade.
+              </p>
+            </div>
+            <div className="flex gap-4">
+              <div className="flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-xl backdrop-blur-md">
+                <Sparkles size={16} className="text-accent" />
+                <span className="text-sm font-bold">Work-Friendly</span>
+              </div>
+              <div className="flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-xl backdrop-blur-md">
+                <Award size={16} className="text-primary" />
+                <span className="text-sm font-bold">Accessibilité PMR</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md-grid-cols-3 gap-8">
+            {businesses
+              .filter(b => b.tags.includes("Travail à distance") || b.tags.includes("Accès handicapé"))
+              .slice(0, 3)
+              .map(business => (
+                <div key={business.id} className="group relative">
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-accent/50 to-primary/50 rounded-2xl blur opacity-20 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+                  <div className="relative bg-gray-800 rounded-2xl overflow-hidden shadow-2xl transition-all duration-300 group-hover:-translate-y-2">
+                    <img src={business.image} alt={business.name} className="w-full h-48 object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
+                    <div className="p-6">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="text-[10px] font-black uppercase tracking-widest text-primary">{business.category}</span>
+                        <div className="flex items-center gap-1 text-accent">
+                          <Star size={12} fill="currentColor" />
+                          <span className="text-xs font-bold">{business.rating}</span>
+                        </div>
+                      </div>
+                      <h3 className="text-xl font-bold mb-2 group-hover:text-accent transition-colors">{business.name}</h3>
+                      <p className="text-gray-400 text-sm line-clamp-2 mb-4">{business.description}</p>
+                      <div className="flex flex-wrap gap-2">
+                        {business.tags.filter(t => ["Accès handicapé", "Travail à distance", "Coworking"].includes(t)).map(tag => (
+                          <span key={tag} className="text-[9px] font-black uppercase px-2 py-1 bg-white/10 text-white rounded border border-white/5">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                      <Link
+                        to={`/business/${business.id}`}
+                        className="mt-6 w-full py-3 bg-white text-gray-900 rounded-xl font-black text-xs uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-accent transition-colors shadow-lg"
+                      >
+                        Consulter <ChevronRight size={14} />
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              ))}
           </div>
         </div>
       </section>
