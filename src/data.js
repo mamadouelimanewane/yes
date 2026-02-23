@@ -8,7 +8,7 @@ export const categories = [
 ];
 
 export const businesses = [
-  // ===== RESTAURANTS (8 images uniques) =====
+  // ===== RESTAURANTS & GASTRONOMIE =====
   {
     id: 1, name: "Chez Loutcha", category: "Restaurants", rating: "4.8", reviews: 245,
     price: "€€", location: "Plateau, Dakar", city: "Dakar",
@@ -55,16 +55,7 @@ export const businesses = [
     tags: ["Fruits de mer", "Vue mer", "Romantique"], featured: true
   },
   {
-    id: 6, name: "Saveurs de Médina", category: "Restaurants", rating: "4.1", reviews: 98,
-    price: "€", location: "Médina, Dakar", city: "Dakar",
-    address: "Rue 10, Médina, Dakar", phone: "+221 78 567 89 01",
-    website: "www.saveurs-medina.sn", hours: "Lun-Dim 08h-21h", lat: 14.6890, lng: -17.4530,
-    image: "https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?auto=format&fit=crop&q=80&w=800",
-    description: "Cuisine de rue authentique au cœur de la Médina, saveurs populaires et généreuses.",
-    tags: ["Street food", "Halal", "Économique"], featured: false
-  },
-  {
-    id: 7, name: "L'Escale Saint-Louis", category: "Restaurants", rating: "4.9", reviews: 534,
+    id: 6, name: "L'Escale Saint-Louis", category: "Restaurants", rating: "4.9", reviews: 534,
     price: "€€€", location: "Saint-Louis", city: "Saint-Louis",
     address: "Rue Khalifa Ababacar Sy, Saint-Louis", phone: "+221 33 961 11 22",
     website: "www.escale-saintlouis.sn", hours: "Mar-Dim 11h-22h", lat: 16.0300, lng: -16.5000,
@@ -73,18 +64,36 @@ export const businesses = [
     tags: ["Poisson", "Gastronomie", "Terrasse"], featured: true
   },
   {
-    id: 8, name: "Maquis Yoff Beach", category: "Restaurants", rating: "4.0", reviews: 234,
-    price: "€€", location: "Yoff, Dakar", city: "Dakar",
-    address: "Plage de Yoff, Dakar", phone: "+221 76 345 67 89",
-    website: "www.maquis-yoff.sn", hours: "Lun-Dim 10h-23h", lat: 14.7800, lng: -17.4700,
-    image: "https://images.unsplash.com/photo-1530469912745-a215c6b256ea?auto=format&fit=crop&q=80&w=800",
-    description: "Maquis de plage animé, grillades de barracuda et thiof frais directement du filet.",
-    tags: ["Poisson grillé", "Plage", "Décontracté"], featured: false
+    id: 7, name: "Noflaye Beach", category: "Restaurants", rating: "4.5", reviews: 310,
+    price: "€€", location: "Corniche Ouest, Dakar", city: "Dakar",
+    address: "Corniche Ouest, Dakar, Sénégal", phone: "+221 33 825 00 00",
+    website: "www.noflaye-beach.sn", hours: "Lun-Dim 10h-00h", lat: 14.7001, lng: -17.4735,
+    image: "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&q=80&w=800",
+    description: "Le spot idéal pour déguster des crêpes ou des salades fraîches au bord de l'océan.",
+    tags: ["Crêpes", "Vue mer", "Brunch"], featured: false
+  },
+  {
+    id: 8, name: "Le Laguna Beach", category: "Restaurants", rating: "4.4", reviews: 298,
+    price: "€€", location: "Somone", city: "La Somone",
+    address: "Plage de la Somone", phone: "+221 77 111 22 33",
+    website: "www.laguna-beach-somone.sn", hours: "Lun-Dim 11h-23h", lat: 14.4925, lng: -17.0691,
+    image: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&q=80&w=800",
+    description: "Cuisine internationale et spécialités de langoustes au bord de la lagune.",
+    tags: ["Langouste", "Plage", "Cocktails"], featured: true
+  },
+  {
+    id: 9, name: "Djembé Restaurant", category: "Restaurants", rating: "4.6", reviews: 145,
+    price: "€€", location: "Saly", city: "Saly",
+    address: "Route de Saly, près du centre artisanal", phone: "+221 77 999 88 77",
+    website: "www.djembe-saly.sn", hours: "Mar-Dim 12h-22h", lat: 14.4419, lng: -16.9945,
+    image: "https://images.unsplash.com/photo-1534080564583-6be75777b70a?auto=format&fit=crop&q=80&w=800",
+    description: "Ambiance typique, saveurs sénégalaises, soirées avec percussions.",
+    tags: ["Cuisine locale", "Ambiance", "Musique Live"], featured: false
   },
 
-  // ===== HÔTELS (6 images uniques) =====
+  // ===== HÔTELS & HÉBERGEMENTS =====
   {
-    id: 9, name: "Hôtel Terrou-Bi", category: "Hôtels", rating: "4.8", reviews: 876,
+    id: 10, name: "Hôtel Terrou-Bi", category: "Hôtels", rating: "4.8", reviews: 876,
     price: "€€€€", location: "Corniche, Dakar", city: "Dakar",
     address: "Corniche Ouest, Dakar", phone: "+221 33 859 27 00",
     website: "www.terrou-bi.sn", hours: "Ouvert 24h/24", lat: 14.6990, lng: -17.4800,
@@ -93,22 +102,13 @@ export const businesses = [
     tags: ["Luxe", "Piscine", "Spa", "Vue mer"], featured: true
   },
   {
-    id: 10, name: "Royal Lodge Saly", category: "Hôtels", rating: "4.6", reviews: 423,
-    price: "€€€", location: "Saly, Mbour", city: "Saly",
+    id: 11, name: "Royal Lodge Saly", category: "Hôtels", rating: "4.6", reviews: 423,
+    price: "€€€", location: "Saly", city: "Saly",
     address: "Route de la Plage, Saly Portugal", phone: "+221 33 957 22 00",
     website: "www.royallodge-saly.sn", hours: "Ouvert 24h/24", lat: 14.4600, lng: -17.0000,
     image: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&q=80&w=800",
     description: "Magnifique resort balnéaire à Saly, plage privée, animations et sports nautiques.",
     tags: ["Balnéaire", "Plage privée", "Activités"], featured: true
-  },
-  {
-    id: 11, name: "Campement Keur Saloum", category: "Hôtels", rating: "4.7", reviews: 198,
-    price: "€€", location: "Sine Saloum", city: "Sine Saloum",
-    address: "Delta du Saloum, Kaolack", phone: "+221 77 123 45 67",
-    website: "www.campement-saloum.sn", hours: "Ouvert 24h/24", lat: 14.0000, lng: -16.5000,
-    image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&q=80&w=800",
-    description: "Immersion totale dans la nature du Delta du Saloum, pirogue, oiseaux et mangroves.",
-    tags: ["Écotourisme", "Nature", "Pirogue"], featured: false
   },
   {
     id: 12, name: "Le Flamboyant Cap Skirring", category: "Hôtels", rating: "4.9", reviews: 312,
@@ -120,36 +120,63 @@ export const businesses = [
     tags: ["Casamance", "Plage paradisiaque", "Détente"], featured: true
   },
   {
-    id: 13, name: "Villa Marguerite Dakar", category: "Hôtels", rating: "4.4", reviews: 145,
-    price: "€€€", location: "Mermoz, Dakar", city: "Dakar",
-    address: "Rue Aimé Césaire, Mermoz, Dakar", phone: "+221 33 860 01 02",
-    website: "www.villamarguerite.sn", hours: "Ouvert 24h/24", lat: 14.7100, lng: -17.4800,
-    image: "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&q=80&w=800",
-    description: "Hôtel boutique de charme dans une ancienne villa coloniale rénovée avec goût.",
-    tags: ["Boutique", "Charme", "Calme"], featured: false
+    id: 13, name: "La Résidence Saint-Louis", category: "Hôtels", rating: "4.5", reviews: 290,
+    price: "€€", location: "Île de Saint-Louis", city: "Saint-Louis",
+    address: "Rue Blaise Diagne, Saint-Louis", phone: "+221 33 961 12 60",
+    website: "www.hotellaresidence.sn", hours: "Ouvert 24h/24", lat: 16.0275, lng: -16.5042,
+    image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&q=80&w=800",
+    description: "Hôtel de charme colonial situé en plein cœur de l'île historique de Ndar.",
+    tags: ["Colonial", "Charme", "Patrimoine"], featured: false
   },
   {
-    id: 14, name: "Auberge Casamance", category: "Hôtels", rating: "4.3", reviews: 267,
-    price: "€€", location: "Ziguinchor", city: "Ziguinchor",
-    address: "Quartier Boucotte, Ziguinchor", phone: "+221 33 991 12 23",
-    website: "www.auberge-casamance.sn", hours: "Ouvert 24h/24", lat: 12.5600, lng: -16.2700,
+    id: 14, name: "Pullman Dakar Teranga", category: "Hôtels", rating: "4.7", reviews: 1050,
+    price: "€€€€", location: "Plateau, Dakar", city: "Dakar",
+    address: "Place de L'indépendance, 10 Rue Colbert", phone: "+221 33 889 22 00",
+    website: "www.pullman-dakar.com", hours: "Ouvert 24h/24", lat: 14.6672, lng: -17.4300,
+    image: "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&q=80&w=800",
+    description: "Au cœur du quartier des affaires, hôtel 5 étoiles offrant une vue imprenable sur l'île de Gorée.",
+    tags: ["Luxe", "Affaires", "Piscine", "Vue Gorée"], featured: true
+  },
+  {
+    id: 15, name: "Campement Keur Saloum", category: "Hôtels", rating: "4.7", reviews: 198,
+    price: "€€", location: "Sine Saloum", city: "Sine Saloum",
+    address: "Delta du Saloum, Kaolack", phone: "+221 77 123 45 67",
+    website: "www.campement-saloum.sn", hours: "Ouvert 24h/24", lat: 14.0000, lng: -16.5000,
     image: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&q=80&w=800",
-    description: "Auberge de charme au cœur de la Casamance verte, accueil chaleureux et cuisine locale.",
-    tags: ["Abordable", "Confort", "Wifi"], featured: false
+    description: "Immersion totale dans la nature du Delta du Saloum, pirogue, oiseaux et mangroves.",
+    tags: ["Écotourisme", "Nature", "Pirogue"], featured: false
   },
 
-  // ===== SHOPPING (6 images uniques) =====
+  // ===== SHOPPING =====
   {
-    id: 15, name: "Marché Sandaga", category: "Shopping", rating: "4.2", reviews: 1203,
+    id: 16, name: "Marché Sandaga", category: "Shopping", rating: "4.2", reviews: 1203,
     price: "€", location: "Plateau, Dakar", city: "Dakar",
     address: "Place de l'Indépendance, Plateau, Dakar", phone: "+221 33 822 00 00",
     website: "www.marche-sandaga.sn", hours: "Lun-Sam 07h-19h", lat: 14.6930, lng: -17.4430,
     image: "https://images.unsplash.com/photo-1687422809617-a7d97879b3b0?auto=format&fit=crop&q=80&w=800",
     description: "Le plus grand marché de Dakar, mille produits africains : tissus wax, épices, artisanat.",
-    tags: ["Tissu Wax", "Épices", "Artisanat"], featured: true
+    tags: ["Tissus Wax", "Épices", "Artisanat"], featured: true
   },
   {
-    id: 16, name: "Galerie Arte Africana", category: "Shopping", rating: "4.7", reviews: 345,
+    id: 17, name: "Sea Plaza", category: "Shopping", rating: "4.6", reviews: 2045,
+    price: "€€€", location: "Corniche Ouest, Dakar", city: "Dakar",
+    address: "Corniche Ouest, Fann", phone: "+221 33 859 99 99",
+    website: "www.seaplaza.sn", hours: "Lun-Dim 10h-21h", lat: 14.6935, lng: -17.4725,
+    image: "https://images.unsplash.com/photo-1519567281727-8ea7363cd44a?auto=format&fit=crop&q=80&w=800",
+    description: "Le premier grand centre commercial de Dakar avec boutiques de marques, cinéma et restaurants.",
+    tags: ["Centre Commercial", "Cinéma", "Mode"], featured: true
+  },
+  {
+    id: 18, name: "Village Artisanal de Soumbédioune", category: "Shopping", rating: "4.7", reviews: 852,
+    price: "€€", location: "Médina, Dakar", city: "Dakar",
+    address: "Route de la Corniche Ouest", phone: "+221 33 822 11 00",
+    website: "www.soumbedioune.art", hours: "Lun-Dim 09h-19h", lat: 14.6850, lng: -17.4600,
+    image: "https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&q=80&w=800",
+    description: "L'endroit idéal pour acheter des souvenirs : sculptures en bois, travail du cuir, bijoux traditionnels.",
+    tags: ["Artisanat", "Sculptures", "Souvenirs"], featured: true
+  },
+  {
+    id: 19, name: "Galerie Arte Africana", category: "Shopping", rating: "4.7", reviews: 345,
     price: "€€€", location: "Plateau, Dakar", city: "Dakar",
     address: "Rue Joseph Gomis, Plateau, Dakar", phone: "+221 77 890 12 34",
     website: "www.arte-africana.sn", hours: "Lun-Sam 09h-19h", lat: 14.6950, lng: -17.4420,
@@ -158,54 +185,45 @@ export const businesses = [
     tags: ["Art", "Peintures", "Sculptures"], featured: false
   },
   {
-    id: 17, name: "Bijoux Ndar", category: "Shopping", rating: "4.5", reviews: 189,
-    price: "€€", location: "Saint-Louis", city: "Saint-Louis",
-    address: "Île de Saint-Louis, Saint-Louis", phone: "+221 33 962 11 34",
-    website: "www.bijoux-ndar.sn", hours: "Lun-Sam 08h-18h", lat: 16.0320, lng: -16.5020,
-    image: "https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&q=80&w=800",
-    description: "Bijouterie artisanale en or et argent, créations inspirées de la tradition wolof.",
-    tags: ["Bijoux", "Or", "Artisanat"], featured: false
-  },
-  {
-    id: 18, name: "La Calebasse", category: "Shopping", rating: "4.8", reviews: 423,
-    price: "€€", location: "Almadies, Dakar", city: "Dakar",
-    address: "Route des Almadies, Dakar", phone: "+221 78 901 23 45",
-    website: "www.lacalebasse.sn", hours: "Lun-Sam 10h-20h", lat: 14.7400, lng: -17.5100,
-    image: "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&q=80&w=800",
-    description: "Boutique de souvenirs premium, épices, huiles naturelles et cosmétiques locaux.",
-    tags: ["Épices", "Cosmétiques", "Cadeaux"], featured: true
-  },
-  {
-    id: 19, name: "Market by Setal", category: "Shopping", rating: "4.4", reviews: 267,
-    price: "€€", location: "Sacré-Cœur, Dakar", city: "Dakar",
-    address: "VDN, Sacré-Cœur, Dakar", phone: "+221 77 234 56 78",
-    website: "www.setal-market.sn", hours: "Lun-Sam 09h-20h", lat: 14.7200, lng: -17.4650,
+    id: 20, name: "Marché Kermel", category: "Shopping", rating: "4.4", reviews: 620,
+    price: "€€", location: "Plateau, Dakar", city: "Dakar",
+    address: "Place Kermel, Dakar", phone: "+221 33 823 45 61",
+    website: "www.marchekermel.sn", hours: "Lun-Sam 08h-18h", lat: 14.6710, lng: -17.4310,
     image: "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&q=80&w=800",
-    description: "Concept store African lifestyle, mode, déco et produits bio 100% sénégalais.",
-    tags: ["Mode africaine", "Lifestyle", "Bio"], featured: false
-  },
-  {
-    id: 20, name: "Atelier Absa", category: "Shopping", rating: "4.6", reviews: 134,
-    price: "€€€", location: "Fann Résidence, Dakar", city: "Dakar",
-    address: "Rue 97 Fann Résidence, Dakar", phone: "+221 76 890 12 34",
-    website: "www.atelier-absa.sn", hours: "Mar-Sam 10h-18h", lat: 14.6970, lng: -17.4700,
-    image: "https://images.unsplash.com/photo-1596591606975-97ee5cef3a1e?auto=format&fit=crop&q=80&w=800",
-    description: "Créateur de mode africaine sur-mesure, bazin, wax et tissu kente sublimés.",
-    tags: ["Mode sur-mesure", "Bazin", "Créateur"], featured: true
+    description: "Marché coloré à l'architecture coloniale connu pour la fraîcheur de ses produits et l'artisanat.",
+    tags: ["Produits Frais", "Architecture", "Artisanat"], featured: false
   },
 
-  // ===== VIE NOCTURNE (5 images uniques) =====
+  // ===== VIE NOCTURNE =====
   {
     id: 21, name: "Just4U Club", category: "Vie Nocturne", rating: "4.5", reviews: 678,
-    price: "€€€", location: "Almadies, Dakar", city: "Dakar",
-    address: "Route des Almadies, Dakar", phone: "+221 77 567 89 01",
-    website: "www.just4u-dakar.sn", hours: "Ven-Sam 23h-05h", lat: 14.7380, lng: -17.5180,
+    price: "€€€", location: "Point E, Dakar", city: "Dakar",
+    address: "Avenue Cheikh Anta Diop, Dakar", phone: "+221 77 567 89 01",
+    website: "www.just4u-dakar.sn", hours: "Ven-Sam 23h-05h", lat: 14.6931, lng: -17.4660,
     image: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=800",
-    description: "Le club le plus réputé de Dakar, DJs internationaux, M'balax et Afrobeat sur 3 dancefloors.",
-    tags: ["Afrobeat", "DJ", "VIP"], featured: true
+    description: "Institution pour la musique live à Dakar. Lieu de rencontre autour de l'Afrobeat et du M'balax.",
+    tags: ["Afrobeat", "Live Music", "VIP"], featured: true
   },
   {
-    id: 22, name: "Le Calbar", category: "Vie Nocturne", rating: "4.3", reviews: 345,
+    id: 22, name: "Sky Bar Radisson", category: "Vie Nocturne", rating: "4.7", reviews: 289,
+    price: "€€€€", location: "Almadies, Dakar", city: "Dakar",
+    address: "Route de la Corniche Ouest, Radisson Blu", phone: "+221 33 869 39 39",
+    website: "www.radisson.com", hours: "Lun-Dim 17h-01h", lat: 14.6920, lng: -17.4700,
+    image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&q=80&w=800",
+    description: "L'un des rooftops les plus élégants de Dakar avec vue magique sur l'océan lors du coucher du soleil.",
+    tags: ["Vue panoramique", "Cocktails", "Luxe"], featured: true
+  },
+  {
+    id: 23, name: "Le Phare des Mamelles", category: "Vie Nocturne", rating: "4.6", reviews: 812,
+    price: "€€€", location: "Ouakam, Dakar", city: "Dakar",
+    address: "Colline des Mamelles", phone: "+221 77 123 44 55",
+    website: "www.pharedesmamelles.sn", hours: "Ven-Dim 19h-03h", lat: 14.7228, lng: -17.5188,
+    image: "https://images.unsplash.com/photo-1524414621493-7dec026782c3?auto=format&fit=crop&q=80&w=800",
+    description: "Ambiance chill la journée, soirées DJ animées sous le fameux phare de Dakar, vue à 360°.",
+    tags: ["Rooftop", "DJ", "Vue Océan"], featured: true
+  },
+  {
+    id: 24, name: "Le Calbar", category: "Vie Nocturne", rating: "4.3", reviews: 345,
     price: "€€", location: "Plateau, Dakar", city: "Dakar",
     address: "Rue Assane Ndoye, Plateau, Dakar", phone: "+221 78 456 78 92",
     website: "www.lecalbar.sn", hours: "Mar-Dim 18h-02h", lat: 14.6910, lng: -17.4450,
@@ -213,43 +231,25 @@ export const businesses = [
     description: "Bar-restaurant branché du centre-ville, cocktails créatifs et concerts live le week-end.",
     tags: ["Live music", "Cocktails", "Lounge"], featured: false
   },
-  {
-    id: 23, name: "Espace Djily Mbaye", category: "Vie Nocturne", rating: "4.6", reviews: 512,
-    price: "€€", location: "Sacré-Cœur, Dakar", city: "Dakar",
-    address: "Sacré-Cœur 3, Dakar", phone: "+221 76 678 90 12",
-    website: "www.djily-mbaye.sn", hours: "Jeu-Dim 20h-04h", lat: 14.7250, lng: -17.4620,
-    image: "https://images.unsplash.com/photo-1524414621493-7dec026782c3?auto=format&fit=crop&q=80&w=800",
-    description: "Hommage vivant à la musique sénégalaise, concerts M'balax et soirées thématiques.",
-    tags: ["M'balax", "Concerts", "Culture"], featured: true
-  },
-  {
-    id: 24, name: "Sky Bar Radisson", category: "Vie Nocturne", rating: "4.7", reviews: 289,
-    price: "€€€€", location: "Almadies, Dakar", city: "Dakar",
-    address: "Route des Almadies, Dakar", phone: "+221 33 869 39 39",
-    website: "www.radisson-dakar.com/skybar", hours: "Lun-Dim 17h-01h", lat: 14.7420, lng: -17.5250,
-    image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&q=80&w=800",
-    description: "Bar panoramique au sommet du Radisson Blu, vue à 360° sur Dakar et l'Atlantique.",
-    tags: ["Vue panoramique", "Cocktails", "Luxe"], featured: false
-  },
-  {
-    id: 25, name: "Keur Mariama Live", category: "Vie Nocturne", rating: "4.2", reviews: 198,
-    price: "€€", location: "Mermoz, Dakar", city: "Dakar",
-    address: "Rue des Jacarandas, Mermoz, Dakar", phone: "+221 77 789 01 23",
-    website: "www.keurmariama.sn", hours: "Ven-Dim 21h-04h", lat: 14.7180, lng: -17.4780,
-    image: "https://images.unsplash.com/photo-1619973226698-b77a5b5dd14b?auto=format&fit=crop&q=80&w=800",
-    description: "Scène live authentique avec des artistes locaux, ambiance chaleureuse et populaire.",
-    tags: ["Live music", "Populaire", "Danse"], featured: false
-  },
 
-  // ===== AUTOMOBILE (4 images uniques) =====
+  // ===== AUTOMOBILE =====
   {
-    id: 26, name: "Garage Terranga Auto", category: "Automobile", rating: "4.4", reviews: 312,
+    id: 25, name: "Garage Terranga Auto", category: "Automobile", rating: "4.4", reviews: 312,
     price: "€€", location: "Pikine, Dakar", city: "Dakar",
     address: "Route de Rufisque, Pikine, Dakar", phone: "+221 77 456 78 90",
     website: "www.terranga-auto.sn", hours: "Lun-Sam 08h-18h", lat: 14.7520, lng: -17.4030,
     image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&q=80&w=800",
     description: "Garage de confiance pour l'entretien de toutes marques, devis transparent et rapide.",
     tags: ["Réparation", "Entretien", "Toutes marques"], featured: true
+  },
+  {
+    id: 26, name: "Senegal Rent a Car", category: "Automobile", rating: "4.8", reviews: 410,
+    price: "€€€", location: "AIBD, Diass", city: "Diass",
+    address: "Aéroport International Blaise Diagne", phone: "+221 33 555 66 77",
+    website: "www.senegalrent.sn", hours: "Ouvert 24h/24", lat: 14.6714, lng: -17.0733,
+    image: "https://images.unsplash.com/photo-1562243061-204550d8a2c9?auto=format&fit=crop&q=80&w=800",
+    description: "Location de véhicules 4x4 et berlines haut de gamme directement à l'aéroport.",
+    tags: ["Location", "4x4", "Aéroport"], featured: true
   },
   {
     id: 27, name: "Lavage Express VIP", category: "Automobile", rating: "4.2", reviews: 189,
@@ -260,64 +260,28 @@ export const businesses = [
     description: "Station de lavage à haute pression, intérieur et extérieur, résultat garanti.",
     tags: ["Lavage", "Rapide", "Propre"], featured: false
   },
-  {
-    id: 28, name: "Méca-Tech Sénégal", category: "Automobile", rating: "4.5", reviews: 267,
-    price: "€€€", location: "Guédiawaye, Dakar", city: "Dakar",
-    address: "Rue 5, Guédiawaye, Dakar", phone: "+221 77 012 34 56",
-    website: "www.mecatech.sn", hours: "Lun-Sam 08h-17h30", lat: 14.7680, lng: -17.3980,
-    image: "https://images.unsplash.com/photo-1562243061-204550d8a2c9?auto=format&fit=crop&q=80&w=800",
-    description: "Spécialiste climatisation auto et électronique embarquée, techniciens certifiés.",
-    tags: ["Climatisation", "Électronique", "Certifié"], featured: false
-  },
-  {
-    id: 29, name: "Pneus & Jantes Dakar", category: "Automobile", rating: "4.1", reviews: 145,
-    price: "€€", location: "Parcelles Assainies, Dakar", city: "Dakar",
-    address: "Unité 17, Parcelles Assainies, Dakar", phone: "+221 76 234 56 78",
-    website: "www.pneus-dakar.sn", hours: "Lun-Sam 08h-18h", lat: 14.7700, lng: -17.4100,
-    image: "https://images.unsplash.com/photo-1541238461542-84a690d5e638?auto=format&fit=crop&q=80&w=800",
-    description: "Vente et montage de pneus neufs et jantes, toutes tailles disponibles en stock.",
-    tags: ["Pneus", "Jantes", "Montage rapide"], featured: false
-  },
 
-  // ===== BEAUTÉ & SPA (6 images uniques) =====
+  // ===== BEAUTÉ & SPA =====
   {
-    id: 30, name: "Salon Lara Beauté", category: "Beauté & Spa", rating: "4.8", reviews: 534,
+    id: 28, name: "Buddha Bleu Spa", category: "Beauté & Spa", rating: "4.9", reviews: 398,
+    price: "€€€", location: "Saly", city: "Saly",
+    address: "Route de l'Hôtel Safari, Saly", phone: "+221 78 456 78 91",
+    website: "www.buddha-bleu-spa.sn", hours: "Lun-Dim 09h-20h", lat: 14.4400, lng: -16.9950,
+    image: "https://images.unsplash.com/photo-1605980776566-0486c3ac7617?auto=format&fit=crop&q=80&w=800",
+    description: "Un havre de paix avec des massages orientaux et sénégalais à base d'huiles artisanales de Baobab.",
+    tags: ["Massage", "Détente", "Spa de luxe"], featured: true
+  },
+  {
+    id: 29, name: "Salon Lara Beauté", category: "Beauté & Spa", rating: "4.8", reviews: 534,
     price: "€€", location: "Almadies, Dakar", city: "Dakar",
     address: "Route des Almadies, Dakar", phone: "+221 77 345 67 89",
     website: "www.lara-beaute.sn", hours: "Mar-Sam 09h-19h", lat: 14.7370, lng: -17.5160,
-    image: "https://images.unsplash.com/photo-1605980776566-0486c3ac7617?auto=format&fit=crop&q=80&w=800",
+    image: "https://images.unsplash.com/photo-1595956553066-fe24a8c33395?auto=format&fit=crop&q=80&w=800",
     description: "Salon haut de gamme spécialisé en tresses africaines, box braids et twists.",
     tags: ["Tresses", "Box braids", "Coiffure"], featured: true
   },
   {
-    id: 31, name: "Spa Karité & Co", category: "Beauté & Spa", rating: "4.9", reviews: 398,
-    price: "€€€", location: "Point E, Dakar", city: "Dakar",
-    address: "Rue 9, Point E, Dakar", phone: "+221 78 456 78 91",
-    website: "www.karite-spa.sn", hours: "Lun-Sam 10h-20h", lat: 14.6980, lng: -17.4620,
-    image: "https://images.unsplash.com/photo-1595956553066-fe24a8c33395?auto=format&fit=crop&q=80&w=800",
-    description: "Massages aux huiles de karité, baobab et touloucouna, bien-être 100% naturel.",
-    tags: ["Massage", "Karité", "Bio"], featured: true
-  },
-  {
-    id: 32, name: "Cosmétiques Teranga", category: "Beauté & Spa", rating: "4.5", reviews: 245,
-    price: "€€", location: "Médina, Dakar", city: "Dakar",
-    address: "Rue 15, Médina, Dakar", phone: "+221 76 567 89 01",
-    website: "www.cosmetiques-teranga.sn", hours: "Lun-Sam 09h-18h", lat: 14.6870, lng: -17.4560,
-    image: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&q=80&w=800",
-    description: "Savons naturels, shea butter, encens thiouraye, cosmétiques artisanaux locaux.",
-    tags: ["Naturel", "Artisanat", "Soins"], featured: false
-  },
-  {
-    id: 33, name: "Institut Ndeye Beauté", category: "Beauté & Spa", rating: "4.6", reviews: 312,
-    price: "€€", location: "Mermoz, Dakar", city: "Dakar",
-    address: "Rue des Jacarandas, Mermoz, Dakar", phone: "+221 77 678 90 12",
-    website: "www.ndeye-beaute.sn", hours: "Mar-Sam 09h-18h", lat: 14.7170, lng: -17.4800,
-    image: "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?auto=format&fit=crop&q=80&w=800",
-    description: "Maquillage, soins du visage et manucure par des professionnelles certifiées.",
-    tags: ["Maquillage", "Manucure", "Soins visage"], featured: false
-  },
-  {
-    id: 34, name: "Barber King Senegal", category: "Beauté & Spa", rating: "4.7", reviews: 456,
+    id: 30, name: "Barber King Senegal", category: "Beauté & Spa", rating: "4.7", reviews: 456,
     price: "€", location: "HLM, Dakar", city: "Dakar",
     address: "Village des Arts, HLM, Dakar", phone: "+221 78 789 01 23",
     website: "www.barber-king.sn", hours: "Lun-Sam 08h-20h", lat: 14.7040, lng: -17.4500,
@@ -326,14 +290,97 @@ export const businesses = [
     tags: ["Dégradé", "Barbe", "Homme"], featured: true
   },
   {
-    id: 35, name: "Atelier Tresses Gorée", category: "Beauté & Spa", rating: "4.3", reviews: 178,
-    price: "€€", location: "Gorée, Dakar", city: "Dakar",
-    address: "Île de Gorée, Dakar", phone: "+221 77 890 12 34",
-    website: "www.tresses-goree.sn", hours: "Mar-Dim 09h-17h", lat: 14.6685, lng: -17.3997,
-    image: "https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?auto=format&fit=crop&q=80&w=800",
-    description: "Atelier de tressage traditionnel sur l'île de Gorée, cadre historique et unique.",
-    tags: ["Tresses", "Gorée", "Tradition"], featured: false
+    id: 31, name: "Cosmétiques Teranga", category: "Beauté & Spa", rating: "4.5", reviews: 245,
+    price: "€€", location: "Médina, Dakar", city: "Dakar",
+    address: "Rue 15, Médina, Dakar", phone: "+221 76 567 89 01",
+    website: "www.cosmetiques-teranga.sn", hours: "Lun-Sam 09h-18h", lat: 14.6870, lng: -17.4560,
+    image: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&q=80&w=800",
+    description: "Savons naturels, shea butter, encens thiouraye, cosmétiques artisanaux locaux.",
+    tags: ["Naturel", "Artisanat", "Soins"], featured: false
   },
+
+  // ===== NEW ADDS (EXTENDED "CRAWL" COVERAGE) =====
+  {
+    id: 32, name: "La Cabane du Surfeur", category: "Restaurants", rating: "4.6", reviews: 520,
+    price: "€€", location: "Almadies, Dakar", city: "Dakar",
+    address: "Pointe des Almadies", phone: "+221 77 111 00 00",
+    website: "www.cabanedusurfeur.sn", hours: "Ouvert tous les jours", lat: 14.7431, lng: -17.5284,
+    image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&q=80&w=800",
+    description: "Ambiance surfer face à l'océan, pizzas au feu de bois et planches de tapas.",
+    tags: ["Surf", "Tapas", "Pizza"], featured: true
+  },
+  {
+    id: 33, name: "Hôtel Djoloff", category: "Hôtels", rating: "4.5", reviews: 412,
+    price: "€€€", location: "Fann Hock, Dakar", city: "Dakar",
+    address: "7 Rue Niox", phone: "+221 33 889 36 30",
+    website: "www.hoteldjoloff.com", hours: "24h/24", lat: 14.6875, lng: -17.4690,
+    image: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&q=80&w=800",
+    description: "Magnifique hôtel boutique avec vue sur l'océan et un toit-terrasse très réputé pour ses brunchs.",
+    tags: ["Boutique Hôtel", "Brunch", "Rooftop"], featured: true
+  },
+  {
+    id: 34, name: "Black & White Saly", category: "Vie Nocturne", rating: "4.2", reviews: 189,
+    price: "€€€", location: "Saly", city: "Saly",
+    address: "Centre commercial Saly Center", phone: "+221 77 888 77 66",
+    website: "www.bw-saly.sn", hours: "Jeu-Dim 23h-05h", lat: 14.4370, lng: -16.9935,
+    image: "https://images.unsplash.com/photo-1524414621493-7dec026782c3?auto=format&fit=crop&q=80&w=800",
+    description: "La plus grande discothèque de la Petite Côte. Ambiance électrique, clientèle jeune et variée.",
+    tags: ["Club", "Saly", "Danser"], featured: false
+  },
+  {
+    id: 35, name: "Le Ndar Ndar Music Café", category: "Vie Nocturne", rating: "4.8", reviews: 231,
+    price: "€€", location: "Saint-Louis", city: "Saint-Louis",
+    address: "Rue Blaise Diagne, Saint-Louis", phone: "+221 33 961 00 00",
+    website: "www.ndarndarmusic.sn", hours: "Mer-Dim 18h-02h", lat: 16.0289, lng: -16.5030,
+    image: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=800",
+    description: "Un café musical incontournable lors du Festival de Jazz. Excellente musique sénégalaise en live.",
+    tags: ["Jazz", "Café Musical", "Culture"], featured: true
+  },
+  {
+    id: 36, name: "L'Océan Cap Skirring", category: "Restaurants", rating: "4.7", reviews: 300,
+    price: "€€€", location: "Plage", city: "Cap Skirring",
+    address: "Plage de Kabrousse", phone: "+221 77 222 33 44",
+    website: "www.ocean-cap.sn", hours: "Tous les jours 12h-22h", lat: 12.3500, lng: -16.7400,
+    image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&q=80&w=800",
+    description: "Les meilleurs fruits de mer de Casamance. Gambas, crevettes et huîtres fraîches.",
+    tags: ["Casamance", "Fruits de Mer", "Pieds dans le sable"], featured: true
+  },
+  {
+    id: 37, name: "Saly Safari Tours", category: "Automobile", rating: "4.9", reviews: 85,
+    price: "€€€", location: "Saly", city: "Saly",
+    address: "Avenue principale, Saly", phone: "+221 77 555 44 22",
+    website: "www.salysafaritours.sn", hours: "08h-18h", lat: 14.4402, lng: -16.9902,
+    image: "https://images.unsplash.com/photo-1562243061-204550d8a2c9?auto=format&fit=crop&q=80&w=800",
+    description: "Location de Buggys, Quads et véhicules préparés pour visiter la réserve de Bandia et la savane.",
+    tags: ["Buggy", "Quad", "Safari"], featured: true
+  },
+  {
+    id: 38, name: "Marché de Touba", category: "Shopping", rating: "4.5", reviews: 1020,
+    price: "€", location: "Touba", city: "Touba",
+    address: "Près de la Grande Mosquée", phone: "+221 77 000 00 00",
+    website: "www.marchetouba.sn", hours: "Toute la journée", lat: 14.8643, lng: -15.8767,
+    image: "https://images.unsplash.com/photo-1687422809617-a7d97879b3b0?auto=format&fit=crop&q=80&w=800",
+    description: "Le marché traditionnel bouillonnant d'activité de la ville sainte. Livres, tissus, tapis naturels.",
+    tags: ["Traditionnel", "Tissus", "Marché ouvert"], featured: false
+  },
+  {
+    id: 39, name: "Radisson Blu Dakar", category: "Hôtels", rating: "4.8", reviews: 1400,
+    price: "€€€€", location: "Corniche", city: "Dakar",
+    address: "Route de la Corniche ouest", phone: "+221 33 869 33 33",
+    website: "www.radisson.com/dakar", hours: "24h/24", lat: 14.6925, lng: -17.4715,
+    image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=800",
+    description: "Un complexe majestueux proposant des chambres modernes, une immense piscine à débordement et plusieurs restaurants de renommée mondiale.",
+    tags: ["5 étoiles", "Piscine", "Affaires"], featured: true
+  },
+  {
+    id: 40, name: "Spa Maison de l'Océan", category: "Beauté & Spa", rating: "4.6", reviews: 215,
+    price: "€€€", location: "Les Almadies", city: "Dakar",
+    address: "Route de la pointe, Almadies", phone: "+221 77 123 78 78",
+    website: "www.spa-ocean-dakar.sn", hours: "Mar-Dim 10h-20h", lat: 14.7350, lng: -17.5250,
+    image: "https://images.unsplash.com/photo-1595956553066-fe24a8c33395?auto=format&fit=crop&q=80&w=800",
+    description: "Thalassothérapie, gommages exclusifs au sel rose du Lac Retba et hammam marocain.",
+    tags: ["Hammam", "Thalasso", "Luxe"], featured: true
+  }
 ];
 
 export const cities = Array.from(new Set(businesses.map(b => b.city))).sort();
