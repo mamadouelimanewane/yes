@@ -29,6 +29,7 @@ import BusinessDetail from './pages/BusinessDetail';
 import Events from './pages/Events';
 import Talk from './pages/Talk';
 import BusinessDashboard from './pages/BusinessDashboard';
+import AdminDashboard from './pages/AdminDashboard';
 import Chatbot from './components/Chatbot';
 import heroImage from './assets/hero.jpg';
 
@@ -473,6 +474,17 @@ const Footer = () => {
 };
 
 function AppContent() {
+  const location = useLocation();
+
+  // If the user navigates to the admin backoffice, display it without the public layout elements
+  if (location.pathname.startsWith('/admin')) {
+    return (
+      <Routes>
+        <Route path="/admin" element={<AdminDashboard />} />
+      </Routes>
+    );
+  }
+
   return (
     <div className="min-h-screen flex flex-col pb-20 md:pb-0">
       <Navbar />
