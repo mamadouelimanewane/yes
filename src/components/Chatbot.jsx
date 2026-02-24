@@ -27,6 +27,12 @@ const Chatbot = () => {
         scrollToBottom();
     }, [messages, isTyping]);
 
+    useEffect(() => {
+        const handleOpen = () => setIsOpen(true);
+        window.addEventListener('open-chatbot', handleOpen);
+        return () => window.removeEventListener('open-chatbot', handleOpen);
+    }, []);
+
     const findMatches = (query) => {
         let q = query.toLowerCase();
 
@@ -95,20 +101,11 @@ const Chatbot = () => {
 
     return (
         <>
-            {/* Bouton Flottant Payer/Chat */}
+            {/* Bouton Flottant (Masqué au profit du navbar, mais gardé pour fallback si besoin) */}
             <AnimatePresence>
-                {!isOpen && (
-                    <motion.button
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        exit={{ scale: 0 }}
-                        onClick={() => setIsOpen(true)}
-                        className="fixed bottom-6 right-6 md:bottom-8 md:right-8 bg-primary text-white p-4 rounded-full shadow-2xl hover:bg-primary-hover hover:scale-110 transition-all z-50 flex items-center justify-center group"
-                    >
-                        <Sparkles size={16} className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity" />
-                        <MessageSquare size={28} />
-                    </motion.button>
-                )}
+                {/* {!isOpen && (
+                    <motion.button ...
+                )} */}
             </AnimatePresence>
 
             {/* Fenêtre de Chat */}

@@ -41,22 +41,49 @@ const Navbar = () => {
           <span className="text-2xl font-extrabold tracking-tight text-primary">Yes-Africa</span>
         </Link>
 
+        <div className="flex-1 max-w-xl mx-4 lg:mx-8 hidden md-flex items-center gap-2">
+          <div className="flex-1 flex items-center gap-2 bg-gray-50 focus-within:bg-white focus-within:ring-2 focus-within:ring-primary/20 p-2.5 rounded-full border border-gray-200 transition-all">
+            <Search size={18} className="text-gray-400 ml-2 shrink-0" />
+            <input
+              type="text"
+              placeholder="Rechercher (ex: Thieboudienne, Radisson...)"
+              className="flex-1 bg-transparent border-none outline-none text-sm font-medium"
+            />
+          </div>
+          <button
+            onClick={() => window.dispatchEvent(new Event('open-chatbot'))}
+            className="bg-gray-900 border border-gray-800 text-white p-2.5 px-4 rounded-full flex items-center justify-center gap-2 shadow-lg hover:bg-black transition-all group shrink-0 active:scale-95"
+            title="Assistant IA Lexi"
+          >
+            <Sparkles size={16} className="text-accent group-hover:animate-pulse" />
+            <span className="font-bold text-sm">Lexi AI</span>
+          </button>
+        </div>
+
         {/* Desktop Nav */}
-        <div className="hidden md-flex items-center gap-8 font-medium">
-          <Link to="/search" className="hover:text-primary transition-colors">Découvrir</Link>
-          <Link to="/events" className="hover:text-primary transition-colors">Événements</Link>
-          <Link to="/talk" className="hover:text-primary transition-colors">Communauté</Link>
-          <Link to="/dashboard" className="px-3 py-1 bg-gray-100 rounded-full text-xs font-black uppercase tracking-widest text-gray-500 hover:bg-gray-900 hover:text-white transition-all">Espace Pro</Link>
-          <div className="flex items-center gap-4 border-l pl-8 border-gray-200">
-            <button className="px-4 py-2 hover:bg-gray-100 rounded-md">Se connecter</button>
-            <button className="px-5 py-2.5 bg-primary text-white rounded-md shadow-md hover:shadow-lg hover:scale-105 active:scale-95 transition-all">S'inscrire</button>
+        <div className="hidden lg-flex items-center gap-6 font-medium">
+          <Link to="/search" className="hover:text-primary transition-colors text-sm">Découvrir</Link>
+          <Link to="/events" className="hover:text-primary transition-colors text-sm hidden xl:block">Événements</Link>
+          <Link to="/talk" className="hover:text-primary transition-colors text-sm hidden xl:block">Communauté</Link>
+          <Link to="/dashboard" className="px-3 py-1 bg-gray-100 rounded-full text-[10px] font-black uppercase tracking-widest text-gray-500 hover:bg-gray-900 hover:text-white transition-all border border-gray-200">Pro</Link>
+          <div className="flex items-center gap-3 border-l pl-6 border-gray-200">
+            <button className="px-3 py-2 hover:bg-gray-100 rounded-md text-sm">Connexion</button>
+            <button className="px-4 py-2 bg-primary text-white rounded-md shadow-md hover:shadow-lg hover:scale-105 active:scale-95 transition-all text-sm font-bold">S'inscrire</button>
           </div>
         </div>
 
-        {/* Mobile Toggle */}
-        <button className="md-hidden" onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? <X size={28} /> : <Menu size={28} />}
-        </button>
+        {/* Mobile Toggle & Chatbot */}
+        <div className="md-hidden flex items-center gap-3">
+          <button
+            onClick={() => window.dispatchEvent(new Event('open-chatbot'))}
+            className="bg-gray-900 text-white p-2 rounded-full shadow-md active:scale-95"
+          >
+            <Sparkles size={18} className="text-accent" />
+          </button>
+          <button onClick={() => setIsOpen(!isOpen)} className="text-gray-900 border border-gray-200 p-1.5 rounded-md">
+            {isOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}
@@ -108,46 +135,36 @@ const Hero = () => {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.3, duration: 0.5 }}
-          className="max-w-4xl mx-auto glass p-2 rounded-2xl flex flex-col md-flex flex-wrap gap-2 shadow-2xl border border-white/20"
-          style={{ margin: '0 1rem' }}
+          className="mt-8 flex gap-4"
         >
-          <div className="flex-1 min-w-[180px] flex items-center gap-3 bg-white text-gray-700 p-4 rounded-xl">
-            <Search size={22} className="text-gray-400 shrink-0" />
-            <input
-              type="text"
-              placeholder="Thieboudienne, Garages, Plages..."
-              className="w-full outline-none border-none font-medium text-base text-gray-800"
-            />
-          </div>
-          <div className="flex-1 min-w-[140px] flex items-center gap-3 bg-white text-gray-700 p-4 rounded-xl">
-            <MapPin size={22} className="text-gray-400 shrink-0" />
-            <input
-              type="text"
-              placeholder="Dakar, Saint-Louis..."
-              className="w-full outline-none border-none font-medium text-base text-gray-800"
-            />
-          </div>
-          <div className="flex w-full md-w-auto gap-2">
-            <Link to="/search" className="flex-1 bg-primary text-white p-4 px-6 md-px-8 rounded-xl font-bold text-lg flex items-center justify-center gap-2 shadow-lg hover:shadow-primary/40 transition-all active:scale-95">
-              <Search size={20} /> Rechercher
-            </Link>
-            <Link to="/search?view=map" className="flex-1 bg-gray-900 border border-gray-700 text-white p-4 px-6 rounded-xl font-bold text-lg flex items-center justify-center gap-2 shadow-lg hover:bg-black transition-all active:scale-95">
-              <MapPin size={20} className="text-accent" /> <span className="whitespace-nowrap">Cartographie</span>
-            </Link>
-          </div>
-
+          <Link to="/search" className="bg-primary hover:bg-primary-hover text-white p-4 px-8 rounded-full font-black text-lg tracking-wide uppercase transition-all shadow-xl shadow-primary/30 active:scale-95">Explorer les adresses</Link>
         </motion.div>
+      </div>
+    </div>
+  );
+};
 
-        <div className="mt-8 flex flex-wrap justify-center gap-4 md-gap-6 text-sm md-text-base font-bold">
-          {categories.slice(0, 4).map(cat => (
-            <Link to="/search" key={cat.id} className="flex items-center gap-2 text-white hover:text-accent transition-colors">
-              <span className="p-2 bg-white/10 rounded-full border border-white/20 flex backdrop-blur-md">
-                {cat.id === 'rest' && <Utensils size={18} />}
-                {cat.id === 'shop' && <ShoppingBag size={18} />}
-                {cat.id === 'night' && <Music size={18} />}
-                {cat.id === 'hotel' && <Hotel size={18} />}
-              </span>
-              <span className="mobile-hide">{cat.name}</span>
+const CategoriesRow = () => {
+  return (
+    <div className="bg-white border-b border-gray-100 py-6 md:py-8 shadow-sm relative z-20">
+      <div className="container">
+        <h3 className="text-sm font-black uppercase tracking-widest text-gray-400 mb-6 text-center">Trouvez ce dont vous avez besoin</h3>
+        <div className="flex overflow-x-auto justify-start md:justify-center gap-4 md:gap-8 pb-4 no-scrollbar">
+          {categories.slice(0, 6).map(cat => (
+            <Link
+              to={`/search?category=${cat.name}`}
+              key={cat.id}
+              className="flex flex-col items-center gap-3 text-gray-700 hover:text-primary hover:-translate-y-1 transition-all flex-shrink-0 group"
+            >
+              <div className="w-16 h-16 bg-gray-50 border border-gray-200 rounded-2xl flex items-center justify-center group-hover:bg-primary/5 group-hover:border-primary/20 transition-colors shadow-sm text-gray-600 group-hover:text-primary">
+                {cat.id === 'rest' && <Utensils size={24} />}
+                {cat.id === 'shop' && <ShoppingBag size={24} />}
+                {cat.id === 'night' && <Music size={24} />}
+                {cat.id === 'hotel' && <Hotel size={24} />}
+                {cat.id === 'auto' && <Car size={24} />}
+                {cat.id === 'beauty' && <Sparkles size={24} />}
+              </div>
+              <span className="font-bold text-xs uppercase tracking-widest text-center">{cat.name}</span>
             </Link>
           ))}
         </div>
@@ -222,6 +239,7 @@ const Home = () => {
   return (
     <div>
       <Hero />
+      <CategoriesRow />
 
       <section className="py-20 bg-gray-50">
         <div className="container">
