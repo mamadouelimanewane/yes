@@ -24,6 +24,7 @@ import SearchResults from './pages/SearchResults';
 import BusinessDetail from './pages/BusinessDetail';
 import Events from './pages/Events';
 import Talk from './pages/Talk';
+import BusinessDashboard from './pages/BusinessDashboard';
 import Chatbot from './components/Chatbot';
 import heroImage from './assets/hero.jpg';
 
@@ -45,6 +46,7 @@ const Navbar = () => {
           <Link to="/search" className="hover:text-primary transition-colors">Découvrir</Link>
           <Link to="/events" className="hover:text-primary transition-colors">Événements</Link>
           <Link to="/talk" className="hover:text-primary transition-colors">Communauté</Link>
+          <Link to="/dashboard" className="px-3 py-1 bg-gray-100 rounded-full text-xs font-black uppercase tracking-widest text-gray-500 hover:bg-gray-900 hover:text-white transition-all">Espace Pro</Link>
           <div className="flex items-center gap-4 border-l pl-8 border-gray-200">
             <button className="px-4 py-2 hover:bg-gray-100 rounded-md">Se connecter</button>
             <button className="px-5 py-2.5 bg-primary text-white rounded-md shadow-md hover:shadow-lg hover:scale-105 active:scale-95 transition-all">S'inscrire</button>
@@ -69,6 +71,7 @@ const Navbar = () => {
             <Link to="/search" className="text-lg font-medium" onClick={() => setIsOpen(false)}>Découvrir</Link>
             <Link to="/events" className="text-lg font-medium" onClick={() => setIsOpen(false)}>Événements</Link>
             <Link to="/talk" className="text-lg font-medium" onClick={() => setIsOpen(false)}>Communauté</Link>
+            <Link to="/dashboard" className="text-lg font-black text-primary" onClick={() => setIsOpen(false)}>Espace Pro (Chef d'entreprise)</Link>
             <hr />
             <button className="w-full py-3 text-center font-medium border border-primary text-primary rounded-md">Se connecter</button>
             <button className="w-full py-3 text-center font-medium bg-primary text-white rounded-md shadow-md">S'inscrire</button>
@@ -441,6 +444,7 @@ function App() {
             <Route path="/business/:id" element={<BusinessDetail />} />
             <Route path="/events" element={<Events />} />
             <Route path="/talk" element={<Talk />} />
+            <Route path="/dashboard" element={<BusinessDashboard />} />
           </Routes>
         </main>
         <Footer />

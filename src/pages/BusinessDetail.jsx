@@ -15,21 +15,27 @@ import {
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { businesses } from '../data';
+import ReservationModal from '../components/ReservationModal';
+import MessageInterface from '../components/MessageInterface';
 
 const BusinessDetail = () => {
     const { id } = useParams();
+    const [isReservationOpen, setIsReservationOpen] = React.useState(false);
+    const [isChatOpen, setIsChatOpen] = React.useState(false);
     const business = businesses.find(b => b.id === parseInt(id)) || businesses[0];
+
+    const showReservation = business.category === 'Hôtels' || business.category === 'Restaurants';
 
     return (
         <div className="bg-white">
             {/* Photo Header */}
-            <div style={{ height: '400px' }} className="relative w-full overflow-hidden bg-black">
-                <img src={business.image} style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.8 }} alt={business.name} />
+            <div className="relative w-full overflow-hidden bg-black h-[250px] md-h-[400px]">
+                <img src={business.image} className="w-full h-full object-cover opacity-80" alt={business.name} />
                 <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%)' }}></div>
 
-                <div className="absolute bottom-6 text-white z-10 w-full px-6" style={{ left: 0, padding: '0 5%' }}>
-                    <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-                        <h1 className="text-4xl md-text-6xl font-extrabold mb-4 drop-shadow-lg">{business.name}</h1>
+                <div className="absolute bottom-4 md-bottom-6 text-white z-10 w-full px-4 md-px-6 left-0">
+                    <div className="container">
+                        <h1 className="text-3xl md-text-6xl font-extrabold mb-2 md-mb-4 drop-shadow-lg">{business.name}</h1>
                         <div className="flex flex-wrap items-center gap-4 mb-6">
                             <div className="flex items-center gap-1">
                                 {[...Array(5)].map((_, i) => (
@@ -54,23 +60,38 @@ const BusinessDetail = () => {
                 </div>
             </div>
 
-            <div className="container py-12">
-                <div className="flex flex-col lg-flex-row gap-12">
+            <div className="container py-8 md-py-12">
+                <div className="flex flex-col lg-flex-row gap-8 lg-gap-12">
                     {/* Main Content */}
-                    <div className="flex-1">
+                    <div className="flex-1 overflow-hidden">
                         {/* Action Bar */}
-                        <div className="flex flex-wrap gap-4 mb-12">
-                            <button className="bg-primary hover:bg-primary-hover text-white px-10 py-4 rounded-lg font-bold flex items-center gap-3 shadow-lg shadow-primary/20 hover:scale-105 transition-all">
-                                <Star size={24} /> Donner un avis
+                        <div className="flex overflow-x-auto gap-3 mb-8 pb-2 scrollbar-hide no-scrollbar">
+                            {showReservation && (
+                                <button
+                                    onClick={() => setIsReservationOpen(true)}
+                                    className="shrink-0 bg-primary hover:bg-primary-hover text-white px-6 md:px-10 py-3 md:py-4 rounded-xl font-bold flex items-center gap-2 md:gap-3 shadow-lg shadow-primary/20 transition-all active:scale-95"
+                                >
+                                    <Clock size={20} className="md:w-6 md:h-6" /> Réserver maintenant
+                                </button>
+                            )}
+                            <button
+                                onClick={() => setIsChatOpen(true)}
+                                className="shrink-0 bg-white border border-gray-200 hover:bg-gray-50 px-4 md:px-6 py-3 md:py-4 rounded-xl font-bold flex items-center gap-2 transition-all"
+                            >
+                                <MessageSquare size={18} /> Message
                             </button>
-                            <button className="bg-white border border-gray-300 hover:bg-gray-50 px-6 py-4 rounded-lg font-bold flex items-center gap-2 transition-all">
-                                <Camera size={20} /> Ajouter une photo
+                            <button className="shrink-0 bg-white border border-gray-200 hover:bg-gray-50 px-4 md:px-6 py-3 md:py-4 rounded-xl font-bold flex items-center gap-2 transition-all">
+                                <Star size={18} /> Avis
                             </button>
-                            <button className="bg-white border border-gray-300 hover:bg-gray-50 px-6 py-4 rounded-lg font-bold flex items-center gap-2 transition-all">
-                                <Share size={20} /> Partager
+
+                            <button className="shrink-0 bg-white border border-gray-200 hover:bg-gray-50 px-4 md:px-6 py-3 md:py-4 rounded-xl font-bold flex items-center gap-2 transition-all">
+                                <Camera size={18} /> Photo
                             </button>
-                            <button className="bg-white border border-gray-300 hover:bg-gray-50 px-6 py-4 rounded-lg font-bold flex items-center gap-2 transition-all">
-                                <Bookmark size={20} /> Enregistrer
+                            <button className="shrink-0 bg-white border border-gray-200 hover:bg-gray-50 px-4 md-px-6 py-3 md-py-4 rounded-xl font-bold flex items-center gap-2 transition-all">
+                                <Share size={18} /> Partager
+                            </button>
+                            <button className="shrink-0 bg-white border border-gray-200 hover:bg-gray-50 px-4 md-px-6 py-3 md-py-4 rounded-xl font-bold flex items-center gap-2 transition-all">
+                                <Bookmark size={18} /> Enregistrer
                             </button>
                         </div>
 
@@ -138,8 +159,8 @@ const BusinessDetail = () => {
 
                     {/* Sidebar */}
                     <div className="w-full lg-w-96">
-                        <div className="sticky top-24 space-y-8">
-                            <div className="p-6 border border-gray-200 rounded-2xl shadow-sm bg-white">
+                        <div className="lg-sticky lg-top-24 space-y-6 md-space-y-8">
+                            <div className="p-5 md-p-6 border border-gray-200 rounded-2xl shadow-sm bg-white">
                                 <div className="flex items-center justify-between mb-6">
                                     <span className="font-bold text-gray-800">Site Web</span>
                                     <ExternalLink size={20} className="text-gray-400" />
@@ -162,8 +183,20 @@ const BusinessDetail = () => {
                                         <MapPin size={32} />
                                     </div>
                                 </div>
-                                <button className="w-full py-4 bg-gray-900 text-white rounded-xl font-bold hover:bg-black transition-all shadow-xl">
-                                    Afficher le menu / Réserver
+                                {showReservation ? (
+                                    <button
+                                        onClick={() => setIsReservationOpen(true)}
+                                        className="w-full py-4 bg-primary text-white rounded-xl font-black uppercase tracking-widest hover:bg-primary-hover transition-all shadow-xl shadow-primary/20 mb-3"
+                                    >
+                                        Réserver (Acompte 15%)
+                                    </button>
+                                ) : (
+                                    <button className="w-full py-4 bg-gray-900 text-white rounded-xl font-bold hover:bg-black transition-all shadow-xl mb-3">
+                                        Contacter l'établissement
+                                    </button>
+                                )}
+                                <button className="w-full py-3 bg-white border border-gray-200 text-gray-700 rounded-xl font-bold hover:bg-gray-50 transition-all text-sm">
+                                    Afficher le menu / Services
                                 </button>
                             </div>
 
@@ -185,6 +218,17 @@ const BusinessDetail = () => {
                     </div>
                 </div>
             </div>
+
+            <ReservationModal
+                isOpen={isReservationOpen}
+                onClose={() => setIsReservationOpen(false)}
+                business={business}
+            />
+            <MessageInterface
+                isOpen={isChatOpen}
+                onClose={() => setIsChatOpen(false)}
+                business={business}
+            />
         </div>
     );
 };

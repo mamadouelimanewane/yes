@@ -597,10 +597,53 @@ button {
 
 /* Glassmorphism utility */
 .glass {
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.glass-dark {
+  background: rgba(17, 24, 39, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease forwards;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
 }
 
 /* Media Queries */
@@ -609,8 +652,16 @@ button {
     display: flex;
   }
 
+  .md-flex-row {
+    flex-direction: row;
+  }
+
   .md-hidden {
     display: none;
+  }
+
+  .md-block {
+    display: block;
   }
 
   .md-grid-cols-2 {
@@ -624,14 +675,166 @@ button {
   .md-grid-cols-4 {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
+
+  .md-text-3xl {
+    font-size: 1.875rem;
+  }
+
+  .md-text-4xl {
+    font-size: 2.25rem;
+  }
+
+  .md-text-5xl {
+    font-size: 3rem;
+  }
+
+  .md-py-20 {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
+  .md-px-12 {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
 }
 
 @media (min-width: 1024px) {
+  .lg-flex {
+    display: flex;
+  }
+
+  .lg-flex-row {
+    flex-direction: row;
+  }
+
   .lg-grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .lg-grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
   .lg-grid-cols-6 {
     grid-template-columns: repeat(6, minmax(0, 1fr));
   }
+
+  .lg-w-96 {
+    width: 24rem;
+  }
+
+  .lg-sticky {
+    position: sticky;
+  }
+
+  .lg-top-24 {
+    top: 6rem;
+  }
+}
+
+/* Mobile-Specific Refinements */
+@media (max-width: 767px) {
+  .mobile-hide {
+    display: none !important;
+  }
+
+  .mobile-show {
+    display: block !important;
+  }
+
+  .mobile-flex {
+    display: flex !important;
+  }
+
+  .mobile-flex-col {
+    flex-direction: column !important;
+  }
+
+  .mobile-p-2 {
+    padding: 0.5rem !important;
+  }
+
+  .mobile-p-4 {
+    padding: 1rem !important;
+  }
+
+  .mobile-px-4 {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  .mobile-py-10 {
+    padding-top: 2.5rem !important;
+    padding-bottom: 2.5rem !important;
+  }
+
+  .mobile-h-auto {
+    height: auto !important;
+  }
+
+  .mobile-w-full {
+    width: 100% !important;
+  }
+
+  .mobile-text-2xl {
+    font-size: 1.5rem !important;
+  }
+
+  .mobile-text-3xl {
+    font-size: 1.75rem !important;
+  }
+
+  .mobile-text-4xl {
+    font-size: 2.25rem !important;
+  }
+
+  .mobile-text-base {
+    font-size: 1rem !important;
+  }
+
+  .mobile-gap-2 {
+    gap: 0.5rem !important;
+  }
+
+  .mobile-gap-4 {
+    gap: 1rem !important;
+  }
+
+  .mobile-grid-cols-1 {
+    grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+  }
+
+  .mobile-grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .mobile-stack {
+    flex-direction: column !important;
+    gap: 1.5rem !important;
+  }
+
+  .mobile-mt-4 {
+    margin-top: 1rem !important;
+  }
+
+  .mobile-mb-8 {
+    margin-bottom: 2rem !important;
+  }
+
+  /* Touch optimized buttons */
+  .btn-mobile-large {
+    padding: 1.25rem !important;
+    font-size: 1.1rem !important;
+  }
+}
+
+/* No Scrollbar Utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

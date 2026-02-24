@@ -43,59 +43,52 @@ const Events = () => {
     ];
 
     return (
-        <div style={{ padding: '2rem 5%', minHeight: '80vh' }}>
-            <h1 style={{ fontSize: '2.5rem', fontWeight: 800, color: '#111827', marginBottom: '1rem' }}>
+        <div className="container py-8 md-py-12 min-h-[80vh]">
+            <h1 className="text-3xl md-text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">
                 Événements au Sénégal
             </h1>
-            <p style={{ fontSize: '1.1rem', color: '#6b7280', marginBottom: '3rem', maxWidth: '800px' }}>
+            <p className="text-base md-text-xl text-gray-500 mb-8 md-mb-12 max-w-3xl leading-relaxed">
                 Découvrez les festivals, concerts, expositions et événements sportifs à ne pas manquer partout au Sénégal.
             </p>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+            <div className="grid grid-cols-1 md-grid-cols-2 lg-grid-cols-3 gap-6 md-gap-8">
                 {upcomingEvents.map((event, idx) => (
                     <motion.div
                         key={event.id}
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 15 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: idx * 0.1 }}
-                        style={{
-                            background: 'white', borderRadius: '1rem', overflow: 'hidden',
-                            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', border: '1px solid #e5e7eb'
-                        }}
+                        className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl transition-all"
                     >
-                        <div style={{ position: 'relative', height: '200px' }}>
+                        <div className="relative h-48 md-h-56">
                             <img
                                 src={event.image}
                                 alt={event.title}
-                                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                className="w-full h-full object-cover"
                             />
-                            <div style={{
-                                position: 'absolute', top: '1rem', right: '1rem',
-                                background: 'white', color: '#111827', padding: '0.25rem 0.75rem',
-                                borderRadius: '9999px', fontSize: '0.75rem', fontWeight: 700
-                            }}>
+                            <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md text-gray-900 px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider shadow-sm">
                                 {event.category}
                             </div>
                         </div>
-                        <div style={{ padding: '1.5rem' }}>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--primary)', fontWeight: 600, fontSize: '0.85rem', marginBottom: '0.5rem' }}>
+                        <div className="p-6">
+                            <div className="flex items-center gap-2 text-primary font-bold text-xs uppercase mb-3">
                                 <Calendar size={14} />
                                 {event.date}
                             </div>
-                            <h3 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '0.75rem', color: '#111827' }}>
+                            <h3 className="text-xl font-bold mb-3 text-gray-900 leading-tight">
                                 {event.title}
                             </h3>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#6b7280', fontSize: '0.9rem', marginBottom: '1rem' }}>
-                                <MapPin size={16} />
+                            <div className="flex items-center gap-2 text-gray-400 text-sm mb-6 font-medium">
+                                <MapPin size={16} className="text-gray-300" />
                                 {event.location}
                             </div>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '1rem', borderTop: '1px solid #f3f4f6' }}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#6b7280', fontSize: '0.85rem' }}>
-                                    <Users size={16} />
-                                    {event.attendees.toLocaleString('fr-FR')} participants
+                            <div className="flex justify-between items-center pt-5 border-t border-gray-50">
+                                <div className="flex items-center gap-2 text-gray-400 text-xs font-bold uppercase">
+                                    <Users size={16} className="text-gray-300" />
+                                    {event.attendees.toLocaleString('fr-FR')} prévus
                                 </div>
-                                <button style={{ background: '#f3f4f6', padding: '0.5rem', borderRadius: '0.5rem', color: '#374151' }}>
-                                    <Share2 size={16} />
+                                <button className="p-2 bg-gray-50 hover:bg-primary/10 hover:text-primary rounded-lg transition-colors">
+                                    <Share2 size={18} />
                                 </button>
                             </div>
                         </div>
