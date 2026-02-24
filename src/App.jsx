@@ -32,56 +32,70 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="glass sticky top-0 z-50 border-b border-gray-200">
-      <div className="container py-4 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2">
-          <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-lg">
+    <nav className="glass sticky top-0 z-50 border-b border-gray-200/50 bg-white/80 backdrop-blur-xl">
+      <div className="container mx-auto px-4 py-3 xl:py-4 flex items-center justify-between gap-4 md:gap-8">
+        {/* Logo */}
+        <Link to="/" className="flex items-center gap-2 md:gap-3 shrink-0">
+          <div className="w-10 h-10 bg-gray-900 rounded-xl flex items-center justify-center text-white font-black text-xl shadow-lg border-2 border-primary/20">
             Y
           </div>
-          <span className="text-2xl font-extrabold tracking-tight text-primary">Yes-Africa</span>
+          <span className="text-xl md:text-2xl font-black tracking-tighter text-gray-900 hidden sm:block">
+            Yes-<span className="text-primary">Africa</span>
+          </span>
         </Link>
 
-        <div className="flex-1 max-w-xl mx-4 lg:mx-8 hidden md-flex items-center gap-2">
-          <div className="flex-1 flex items-center gap-2 bg-gray-50 focus-within:bg-white focus-within:ring-2 focus-within:ring-primary/20 p-2.5 rounded-full border border-gray-200 transition-all">
-            <Search size={18} className="text-gray-400 ml-2 shrink-0" />
+        {/* Global Search & AI Bar */}
+        <div className="flex-1 max-w-2xl hidden md-flex items-center gap-2">
+          <div className="flex-1 flex items-center gap-3 bg-gray-100/80 hover:bg-gray-100 focus-within:bg-white focus-within:ring-2 focus-within:ring-primary/20 px-4 py-2.5 rounded-full border border-gray-200/50 shadow-inner transition-all">
+            <Search size={18} className="text-gray-400 shrink-0" />
             <input
               type="text"
-              placeholder="Rechercher (ex: Thieboudienne, Radisson...)"
-              className="flex-1 bg-transparent border-none outline-none text-sm font-medium"
+              placeholder="Restaurant, Hôtel, Spa..."
+              className="flex-1 bg-transparent border-none outline-none text-sm font-semibold text-gray-800 placeholder-gray-400"
             />
           </div>
           <button
             onClick={() => window.dispatchEvent(new Event('open-chatbot'))}
-            className="bg-gray-900 border border-gray-800 text-white p-2.5 px-4 rounded-full flex items-center justify-center gap-2 shadow-lg hover:bg-black transition-all group shrink-0 active:scale-95"
+            className="group relative bg-gray-900 text-white p-2.5 px-5 rounded-full flex items-center gap-2 shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all active:scale-95 shrink-0"
             title="Assistant IA Lexi"
           >
-            <Sparkles size={16} className="text-accent group-hover:animate-pulse" />
-            <span className="font-bold text-sm">Lexi AI</span>
+            <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <Sparkles size={16} className="text-accent group-hover:animate-spin-slow relative z-10" />
+            <span className="font-bold text-sm tracking-wide relative z-10">Lexi AI</span>
           </button>
         </div>
 
-        {/* Desktop Nav */}
-        <div className="hidden lg-flex items-center gap-6 font-medium">
-          <Link to="/search" className="hover:text-primary transition-colors text-sm">Découvrir</Link>
-          <Link to="/events" className="hover:text-primary transition-colors text-sm hidden xl:block">Événements</Link>
-          <Link to="/talk" className="hover:text-primary transition-colors text-sm hidden xl:block">Communauté</Link>
-          <Link to="/dashboard" className="px-3 py-1 bg-gray-100 rounded-full text-[10px] font-black uppercase tracking-widest text-gray-500 hover:bg-gray-900 hover:text-white transition-all border border-gray-200">Pro</Link>
-          <div className="flex items-center gap-3 border-l pl-6 border-gray-200">
-            <button className="px-3 py-2 hover:bg-gray-100 rounded-md text-sm">Connexion</button>
-            <button className="px-4 py-2 bg-primary text-white rounded-md shadow-md hover:shadow-lg hover:scale-105 active:scale-95 transition-all text-sm font-bold">S'inscrire</button>
+        {/* Desktop Links */}
+        <div className="hidden lg:flex items-center gap-6 shrink-0">
+          <nav className="flex items-center gap-6 font-bold text-sm text-gray-600">
+            <Link to="/search" className="hover:text-gray-900 transition-colors">Découvrir</Link>
+            <Link to="/talk" className="hover:text-gray-900 transition-colors">Communauté</Link>
+            <Link to="/dashboard" className="px-3 py-1.5 bg-primary/10 text-primary rounded-full text-xs font-black uppercase tracking-widest border border-primary/20 hover:bg-primary hover:text-white transition-all">PRO</Link>
+          </nav>
+
+          <div className="h-6 w-px bg-gray-200"></div>
+
+          <div className="flex items-center gap-3">
+            <button className="px-4 py-2 text-sm font-bold text-gray-700 hover:text-gray-900 transition-colors">Connexion</button>
+            <button className="px-5 py-2.5 bg-primary text-white rounded-xl shadow-md shadow-primary/20 hover:shadow-lg hover:shadow-primary/40 hover:-translate-y-0.5 active:translate-y-0 active:scale-95 transition-all text-sm font-black tracking-wide">
+              S'inscrire
+            </button>
           </div>
         </div>
 
         {/* Mobile Toggle & Chatbot */}
-        <div className="md-hidden flex items-center gap-3">
+        <div className="md-hidden flex items-center gap-2">
           <button
             onClick={() => window.dispatchEvent(new Event('open-chatbot'))}
-            className="bg-gray-900 text-white p-2 rounded-full shadow-md active:scale-95"
+            className="bg-gray-900 w-10 h-10 rounded-full flex items-center justify-center shadow-md active:scale-95"
           >
             <Sparkles size={18} className="text-accent" />
           </button>
-          <button onClick={() => setIsOpen(!isOpen)} className="text-gray-900 border border-gray-200 p-1.5 rounded-md">
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="w-10 h-10 flex items-center justify-center bg-gray-100 text-gray-900 rounded-full active:scale-95 transition-all"
+          >
+            {isOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
       </div>
