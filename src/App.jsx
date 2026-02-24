@@ -104,18 +104,43 @@ const Navbar = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="md-hidden absolute top-full left-0 w-full bg-white border-b border-gray-200 p-6 flex flex-col gap-4 shadow-xl"
+            exit={{ opacity: 0, y: -10 }}
+            className="md-hidden absolute top-[100%] left-0 w-full bg-white/95 backdrop-blur-xl border-b border-gray-200/50 p-6 flex flex-col shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)]"
           >
-            <Link to="/search" className="text-lg font-medium" onClick={() => setIsOpen(false)}>Découvrir</Link>
-            <Link to="/events" className="text-lg font-medium" onClick={() => setIsOpen(false)}>Événements</Link>
-            <Link to="/talk" className="text-lg font-medium" onClick={() => setIsOpen(false)}>Communauté</Link>
-            <Link to="/dashboard" className="text-lg font-black text-primary" onClick={() => setIsOpen(false)}>Espace Pro (Chef d'entreprise)</Link>
-            <hr />
-            <button className="w-full py-3 text-center font-medium border border-primary text-primary rounded-md">Se connecter</button>
-            <button className="w-full py-3 text-center font-medium bg-primary text-white rounded-md shadow-md">S'inscrire</button>
+            <div className="flex flex-col gap-5 bg-gray-50/50 p-5 rounded-2xl border border-gray-100 mb-6">
+              <Link to="/search" className="text-lg font-bold text-gray-800 flex items-center justify-between" onClick={() => setIsOpen(false)}>
+                Découvrir <ChevronRight size={18} className="text-gray-400" />
+              </Link>
+              <div className="h-px bg-gray-200/50"></div>
+              <Link to="/events" className="text-lg font-bold text-gray-800 flex items-center justify-between" onClick={() => setIsOpen(false)}>
+                Événements <ChevronRight size={18} className="text-gray-400" />
+              </Link>
+              <div className="h-px bg-gray-200/50"></div>
+              <Link to="/talk" className="text-lg font-bold text-gray-800 flex items-center justify-between" onClick={() => setIsOpen(false)}>
+                Communauté <ChevronRight size={18} className="text-gray-400" />
+              </Link>
+            </div>
+
+            <Link
+              to="/dashboard"
+              className="bg-primary/5 border border-primary/20 p-4 rounded-2xl flex items-center justify-between mb-8"
+              onClick={() => setIsOpen(false)}
+            >
+              <div>
+                <span className="block text-[10px] font-black uppercase tracking-widest text-primary mb-1">Espace Partenaire</span>
+                <span className="font-bold text-gray-900">Passer en mode PRO</span>
+              </div>
+              <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center">
+                <ChevronRight size={16} />
+              </div>
+            </Link>
+
+            <div className="flex flex-col gap-3 mt-auto">
+              <button className="w-full py-4 text-center font-bold text-gray-700 bg-gray-100 rounded-xl hover:bg-gray-200 transition-colors">Connexion</button>
+              <button className="w-full py-4 text-center font-black bg-primary text-white rounded-xl shadow-lg shadow-primary/30 active:scale-95 transition-all tracking-wide">Créer un compte</button>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
