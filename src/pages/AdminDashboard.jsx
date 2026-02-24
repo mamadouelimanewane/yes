@@ -17,7 +17,13 @@ import {
     LogOut,
     ArrowUpRight,
     MapPin,
-    Star
+    Star,
+    Edit,
+    Trash2,
+    Eye,
+    Filter,
+    AlertTriangle,
+    CheckCircle2
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { businesses } from '../data';
@@ -62,8 +68,8 @@ const AdminDashboard = () => {
                         key={item.id}
                         onClick={() => { setActiveMenu(item.id); setIsSidebarOpen(false); }}
                         className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold transition-all ${activeMenu === item.id
-                                ? 'bg-primary text-white shadow-lg shadow-primary/20'
-                                : 'text-gray-400 hover:bg-white/5 hover:text-white'
+                            ? 'bg-primary text-white shadow-lg shadow-primary/20'
+                            : 'text-gray-400 hover:bg-white/5 hover:text-white'
                             }`}
                     >
                         <item.icon size={20} className={activeMenu === item.id ? 'text-white' : ''} />
@@ -242,18 +248,203 @@ const AdminDashboard = () => {
                         </div>
                     )}
 
-                    {activeMenu !== 'overview' && (
-                        <div className="flex flex-col items-center justify-center h-full text-center p-8 bg-white rounded-2xl border border-gray-100 border-dashed max-w-2xl mx-auto mt-10">
-                            <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center text-gray-400 mb-6">
-                                <Settings size={32} />
+                    {activeMenu === 'businesses' && (
+                        <div className="max-w-7xl mx-auto space-y-6 pb-20">
+                            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                                <div>
+                                    <h2 className="text-xl font-extrabold text-gray-900">Gérer les établissements</h2>
+                                    <p className="text-sm text-gray-500">Ajoutez, modifiez ou supprimez des lieux (restaurants, hôtels, etc.) sur la plateforme.</p>
+                                </div>
+                                <div className="flex gap-3 w-full sm:w-auto">
+                                    <button className="flex-1 sm:flex-none px-4 py-2 bg-gray-100 text-gray-700 font-bold rounded-xl flex items-center justify-center gap-2 hover:bg-gray-200 transition-colors">
+                                        <Filter size={18} /> Filtres
+                                    </button>
+                                    <button className="flex-1 sm:flex-none px-5 py-2 bg-primary text-white font-bold rounded-xl shadow-lg shadow-primary/20 flex items-center justify-center gap-2 hover:bg-primary-hover transition-colors active:scale-95">
+                                        + Nouveau
+                                    </button>
+                                </div>
                             </div>
-                            <h2 className="text-2xl font-extrabold text-gray-900 mb-3">Module en construction</h2>
-                            <p className="text-gray-500 mb-8 max-w-md">
-                                La brique "{menuItems.find(m => m.id === activeMenu)?.label}" est actuellement en cours de développement pour vous offrir les meilleurs outils de gestion.
-                            </p>
-                            <button onClick={() => setActiveMenu('overview')} className="bg-primary hover:bg-primary-hover text-white px-6 py-3 rounded-full font-bold transition-all shadow-lg active:scale-95">
-                                Retour à l'accueil
-                            </button>
+
+                            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+                                <div className="overflow-x-auto">
+                                    <table className="w-full text-left border-collapse min-w-[800px]">
+                                        <thead>
+                                            <tr className="bg-gray-50/80 border-b border-gray-100 text-sm">
+                                                <th className="p-4 font-bold text-gray-500 whitespace-nowrap">Établissement</th>
+                                                <th className="p-4 font-bold text-gray-500 whitespace-nowrap">Catégorie</th>
+                                                <th className="p-4 font-bold text-gray-500 whitespace-nowrap">Note Globale</th>
+                                                <th className="p-4 font-bold text-gray-500 whitespace-nowrap">Statut / Grade</th>
+                                                <th className="p-4 font-bold text-gray-500 text-right whitespace-nowrap">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="divide-y divide-gray-100">
+                                            {businesses.map((bus) => (
+                                                <tr key={bus.id} className="hover:bg-gray-50 transition-colors group">
+                                                    <td className="p-4">
+                                                        <div className="flex items-center gap-3">
+                                                            <div className="w-12 h-12 rounded-xl overflow-hidden shadow-sm shrink-0 border border-gray-100">
+                                                                <img src={bus.image} alt={bus.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                                                            </div>
+                                                            <div>
+                                                                <div className="font-bold text-gray-900 group-hover:text-primary transition-colors">{bus.name}</div>
+                                                                <div className="flex items-center gap-1 text-[11px] font-medium text-gray-500 mt-0.5">
+                                                                    <MapPin size={12} /> {bus.location}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td className="p-4">
+                                                        <span className="bg-gray-100 text-gray-600 px-3 py-1 rounded-md text-[10px] font-black uppercase tracking-widest">{bus.category}</span>
+                                                    </td>
+                                                    <td className="p-4">
+                                                        <div className="flex items-center gap-1.5 font-bold text-gray-700 bg-gray-50 w-fit px-2 py-1 rounded-md border border-gray-200">
+                                                            <Star size={14} className="text-primary fill-primary" /> {bus.rating}
+                                                        </div>
+                                                    </td>
+                                                    <td className="p-4">
+                                                        {bus.featured ? (
+                                                            <span className="inline-flex items-center gap-1 px-3 py-1 rounded-md text-[10px] font-black uppercase tracking-widest bg-green-100 text-green-700 border border-green-200">
+                                                                <CheckCircle2 size={12} /> Elite
+                                                            </span>
+                                                        ) : (
+                                                            <span className="inline-flex items-center gap-1 px-3 py-1 rounded-md text-[10px] font-black uppercase tracking-widest bg-gray-100 text-gray-600 border border-gray-200">
+                                                                Standard
+                                                            </span>
+                                                        )}
+                                                    </td>
+                                                    <td className="p-4 text-right">
+                                                        <div className="flex items-center justify-end gap-1 opacity-100 md:opacity-50 group-hover:opacity-100 transition-opacity">
+                                                            <button className="p-2 text-gray-400 hover:text-blue-500 hover:bg-blue-50 rounded-lg transition-colors" title="Voir la fiche"><Eye size={18} /></button>
+                                                            <button className="p-2 text-gray-400 hover:text-green-500 hover:bg-green-50 rounded-lg transition-colors" title="Modifier"><Edit size={18} /></button>
+                                                            <button className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors" title="Supprimer"><Trash2 size={18} /></button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {activeMenu === 'users' && (
+                        <div className="max-w-7xl mx-auto space-y-6 pb-20">
+                            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                                <div>
+                                    <h2 className="text-xl font-extrabold text-gray-900">Utilisateurs & CRM</h2>
+                                    <p className="text-sm text-gray-500">Vue globale sur les membres de la communauté Yes-Africa.</p>
+                                </div>
+                            </div>
+                            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-12 text-center min-h-[400px] flex flex-col items-center justify-center">
+                                <Users size={64} className="mx-auto text-gray-200 mb-6" />
+                                <h3 className="text-xl font-extrabold text-gray-900 mb-2">Base de données CRM Synchronisée</h3>
+                                <p className="text-gray-500 max-w-md mx-auto mb-8 leading-relaxed">
+                                    Vos 8 409 utilisateurs sont chiffrés et sécurisés. Vous pouvez exporter la liste pour vos campagnes de newsletters ou le support client.
+                                </p>
+                                <div className="flex gap-4">
+                                    <button className="bg-gray-100 text-gray-700 px-6 py-3 rounded-xl font-bold hover:bg-gray-200 transition-colors">Importer des contacts</button>
+                                    <button className="bg-gray-900 text-white px-6 py-3 rounded-xl font-bold shadow-lg shadow-gray-900/20 active:scale-95 transition-all">Exporter CSV</button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {activeMenu === 'moderation' && (
+                        <div className="max-w-7xl mx-auto space-y-6 pb-20">
+                            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                                <div>
+                                    <h2 className="text-xl font-extrabold text-gray-900">Avis & Modération Contentieuse</h2>
+                                    <p className="text-sm text-gray-500">Gardez un œil sur les dérives et fausses informations publiées.</p>
+                                </div>
+                            </div>
+
+                            <div className="space-y-4">
+                                <h3 className="font-bold text-gray-500 uppercase tracking-widest text-xs px-2">Signalements récents nécessitant action</h3>
+
+                                <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden flex flex-col sm:flex-row border-l-4 border-l-red-500 hover:shadow-md transition-shadow">
+                                    <div className="p-6 flex-1">
+                                        <div className="flex items-center gap-3 mb-2">
+                                            <div className="bg-red-100 text-red-600 p-2 rounded-lg"><AlertTriangle size={20} /></div>
+                                            <h4 className="font-bold text-gray-900 text-lg">Avis signalé pour Faux Propos</h4>
+                                        </div>
+                                        <p className="text-gray-600 bg-gray-50 p-4 rounded-xl text-sm italic border border-gray-100 my-4">
+                                            "Endroit horrible, le gérant a volé mon sac et la nourriture était périmée de 3 semaines."
+                                        </p>
+                                        <div className="flex flex-wrap gap-4 text-xs font-bold text-gray-500">
+                                            <span>Sur l'établissement : <strong className="text-gray-900">Terrou-Bi</strong></span>
+                                            <span>Signalé par : <strong>Système Anti-Spam (Lexi AI)</strong></span>
+                                        </div>
+                                    </div>
+                                    <div className="bg-gray-50 p-6 sm:border-l border-gray-100 flex flex-row sm:flex-col gap-3 justify-center">
+                                        <button className="w-full py-3 px-6 bg-red-600 text-white font-bold rounded-xl shadow-lg shadow-red-600/20 hover:bg-red-700 active:scale-95 transition-all whitespace-nowrap">Supprimer l'avis</button>
+                                        <button className="w-full py-3 px-6 bg-white border border-gray-200 text-gray-700 font-bold rounded-xl hover:bg-gray-100 transition-colors whitespace-nowrap">Classer l'alerte</button>
+                                    </div>
+                                </div>
+
+                                <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden flex flex-col sm:flex-row border-l-4 border-l-amber-500 hover:shadow-md transition-shadow">
+                                    <div className="p-6 flex-1">
+                                        <div className="flex items-center gap-3 mb-2">
+                                            <div className="bg-amber-100 text-amber-600 p-2 rounded-lg"><ShieldAlert size={20} /></div>
+                                            <h4 className="font-bold text-gray-900 text-lg">Propriétaire Litigieux</h4>
+                                        </div>
+                                        <p className="text-gray-600 text-sm my-2">
+                                            L'établissement <strong>Le Djoloff</strong> a fait l'objet de 5 plaintes utilisateurs ce mois-ci concernant des prix différents sur place par rapport au menu affiché sur Yes-Africa.
+                                        </p>
+                                    </div>
+                                    <div className="bg-gray-50 p-6 sm:border-l border-gray-100 flex flex-row sm:flex-col gap-3 justify-center">
+                                        <button className="w-full py-3 px-6 bg-amber-500 text-white font-bold rounded-xl shadow-lg shadow-amber-500/20 hover:bg-amber-600 active:scale-95 transition-all whitespace-nowrap">Avertir par email</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {activeMenu === 'settings' && (
+                        <div className="max-w-4xl mx-auto space-y-6 pb-20">
+                            <div className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm">
+                                <h2 className="text-2xl font-extrabold text-gray-900 mb-8 flex items-center gap-3">
+                                    <Settings className="text-primary" /> Configurations Globales
+                                </h2>
+
+                                <div className="space-y-8">
+                                    <div className="flex items-start sm:items-center justify-between gap-4 pb-8 border-b border-gray-100">
+                                        <div>
+                                            <h4 className="font-extrabold text-gray-900 text-lg mb-1">Mode Maintenance (Beta)</h4>
+                                            <p className="text-sm text-gray-500">Affiche une page "De retour bientôt" pour tous les visiteurs non-administrateurs.</p>
+                                        </div>
+                                        <div className="w-14 h-7 bg-gray-200 rounded-full cursor-pointer relative shrink-0 transition-colors">
+                                            <div className="w-5 h-5 bg-white rounded-full shadow-md absolute top-1 left-1"></div>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex items-start sm:items-center justify-between gap-4 pb-8 border-b border-gray-100">
+                                        <div>
+                                            <h4 className="font-extrabold text-gray-900 text-lg mb-1">Inscriptions Ouvertes</h4>
+                                            <p className="text-sm text-gray-500">Autoriser les nouveaux utilisateurs et établissements à s'inscrire sur la plateforme de façon autonome.</p>
+                                        </div>
+                                        <div className="w-14 h-7 bg-primary rounded-full cursor-pointer relative shrink-0 shadow-inner">
+                                            <div className="w-5 h-5 bg-white rounded-full shadow-md absolute top-1 right-1"></div>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex items-start sm:items-center justify-between gap-4 pb-8 border-b border-gray-100">
+                                        <div>
+                                            <h4 className="font-extrabold text-gray-900 text-lg mb-1">Validation automatique des avis IA</h4>
+                                            <p className="text-sm text-gray-500">Laisse le modèle Lexi AI filtrer et publier automatiquement les bons avis sans modération humaine.</p>
+                                        </div>
+                                        <div className="w-14 h-7 bg-green-500 rounded-full cursor-pointer relative shrink-0 shadow-inner">
+                                            <div className="w-5 h-5 bg-white rounded-full shadow-md absolute top-1 right-1"></div>
+                                        </div>
+                                    </div>
+
+                                    <div className="pt-4 flex justify-end">
+                                        <button className="bg-gray-900 text-white font-black uppercase tracking-widest px-8 py-4 rounded-xl hover:bg-black transition-colors shadow-xl active:scale-95 flex items-center gap-2">
+                                            <CheckCircle2 size={20} /> Sauvegarder
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     )}
                 </main>
