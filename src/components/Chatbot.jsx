@@ -8,7 +8,7 @@ const initialMessages = [
     {
         id: 1,
         type: 'bot',
-        text: 'Bonjour ! 👋 Je suis Lexi, votre assistant intelligent Yes-Africa. Que recherchez-vous au Sénégal (un restaurant, un hôtel, une activité...) ?'
+        text: 'Bonjour ! 👋 Je suis Lexi, votre assistant intelligent Yes-Africa. Puis-je vous aider cher ami ? Que recherchez-vous au Sénégal (un restaurant, un hôtel, une activité...) ?'
     }
 ];
 
@@ -27,8 +27,50 @@ const Chatbot = () => {
         scrollToBottom();
     }, [messages, isTyping]);
 
+    const speakGreeting = () => {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+
+            const utterance = new SpeechSynthesisUtterance("Bonjour, je suis lexi. Puis-je vous aider cher ami ?");
+            utterance.lang = 'fr-FR';
+
+            const setVoiceAndSpeak = () => {
+                const voices = window.speechSynthesis.getVoices();
+                if (voices.length > 0) {
+                    const frenchVoices = voices.filter(v => v.lang.startsWith('fr'));
+                    // Favoriser une voix féminine
+                    const femaleVoice = frenchVoices.find(v =>
+                        v.name.toLowerCase().includes('female') ||
+                        v.name.toLowerCase().includes('margot') ||
+                        v.name.toLowerCase().includes('julie') ||
+                        v.name.toLowerCase().includes('amelie') ||
+                        v.name.toLowerCase().includes('hortense')
+                    ) || frenchVoices[0];
+
+                    if (femaleVoice) utterance.voice = femaleVoice;
+
+                    utterance.pitch = 1.15; // Un timbre légèrement plus féminin/doux
+                    utterance.rate = 1.0;
+
+                    window.speechSynthesis.speak(utterance);
+                } else {
+                    window.speechSynthesis.speak(utterance);
+                }
+            };
+
+            if (window.speechSynthesis.getVoices().length === 0) {
+                window.speechSynthesis.addEventListener('voiceschanged', setVoiceAndSpeak, { once: true });
+            } else {
+                setVoiceAndSpeak();
+            }
+        }
+    };
+
     useEffect(() => {
-        const handleOpen = () => setIsOpen(true);
+        const handleOpen = () => {
+            setIsOpen(true);
+            speakGreeting();
+        };
         window.addEventListener('open-chatbot', handleOpen);
         return () => window.removeEventListener('open-chatbot', handleOpen);
     }, []);
