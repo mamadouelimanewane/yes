@@ -121,13 +121,13 @@ const Chatbot = () => {
                         <div className="bg-gray-900 text-white p-4 flex items-center justify-between shadow-md relative overflow-hidden">
                             <div className="absolute inset-0 bg-gradient-to-r from-primary/30 to-accent/20 opacity-50"></div>
                             <div className="flex items-center gap-3 relative z-10">
-                                <div className="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center border border-primary/50 text-accent">
-                                    <Bot size={22} />
+                                <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-white/50 shadow-md">
+                                    <img src="https://images.unsplash.com/photo-1531123897727-8f129e1bf98c?auto=format&fit=crop&q=80&w=150&h=150" alt="Lexi AI" className="w-full h-full object-cover" />
                                 </div>
                                 <div>
-                                    <h3 className="font-bold text-sm tracking-wide">Assistant AI Yes-Africa</h3>
-                                    <div className="flex items-center gap-1.5 text-xs text-gray-400">
-                                        <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                                    <h3 className="font-bold text-sm tracking-wide">Lexi - Yes-Africa</h3>
+                                    <div className="flex items-center gap-1.5 text-xs text-gray-300 font-medium">
+                                        <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
                                         En ligne
                                     </div>
                                 </div>

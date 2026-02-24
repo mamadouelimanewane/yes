@@ -48,23 +48,23 @@ const Navbar = () => {
         </Link>
 
         {/* Global Search & AI Bar (Desktop & Mobile) */}
-        <div className="flex-1 max-w-2xl flex items-center gap-2">
-          <div className="flex-1 flex items-center gap-2 bg-gray-100/80 hover:bg-gray-100 focus-within:bg-white focus-within:ring-2 focus-within:ring-primary/20 px-3 py-2 md:px-4 md:py-2.5 rounded-full border border-gray-200/50 shadow-inner transition-all">
-            <Search size={16} className="text-gray-400 shrink-0" />
+        <div className="flex-1 max-w-md xl:max-w-lg mx-auto flex items-center gap-2">
+          <div className="flex-1 flex items-center gap-2 bg-gray-100 border border-gray-200 shadow-sm focus-within:bg-white focus-within:ring-2 focus-within:ring-primary/30 px-3 py-2.5 md:px-4 md:py-3 rounded-full transition-all">
+            <Search size={18} className="text-gray-400 shrink-0" />
             <input
               type="text"
-              placeholder="Où aller ?"
-              className="flex-1 bg-transparent border-none outline-none text-xs md:text-sm font-semibold text-gray-800 placeholder-gray-400"
+              placeholder="Rechercher (ex: Thieboudienne...)"
+              className="flex-1 bg-transparent border-none outline-none text-[13px] md:text-sm font-bold text-gray-800 placeholder-gray-500 w-full min-w-0"
             />
           </div>
           <button
             onClick={() => window.dispatchEvent(new Event('open-chatbot'))}
-            className="hidden md:flex group relative bg-gray-900 text-white p-2.5 px-3 md:px-5 rounded-full items-center gap-2 shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all active:scale-95 shrink-0"
+            className="hidden md:flex group relative bg-gray-900 border border-gray-800 text-white p-1 md:p-1.5 md:pr-4 rounded-full items-center justify-center gap-3 shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all active:scale-95 shrink-0"
             title="Assistant IA Lexi"
           >
             <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            <Sparkles size={16} className="text-accent group-hover:animate-spin-slow relative z-10" />
-            <span className="font-bold text-sm tracking-wide relative z-10 hidden md:block">Lexi AI</span>
+            <img src="https://images.unsplash.com/photo-1531123897727-8f129e1bf98c?auto=format&fit=crop&q=80&w=150&h=150" alt="Lexi AI" className="w-8 h-8 rounded-full object-cover border-2 border-white relative z-10" />
+            <span className="font-bold text-[13px] tracking-wide relative z-10 hidden lg:block">Lexi AI <Sparkles size={12} className="inline text-accent relative -top-0.5" /></span>
           </button>
         </div>
 
@@ -108,15 +108,18 @@ const MobileBottomNav = () => {
         <span className="text-[10px] font-black uppercase tracking-widest leading-none">Explorer</span>
       </Link>
 
-      {/* Central Lexi AI Button */}
-      <div className="relative -mt-8 flex justify-center w-20">
-        <button
-          onClick={() => window.dispatchEvent(new Event('open-chatbot'))}
-          className="absolute bg-gray-900 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl border-4 border-white active:scale-90 transition-all group"
-        >
-          <div className="absolute inset-0 bg-primary/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
-          <Sparkles size={24} className="text-accent relative z-10" />
-        </button>
+      {/* Central Lexi AI Avatar Button */}
+      <div className="relative -mt-10 flex justify-center w-20">
+        <div className="relative">
+          <button
+            onClick={() => window.dispatchEvent(new Event('open-chatbot'))}
+            className="w-16 h-16 rounded-full flex items-center justify-center shadow-[0_10px_25px_rgba(0,0,0,0.3)] border-[3px] border-white active:scale-95 transition-all group overflow-hidden bg-gray-100"
+          >
+            <img src="https://images.unsplash.com/photo-1531123897727-8f129e1bf98c?auto=format&fit=crop&q=80&w=150&h=150" alt="Lexi AI Avatar" className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors"></div>
+          </button>
+          <div className="absolute bottom-1 right-1 w-3.5 h-3.5 bg-green-500 rounded-full border-2 border-white shadow-sm z-10 animate-pulse"></div>
+        </div>
       </div>
 
       <Link to="/talk" className={`flex flex-col items-center gap-1 w-16 p-2 rounded-xl transition-colors ${location.pathname === '/talk' ? 'text-primary' : 'text-gray-400 hover:text-gray-600'}`}>
