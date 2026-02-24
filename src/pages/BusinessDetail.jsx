@@ -229,6 +229,28 @@ const BusinessDetail = () => {
                 onClose={() => setIsChatOpen(false)}
                 business={business}
             />
+
+            {/* Mobile Fixed Action Bar */}
+            <div className="md:hidden fixed bottom-0 left-0 w-full bg-white/95 backdrop-blur-xl border-t border-gray-200/50 p-4 pb-safe flex gap-3 z-50 shadow-[0_-10px_30px_rgba(0,0,0,0.05)]">
+                <button
+                    onClick={() => setIsChatOpen(true)}
+                    className="flex-1 max-w-[80px] py-4 bg-gray-100 text-gray-700 rounded-xl font-bold flex flex-col items-center justify-center gap-1 active:scale-95 transition-all"
+                >
+                    <MessageSquare size={20} />
+                </button>
+                {showReservation ? (
+                    <button
+                        onClick={() => setIsReservationOpen(true)}
+                        className="flex-1 py-4 bg-primary text-white rounded-xl font-black uppercase tracking-widest hover:bg-primary-hover shadow-xl shadow-primary/20 active:scale-95 transition-all"
+                    >
+                        Réserver
+                    </button>
+                ) : (
+                    <button className="flex-1 py-4 bg-gray-900 text-white rounded-xl font-black uppercase tracking-widest shadow-xl active:scale-95 transition-all">
+                        Contacter
+                    </button>
+                )}
+            </div>
         </div>
     );
 };

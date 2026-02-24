@@ -187,9 +187,9 @@ const SearchResults = () => {
                 {/* Mobile View Toggle Button */}
                 <button
                     onClick={() => setViewMode(viewMode === 'list' ? 'map' : 'list')}
-                    className="md-hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-gray-900 text-white px-6 py-3 rounded-full font-bold shadow-2xl flex items-center gap-2 active:scale-95 transition-all"
+                    className="md-hidden fixed bottom-24 left-1/2 -translate-x-1/2 z-[60] bg-gray-900 border-2 border-white/20 text-white px-8 py-4 rounded-full font-black uppercase tracking-widest shadow-[0_10px_25px_rgba(0,0,0,0.3)] flex items-center gap-3 active:scale-95 transition-all w-max whitespace-nowrap"
                 >
-                    {viewMode === 'list' ? <><MapPin size={18} /> Carte</> : <><Filter size={18} /> Liste</>}
+                    {viewMode === 'list' ? <><MapPin size={22} className="text-accent" /> Voir la carte</> : <><Filter size={22} className="text-accent" /> Voir la liste</>}
                 </button>
             </div>
         </div>

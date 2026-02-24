@@ -14,9 +14,13 @@ import {
   X,
   ChevronRight,
   TrendingUp,
-  Award
+  Award,
+  Home as HomeIcon,
+  MessageSquare,
+  User
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLocation } from 'react-router-dom';
 import { businesses, categories } from './data';
 
 // Image Imports
@@ -29,11 +33,9 @@ import Chatbot from './components/Chatbot';
 import heroImage from './assets/hero.jpg';
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
   return (
     <nav className="glass sticky top-0 z-50 border-b border-gray-200/50 bg-white/80 backdrop-blur-xl">
-      <div className="container mx-auto px-4 py-3 xl:py-4 flex items-center justify-between gap-4 md:gap-8">
+      <div className="container mx-auto px-4 py-3 flex items-center justify-between gap-4">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2 md:gap-3 shrink-0">
           <div className="w-10 h-10 bg-gray-900 rounded-xl flex items-center justify-center text-white font-black text-xl shadow-lg border-2 border-primary/20">
@@ -44,28 +46,28 @@ const Navbar = () => {
           </span>
         </Link>
 
-        {/* Global Search & AI Bar */}
-        <div className="flex-1 max-w-2xl hidden md-flex items-center gap-2">
-          <div className="flex-1 flex items-center gap-3 bg-gray-100/80 hover:bg-gray-100 focus-within:bg-white focus-within:ring-2 focus-within:ring-primary/20 px-4 py-2.5 rounded-full border border-gray-200/50 shadow-inner transition-all">
-            <Search size={18} className="text-gray-400 shrink-0" />
+        {/* Global Search & AI Bar (Desktop & Mobile) */}
+        <div className="flex-1 max-w-2xl flex items-center gap-2">
+          <div className="flex-1 flex items-center gap-2 bg-gray-100/80 hover:bg-gray-100 focus-within:bg-white focus-within:ring-2 focus-within:ring-primary/20 px-3 py-2 md:px-4 md:py-2.5 rounded-full border border-gray-200/50 shadow-inner transition-all">
+            <Search size={16} className="text-gray-400 shrink-0" />
             <input
               type="text"
-              placeholder="Restaurant, Hôtel, Spa..."
-              className="flex-1 bg-transparent border-none outline-none text-sm font-semibold text-gray-800 placeholder-gray-400"
+              placeholder="Où aller ?"
+              className="flex-1 bg-transparent border-none outline-none text-xs md:text-sm font-semibold text-gray-800 placeholder-gray-400"
             />
           </div>
           <button
             onClick={() => window.dispatchEvent(new Event('open-chatbot'))}
-            className="group relative bg-gray-900 text-white p-2.5 px-5 rounded-full flex items-center gap-2 shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all active:scale-95 shrink-0"
+            className="hidden md:flex group relative bg-gray-900 text-white p-2.5 px-3 md:px-5 rounded-full items-center gap-2 shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all active:scale-95 shrink-0"
             title="Assistant IA Lexi"
           >
             <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
             <Sparkles size={16} className="text-accent group-hover:animate-spin-slow relative z-10" />
-            <span className="font-bold text-sm tracking-wide relative z-10">Lexi AI</span>
+            <span className="font-bold text-sm tracking-wide relative z-10 hidden md:block">Lexi AI</span>
           </button>
         </div>
 
-        {/* Desktop Links */}
+        {/* Desktop Links - Hidden on Mobile */}
         <div className="hidden lg:flex items-center gap-6 shrink-0">
           <nav className="flex items-center gap-6 font-bold text-sm text-gray-600">
             <Link to="/search" className="hover:text-gray-900 transition-colors">Découvrir</Link>
@@ -82,68 +84,49 @@ const Navbar = () => {
             </button>
           </div>
         </div>
+      </div>
+    </nav>
+  );
+};
 
-        {/* Mobile Toggle & Chatbot */}
-        <div className="md-hidden flex items-center gap-2">
-          <button
-            onClick={() => window.dispatchEvent(new Event('open-chatbot'))}
-            className="bg-gray-900 w-10 h-10 rounded-full flex items-center justify-center shadow-md active:scale-95"
-          >
-            <Sparkles size={18} className="text-accent" />
-          </button>
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="w-10 h-10 flex items-center justify-center bg-gray-100 text-gray-900 rounded-full active:scale-95 transition-all"
-          >
-            {isOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
-        </div>
+const MobileBottomNav = () => {
+  const location = useLocation();
+
+  // Hide bottom nav on specific fullscreen pages if necessary, e.g., dashboard or detailed business
+  if (location.pathname === '/dashboard' || location.pathname.startsWith('/business/')) return null;
+
+  return (
+    <nav className="md:hidden fixed bottom-0 left-0 w-full bg-white/95 backdrop-blur-xl border-t border-gray-200/50 pb-safe pt-2 px-4 flex justify-between items-center z-[100] shadow-[0_-10px_30px_rgba(0,0,0,0.05)]">
+      <Link to="/" className={`flex flex-col items-center gap-1 w-16 p-2 rounded-xl transition-colors ${location.pathname === '/' ? 'text-primary' : 'text-gray-400 hover:text-gray-600'}`}>
+        <HomeIcon size={24} className={location.pathname === '/' ? 'fill-primary/20' : ''} />
+        <span className="text-[10px] font-black uppercase tracking-widest leading-none">Accueil</span>
+      </Link>
+
+      <Link to="/search" className={`flex flex-col items-center gap-1 w-16 p-2 rounded-xl transition-colors ${location.pathname === '/search' ? 'text-primary' : 'text-gray-400 hover:text-gray-600'}`}>
+        <Search size={24} className={location.pathname === '/search' ? 'fill-primary/20' : ''} />
+        <span className="text-[10px] font-black uppercase tracking-widest leading-none">Explorer</span>
+      </Link>
+
+      {/* Central Lexi AI Button */}
+      <div className="relative -mt-8 flex justify-center w-20">
+        <button
+          onClick={() => window.dispatchEvent(new Event('open-chatbot'))}
+          className="absolute bg-gray-900 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl border-4 border-white active:scale-90 transition-all group"
+        >
+          <div className="absolute inset-0 bg-primary/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          <Sparkles size={24} className="text-accent relative z-10" />
+        </button>
       </div>
 
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="md-hidden absolute top-[100%] left-0 w-full bg-white/95 backdrop-blur-xl border-b border-gray-200/50 p-6 flex flex-col shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)]"
-          >
-            <div className="flex flex-col gap-5 bg-gray-50/50 p-5 rounded-2xl border border-gray-100 mb-6">
-              <Link to="/search" className="text-lg font-bold text-gray-800 flex items-center justify-between" onClick={() => setIsOpen(false)}>
-                Découvrir <ChevronRight size={18} className="text-gray-400" />
-              </Link>
-              <div className="h-px bg-gray-200/50"></div>
-              <Link to="/events" className="text-lg font-bold text-gray-800 flex items-center justify-between" onClick={() => setIsOpen(false)}>
-                Événements <ChevronRight size={18} className="text-gray-400" />
-              </Link>
-              <div className="h-px bg-gray-200/50"></div>
-              <Link to="/talk" className="text-lg font-bold text-gray-800 flex items-center justify-between" onClick={() => setIsOpen(false)}>
-                Communauté <ChevronRight size={18} className="text-gray-400" />
-              </Link>
-            </div>
+      <Link to="/talk" className={`flex flex-col items-center gap-1 w-16 p-2 rounded-xl transition-colors ${location.pathname === '/talk' ? 'text-primary' : 'text-gray-400 hover:text-gray-600'}`}>
+        <MessageSquare size={24} className={location.pathname === '/talk' ? 'fill-primary/20' : ''} />
+        <span className="text-[10px] font-black uppercase tracking-widest leading-none">Talk</span>
+      </Link>
 
-            <Link
-              to="/dashboard"
-              className="bg-primary/5 border border-primary/20 p-4 rounded-2xl flex items-center justify-between mb-8"
-              onClick={() => setIsOpen(false)}
-            >
-              <div>
-                <span className="block text-[10px] font-black uppercase tracking-widest text-primary mb-1">Espace Partenaire</span>
-                <span className="font-bold text-gray-900">Passer en mode PRO</span>
-              </div>
-              <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center">
-                <ChevronRight size={16} />
-              </div>
-            </Link>
-
-            <div className="flex flex-col gap-3 mt-auto">
-              <button className="w-full py-4 text-center font-bold text-gray-700 bg-gray-100 rounded-xl hover:bg-gray-200 transition-colors">Connexion</button>
-              <button className="w-full py-4 text-center font-black bg-primary text-white rounded-xl shadow-lg shadow-primary/30 active:scale-95 transition-all tracking-wide">Créer un compte</button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <Link to="/dashboard" className={`flex flex-col items-center gap-1 w-16 p-2 rounded-xl transition-colors ${location.pathname === '/dashboard' ? 'text-primary' : 'text-gray-400 hover:text-gray-600'}`}>
+        <User size={24} />
+        <span className="text-[10px] font-black uppercase tracking-widest leading-none">Profil</span>
+      </Link>
     </nav>
   );
 };
@@ -489,24 +472,31 @@ const Footer = () => {
   );
 };
 
+function AppContent() {
+  return (
+    <div className="min-h-screen flex flex-col pb-20 md:pb-0">
+      <Navbar />
+      <main className="flex-grow pb-safe">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/search" element={<SearchResults />} />
+          <Route path="/business/:id" element={<BusinessDetail />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/talk" element={<Talk />} />
+          <Route path="/dashboard" element={<BusinessDashboard />} />
+        </Routes>
+      </main>
+      <Footer />
+      <MobileBottomNav />
+      <Chatbot />
+    </div>
+  );
+}
+
 function App() {
   return (
     <Router>
-      <div className="min-h-screen flex flex-col">
-        <Navbar />
-        <main className="flex-grow">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/search" element={<SearchResults />} />
-            <Route path="/business/:id" element={<BusinessDetail />} />
-            <Route path="/events" element={<Events />} />
-            <Route path="/talk" element={<Talk />} />
-            <Route path="/dashboard" element={<BusinessDashboard />} />
-          </Routes>
-        </main>
-        <Footer />
-        <Chatbot />
-      </div>
+      <AppContent />
     </Router>
   );
 }
