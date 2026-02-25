@@ -22,17 +22,14 @@ import {
     Eye,
     Filter,
     AlertTriangle,
-    CheckCircle2,
-    Percent,
-    Tag,
-    ChevronDown,
-    Save,
-    FileText,
     Send,
     MailCheck,
     Crown,
     CreditCard,
-    Zap
+    Zap,
+    Download,
+    Printer,
+    FileCheck
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { businesses } from '../data';
@@ -47,6 +44,7 @@ const AdminDashboard = () => {
         promotion: b.promotion || null
     })));
     const [editingBusiness, setEditingBusiness] = useState(null);
+    const [viewingInvoice, setViewingInvoice] = useState(null);
 
     const stats = [
         { title: "Utilisateurs Actifs", value: "8,409", trend: "+14%", trendUp: true },
@@ -204,6 +202,114 @@ const AdminDashboard = () => {
                                             <Save size={18} /> Appliquer les changements
                                         </button>
                                     </div>
+                                </div>
+                            </motion.div>
+                        </>
+                    )}
+                </AnimatePresence>
+
+                {/* Modal Facture PDF Immersive */}
+                <AnimatePresence>
+                    {viewingInvoice && (
+                        <>
+                            <motion.div
+                                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                                className="fixed inset-0 bg-black/80 z-[80] backdrop-blur-xl"
+                                onClick={() => setViewingInvoice(null)}
+                            />
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.95 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.95 }}
+                                className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl h-[90vh] bg-white rounded-3xl z-[90] shadow-2xl overflow-hidden flex flex-col"
+                            >
+                                {/* Header Modal Facture */}
+                                <div className="p-6 bg-gray-50 border-b border-gray-100 flex justify-between items-center">
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-10 h-10 bg-black text-white rounded-xl flex items-center justify-center font-black">Y</div>
+                                        <h3 className="font-black text-gray-900">Aperçu de la Facture #INV-{viewingInvoice.id}</h3>
+                                    </div>
+                                    <div className="flex gap-2">
+                                        <button className="p-3 bg-gray-200 hover:bg-gray-300 rounded-xl transition-colors"><Printer size={20} /></button>
+                                        <button onClick={() => setViewingInvoice(null)} className="p-3 bg-gray-900 text-white rounded-xl transition-colors"><X size={20} /></button>
+                                    </div>
+                                </div>
+
+                                {/* Le corps de la facture stylisé façon PDF */}
+                                <div className="flex-1 overflow-y-auto p-12 bg-white">
+                                    <div className="max-w-md mx-auto space-y-10">
+                                        {/* Logo & Info Société */}
+                                        <div className="flex justify-between items-start">
+                                            <div>
+                                                <h1 className="text-3xl font-black text-gray-900 mb-1">FACTURE</h1>
+                                                <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">{viewingInvoice.id}</p>
+                                            </div>
+                                            <div className="text-right">
+                                                <p className="font-extrabold text-sm text-gray-900">Yes-Africa SAS</p>
+                                                <p className="text-[10px] text-gray-500 font-medium">Plateau, Dakar, Sénégal</p>
+                                                <p className="text-[10px] text-gray-500 font-medium">+221 33 000 00 00</p>
+                                            </div>
+                                        </div>
+
+                                        {/* Info Client */}
+                                        <div className="grid grid-cols-2 gap-8 py-8 border-y border-gray-100">
+                                            <div>
+                                                <p className="text-[10px] font-black uppercase text-gray-400 mb-2">Facturé à</p>
+                                                <p className="font-black text-gray-900">{viewingInvoice.businessName}</p>
+                                                <p className="text-[10px] text-gray-500 font-medium">{viewingInvoice.address || 'Dakar, Sénégal'}</p>
+                                            </div>
+                                            <div className="text-right">
+                                                <p className="text-[10px] font-black uppercase text-gray-400 mb-2">Détails</p>
+                                                <p className="text-[10px] text-gray-900 font-bold">Date: {viewingInvoice.date || '25 Fév. 2026'}</p>
+                                                <p className="text-[10px] text-gray-900 font-bold">Échéance: Immédiate</p>
+                                            </div>
+                                        </div>
+
+                                        {/* Table des items */}
+                                        <div className="space-y-4">
+                                            <div className="flex justify-between text-[10px] font-black uppercase text-gray-400 px-2">
+                                                <span>Description</span>
+                                                <span>Total</span>
+                                            </div>
+                                            <div className="bg-gray-50 p-6 rounded-2xl flex justify-between items-center">
+                                                <div className="space-y-1">
+                                                    <p className="font-black text-gray-900 text-sm">{viewingInvoice.planName || 'Abonnement PRO Elite'}</p>
+                                                    <p className="text-[10px] text-gray-500 font-medium">Période: Février 2026</p>
+                                                </div>
+                                                <p className="font-black text-gray-900 text-lg">{viewingInvoice.amount}</p>
+                                            </div>
+                                        </div>
+
+                                        {/* Totaux & Signature */}
+                                        <div className="pt-8 space-y-4">
+                                            <div className="flex justify-between items-center px-2">
+                                                <p className="text-sm font-bold text-gray-500">Sous-total</p>
+                                                <p className="text-sm font-black text-gray-900">{viewingInvoice.amount}</p>
+                                            </div>
+                                            <div className="flex justify-between items-center px-4 py-6 bg-black text-white rounded-2xl">
+                                                <p className="text-base font-black uppercase tracking-widest">Total Payé</p>
+                                                <p className="text-2xl font-black">{viewingInvoice.amount}</p>
+                                            </div>
+                                        </div>
+
+                                        {/* Footer PDF */}
+                                        <div className="text-center pt-8">
+                                            <p className="text-[10px] text-gray-400 font-medium leading-relaxed italic">
+                                                Cette facture est générée numériquement. Merci de votre confiance en Yes-Africa Pro.
+                                                Tous droits réservés.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Footer Action */}
+                                <div className="p-6 bg-gray-50 border-t border-gray-100 flex gap-4">
+                                    <button className="flex-1 py-4 bg-primary text-white rounded-2xl font-black uppercase tracking-widest text-xs flex items-center justify-center gap-2 shadow-xl shadow-primary/20">
+                                        <Download size={18} /> Télécharger PDF
+                                    </button>
+                                    <button className="px-8 py-4 bg-white border border-gray-200 text-gray-900 rounded-2xl font-black uppercase tracking-widest text-xs flex items-center justify-center gap-2">
+                                        <Send size={18} /> Envoyer Email
+                                    </button>
                                 </div>
                             </motion.div>
                         </>
@@ -625,7 +731,9 @@ const AdminDashboard = () => {
                                         </div>
 
                                         <div className="flex gap-3">
-                                            <button className="flex-1 py-3 bg-gray-900 text-white rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-black transition-colors">Visualiser PDF</button>
+                                            <button
+                                                onClick={() => setViewingInvoice({ id: bus.id, businessName: bus.name, amount: (Math.random() * 50000 + 10000).toFixed(0).toLocaleString() + ' FCFA', planName: 'Commissions de Vente' })}
+                                                className="flex-1 py-3 bg-gray-900 text-white rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-black transition-colors">Visualiser PDF</button>
                                             <button className="px-5 py-3 border-2 border-primary text-primary rounded-xl font-black text-xs uppercase tracking-widest hover:bg-primary hover:text-white transition-all">Envoyer</button>
                                         </div>
                                     </div>
@@ -691,17 +799,21 @@ const AdminDashboard = () => {
                                         { name: "La Téranga Almadies", plan: "PRO Starter", date: "Hier", amount: "10,000 FCFA" },
                                         { name: "Radisson Blu", plan: "PRO Elite", date: "24 Fév.", amount: "25,000 FCFA" },
                                     ].map((sub, i) => (
-                                        <div key={i} className="p-6 flex items-center justify-between hover:bg-gray-50 transition-colors">
+                                        <div key={i} className="p-6 flex items-center justify-between hover:bg-gray-50 transition-colors cursor-pointer group"
+                                            onClick={() => setViewingInvoice({ id: i + 100, businessName: sub.name, amount: sub.amount, planName: sub.plan })}>
                                             <div className="flex items-center gap-4">
-                                                <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-primary"><CreditCard size={18} /></div>
+                                                <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors"><CreditCard size={18} /></div>
                                                 <div>
-                                                    <div className="font-black text-gray-900">{sub.name}</div>
+                                                    <div className="font-black text-gray-900 group-hover:text-primary transition-colors">{sub.name}</div>
                                                     <div className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">{sub.plan}</div>
                                                 </div>
                                             </div>
-                                            <div className="text-right">
-                                                <div className="font-black text-green-600">{sub.amount}</div>
-                                                <div className="text-[10px] font-bold text-gray-400">{sub.date}</div>
+                                            <div className="text-right flex items-center gap-8">
+                                                <div>
+                                                    <div className="font-black text-green-600">{sub.amount}</div>
+                                                    <div className="text-[10px] font-bold text-gray-400">{sub.date}</div>
+                                                </div>
+                                                <FileCheck size={20} className="text-gray-200 group-hover:text-green-500 transition-all" />
                                             </div>
                                         </div>
                                     ))}
