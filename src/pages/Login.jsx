@@ -16,7 +16,6 @@ const Login = ({ setAuth }) => {
         setIsLoading(true);
         setError('');
 
-        // Identifiants mis à jour selon la demande utilisateur
         setTimeout(() => {
             if (email === 'admin@yes.com' && password === 'admin123') {
                 localStorage.setItem('isAdminAuthenticated', 'true');
@@ -30,91 +29,213 @@ const Login = ({ setAuth }) => {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6 font-sans">
+        <div style={{
+            minHeight: '100vh',
+            backgroundColor: '#F3F4F6',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '24px',
+            fontFamily: "'Inter', sans-serif"
+        }}>
             <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="w-full max-w-[440px]"
+                style={{ width: '100%', maxWidth: '440px' }}
             >
                 {/* Brand Header */}
-                <div className="text-center mb-10">
-                    <div className="inline-flex items-center justify-center w-14 h-14 bg-primary text-white rounded-2xl font-black text-2xl mb-4 shadow-lg shadow-primary/20">
+                <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+                    <div style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        width: '56px',
+                        height: '56px',
+                        backgroundColor: '#E31B23',
+                        color: 'white',
+                        borderRadius: '16px',
+                        fontSize: '24px',
+                        fontWeight: 900,
+                        marginBottom: '16px',
+                        boxShadow: '0 10px 15px -3px rgba(227, 27, 35, 0.2)'
+                    }}>
                         Y
                     </div>
-                    <h1 className="text-2xl font-black text-gray-900 tracking-tight">Accès Administrateur</h1>
-                    <p className="text-gray-500 font-bold text-xs uppercase tracking-widest mt-2 flex items-center justify-center gap-2">
-                        <ShieldCheck size={14} className="text-primary" /> Portail de Gestion Sécurisé
+                    <h1 style={{ fontSize: '24px', fontWeight: 900, color: '#111827', margin: 0, letterSpacing: '-0.025em' }}>
+                        Accès Administrateur
+                    </h1>
+                    <p style={{
+                        color: '#6B7280',
+                        fontWeight: 700,
+                        fontSize: '11px',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.1em',
+                        marginTop: '8px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '8px'
+                    }}>
+                        <ShieldCheck size={14} style={{ color: '#E31B23' }} /> Portail de Gestion Sécurisé
                     </p>
                 </div>
 
-                {/* Login Card - Clean & Professional */}
-                <div className="bg-white p-10 rounded-[40px] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] border border-gray-100 relative">
-                    <form onSubmit={handleLogin} className="space-y-6">
+                {/* Login Card */}
+                <div style={{
+                    backgroundColor: 'white',
+                    padding: '40px',
+                    borderRadius: '40px',
+                    boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+                    border: '1px solid #F3F4F6'
+                }}>
+                    <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                         <AnimatePresence>
                             {error && (
                                 <motion.div
                                     initial={{ opacity: 0, y: -10 }}
                                     animate={{ opacity: 1, y: 0 }}
-                                    className="p-4 bg-red-50 border border-red-100 rounded-2xl text-red-600 text-[13px] font-bold flex items-center gap-3"
+                                    style={{
+                                        padding: '16px',
+                                        backgroundColor: '#FEF2F2',
+                                        border: '1px solid #FEE2E2',
+                                        borderRadius: '16px',
+                                        color: '#DC2626',
+                                        fontSize: '13px',
+                                        fontWeight: 700,
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '12px'
+                                    }}
                                 >
-                                    <div className="w-2 h-2 bg-red-600 rounded-full animate-pulse"></div>
+                                    <div style={{ width: '8px', height: '8px', backgroundColor: '#DC2626', borderRadius: '9999px' }}></div>
                                     {error}
                                 </motion.div>
                             )}
                         </AnimatePresence>
 
-                        <div className="space-y-2">
-                            <label className="text-[11px] font-black uppercase tracking-wider text-gray-400 ml-1">Adresse Email Professionnelle</label>
-                            <div className="relative group">
-                                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-primary transition-colors" size={20} />
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                            <label style={{ fontSize: '11px', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#9CA3AF', marginLeft: '4px' }}>
+                                Adresse Email Professionnelle
+                            </label>
+                            <div style={{ position: 'relative' }}>
+                                <Mail style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', color: '#D1D5DB' }} size={20} />
                                 <input
                                     type="email"
                                     required
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     placeholder="admin@yes.com"
-                                    className="w-full bg-gray-50 border-2 border-gray-50 focus:border-primary/10 focus:bg-white p-4 pl-12 rounded-2xl outline-none font-bold text-gray-900 transition-all placeholder:text-gray-300"
+                                    style={{
+                                        width: '100%',
+                                        backgroundColor: '#F9FAFB',
+                                        border: '2px solid #F9FAFB',
+                                        padding: '16px 16px 16px 48px',
+                                        borderRadius: '16px',
+                                        outline: 'none',
+                                        fontWeight: 700,
+                                        color: '#111827',
+                                        fontSize: '15px',
+                                        transition: 'all 0.2s'
+                                    }}
                                 />
                             </div>
                         </div>
 
-                        <div className="space-y-2">
-                            <label className="text-[11px] font-black uppercase tracking-wider text-gray-400 ml-1">Mot de Passe Root</label>
-                            <div className="relative group">
-                                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-primary transition-colors" size={20} />
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                            <label style={{ fontSize: '11px', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#9CA3AF', marginLeft: '4px' }}>
+                                Mot de Passe Root
+                            </label>
+                            <div style={{ position: 'relative' }}>
+                                <Lock style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', color: '#D1D5DB' }} size={20} />
                                 <input
                                     type={showPassword ? "text" : "password"}
                                     required
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     placeholder="••••••••"
-                                    className="w-full bg-gray-50 border-2 border-gray-50 focus:border-primary/10 focus:bg-white p-4 pl-12 pr-12 rounded-2xl outline-none font-bold text-gray-900 transition-all placeholder:text-gray-300"
+                                    style={{
+                                        width: '100%',
+                                        backgroundColor: '#F9FAFB',
+                                        border: '2px solid #F9FAFB',
+                                        padding: '16px 48px 16px 48px',
+                                        borderRadius: '16px',
+                                        outline: 'none',
+                                        fontWeight: 700,
+                                        color: '#111827',
+                                        fontSize: '15px',
+                                        transition: 'all 0.2s'
+                                    }}
                                 />
                                 <button
                                     type="button"
                                     onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-300 hover:text-gray-900 transition-colors"
+                                    style={{
+                                        position: 'absolute',
+                                        right: '16px',
+                                        top: '50%',
+                                        transform: 'translateY(-50%)',
+                                        color: '#D1D5DB',
+                                        background: 'none',
+                                        border: 'none',
+                                        cursor: 'pointer',
+                                        display: 'flex',
+                                        alignItems: 'center'
+                                    }}
                                 >
                                     {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                                 </button>
                             </div>
                         </div>
 
-                        <div className="flex items-center justify-between text-[12px] font-bold text-gray-400 px-1">
-                            <div className="flex items-center gap-2">
-                                <CheckCircle2 size={14} className="text-green-500" />
+                        <div style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            fontSize: '12px',
+                            fontWeight: 700,
+                            color: '#9CA3AF',
+                            padding: '0 4px'
+                        }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                <CheckCircle2 size={14} style={{ color: '#10B981' }} />
                                 Session chiffrée
                             </div>
-                            <button type="button" className="hover:text-primary transition-colors">Clé perdue ?</button>
+                            <span style={{ cursor: 'pointer' }}>Clé perdue ?</span>
                         </div>
 
                         <button
                             type="submit"
                             disabled={isLoading}
-                            className="w-full py-4 bg-gray-900 text-white rounded-2xl font-black uppercase tracking-widest text-[13px] shadow-xl shadow-gray-900/10 hover:shadow-gray-900/20 active:scale-[0.98] transition-all flex items-center justify-center gap-3 disabled:opacity-70"
+                            style={{
+                                width: '100%',
+                                padding: '16px',
+                                backgroundColor: '#111827',
+                                color: 'white',
+                                borderRadius: '16px',
+                                border: 'none',
+                                fontSize: '14px',
+                                fontWeight: 900,
+                                textTransform: 'uppercase',
+                                letterSpacing: '0.1em',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                gap: '12px',
+                                opacity: isLoading ? 0.7 : 1,
+                                transition: 'all 0.2s',
+                                boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)'
+                            }}
                         >
                             {isLoading ? (
-                                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                                <div style={{
+                                    width: '20px',
+                                    height: '20px',
+                                    border: '2px solid rgba(255,255,255,0.3)',
+                                    borderTopColor: 'white',
+                                    borderRadius: '50%',
+                                    animation: 'spin 0.8s linear infinite'
+                                }}></div>
                             ) : (
                                 <>
                                     Se Connecter <ArrowRight size={18} />
@@ -125,11 +246,36 @@ const Login = ({ setAuth }) => {
                 </div>
 
                 {/* Status Footer */}
-                <div className="mt-8 text-center text-[10px] font-bold text-gray-300 uppercase tracking-[0.2em] space-y-2">
-                    <p>© 2026 Yes-Africa • Système d'Accès Centralisé</p>
-                    <p className="text-primary/40 italic">Audit de sécurité effectué par Gateway-SSL</p>
+                <div style={{
+                    marginTop: '32px',
+                    textAlign: 'center',
+                    fontSize: '10px',
+                    fontWeight: 700,
+                    color: '#D1D5DB',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.2em'
+                }}>
+                    <p style={{ margin: '0 0 8px 0' }}>© 2026 Yes-Africa • Système d'Accès Centralisé</p>
+                    <p style={{ margin: 0, color: 'rgba(227, 27, 35, 0.4)', fontStyle: 'italic' }}>
+                        Audit de sécurité effectué par Gateway-SSL
+                    </p>
                 </div>
             </motion.div>
+            <style>
+                {`
+                @keyframes spin {
+                    to { transform: rotate(360deg); }
+                }
+                input:focus {
+                    border-color: rgba(227, 27, 35, 0.2) !important;
+                    background-color: white !important;
+                    box-shadow: 0 0 0 4px rgba(227, 27, 35, 0.05);
+                }
+                button:active {
+                    transform: scale(0.98);
+                }
+                `}
+            </style>
         </div>
     );
 };
