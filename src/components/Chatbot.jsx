@@ -51,13 +51,18 @@ const Chatbot = () => {
 
         // Synonym mapping for better UX
         const synonyms = {
-            'manger': ['restaurant', 'diner', 'déjeuner', 'fast-food', 'bouffe', 'repas'],
-            'dormir': ['hôtel', 'auberge', 'chambre', 'nuit', 'logement'],
+            'manger': ['restaurant', 'diner', 'déjeuner', 'fast-food', 'bouffe', 'repas', 'resto'],
+            'dormir': ['hôtel', 'auberge', 'chambre', 'nuit', 'logement', 'hostel'],
             'sortir': ['bar', 'club', 'boite', 'soirée', 'musique', 'fête', 'night-club'],
-            'luxe': ['palace', 'chic', 'premium', 'étoiles', 'cher'],
-            'pas cher': ['économique', 'abordable', 'bon marché'],
-            'mer': ['plage', 'vue', 'océan', 'corniche'],
+            'luxe': ['palace', 'chic', 'premium', 'étoiles', 'plus cher', 'haut de gamme'],
+            'pas cher': ['économique', 'abordable', 'bon marché', 'moins cher', 'budget'],
+            'mer': ['plage', 'vue', 'océan', 'corniche', 'eau'],
         };
+
+        // Price Intent Detection
+        const wantCheap = q.includes('moins cher') || q.includes('pas cher') || q.includes('abordable') || q.includes('budget') || q.includes('économique');
+        const wantExpensive = q.includes('plus cher') || q.includes('luxe') || q.includes('palace');
+        const wantCompare = q.includes('comparer') || q.includes('prix') || q.includes('comparaison');
 
         // Inject synonyms into the search query
         Object.keys(synonyms).forEach(key => {
@@ -79,8 +84,35 @@ const Chatbot = () => {
             return score > 0;
         });
 
-        // Return top 3 matches sorted by rating
-        return matches.sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating)).slice(0, 3);
+        // Smart Sorting Logic based on Intent
+        const sorted = matches.sort((a, b) => {
+            if (wantCheap) {
+                // Sort by price ascending (shortest string first, e.g. "€" before "€€")
+                if (a.price.length !== b.price.length && a.price.includes('€') && b.price.includes('€')) {
+                    return a.price.length - b.price.length;
+                }
+            } else if (wantExpensive) {
+                // Sort by price descending
+                if (a.price.length !== b.price.length && a.price.includes('€') && b.price.includes('€')) {
+                    return b.price.length - a.price.length;
+                }
+            }
+            // Default fallback: Sort by rating descending
+            return parseFloat(b.rating) - parseFloat(a.rating);
+        });
+
+        // Limit to top 3 and add a dynamic message if comparing
+        const results = sorted.slice(0, 3);
+        let customMessage = null;
+        if (results.length > 1 && wantCompare) {
+            customMessage = `Voici une comparaison des options. Les prix varient de ${results[results.length - 1].price} à ${results[0].price} :`;
+        } else if (results.length > 0 && wantCheap) {
+            customMessage = "Voici les meilleures options économiques que j'ai pu trouver :";
+        } else if (results.length > 0 && wantExpensive) {
+            customMessage = "Voici les options les plus prestigieuses pour vous :";
+        }
+
+        return { results, customMessage };
     };
 
     const handleSend = (textOverride = null) => {
@@ -103,10 +135,10 @@ const Chatbot = () => {
             } else if (lowertext.includes('bonjour') || lowertext.includes('salut')) {
                 botResponse = "Bonjour ! Que puis-je faire pour vous aujourd'hui ?";
             } else {
-                const matches = findMatches(textToProcess);
-                if (matches.length > 0) {
-                    botResponse = `J'ai trouvé ${matches.length > 1 ? 'd\'excellentes options' : 'une option parfaite'} pour vous :`;
-                    recommendedBusinesses = matches;
+                const matchData = findMatches(textToProcess);
+                if (matchData.results.length > 0) {
+                    botResponse = matchData.customMessage || `J'ai trouvé ${matchData.results.length > 1 ? 'd\'excellentes options' : 'une option parfaite'} pour vous :`;
+                    recommendedBusinesses = matchData.results;
                 } else {
                     botResponse = "Désolé, je n'ai pas trouvé d'adresse correspondant à votre demande. Essayez avec des termes comme 'Hôtel Dakar' ou 'Manger Saly' !";
                 }
