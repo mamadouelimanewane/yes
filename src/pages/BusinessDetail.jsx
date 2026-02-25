@@ -1,19 +1,10 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import {
-    Star,
-    Camera,
-    Share,
-    Bookmark,
-    ExternalLink,
-    Phone,
-    MapPin,
-    Clock,
-    CheckCircle2,
-    ChevronRight,
-    MessageSquare
+    Star, Camera, Share, Bookmark, ExternalLink,
+    Phone, MapPin, Clock, CheckCircle2, ChevronRight,
+    MessageSquare, ArrowLeft
 } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { businesses } from '../data';
 import ReservationModal from '../components/ReservationModal';
 import MessageInterface from '../components/MessageInterface';
@@ -27,129 +18,127 @@ const BusinessDetail = () => {
     const showReservation = business.category === 'Hôtels' || business.category === 'Restaurants';
 
     return (
-        <div className="bg-white">
-            {/* Photo Header */}
-            <div className="relative w-full overflow-hidden bg-black h-[250px] md-h-[400px]">
-                <img src={business.image} className="w-full h-full object-cover opacity-80" alt={business.name} />
-                <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%)' }}></div>
+        <div style={{ backgroundColor: 'white', minHeight: '100vh', paddingBottom: '90px' }}>
+            {/* Header mobile avec bouton retour */}
+            <div className="md-hidden" style={{ position: 'absolute', top: '15px', left: '15px', zIndex: 50 }}>
+                <Link to="/" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '40px', height: '40px', borderRadius: '50%', backgroundColor: 'rgba(255,255,255,0.9)', color: '#111', textDecoration: 'none', boxShadow: '0 4px 10px rgba(0,0,0,0.1)' }}>
+                    <ArrowLeft size={20} />
+                </Link>
+            </div>
 
-                <div className="absolute bottom-4 md-bottom-6 text-white z-10 w-full px-4 md-px-6 left-0">
-                    <div className="container">
-                        <h1 className="text-3xl md-text-6xl font-extrabold mb-2 md-mb-4 drop-shadow-lg">{business.name}</h1>
-                        <div className="flex flex-wrap items-center gap-4 mb-6">
-                            <div className="flex items-center gap-1">
+            {/* Photo Header */}
+            <div style={{ position: 'relative', width: '100%', backgroundColor: 'black', height: '35vh', minHeight: '250px', maxHeight: '450px', overflow: 'hidden' }}>
+                <img src={business.image} style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.85 }} alt={business.name} />
+                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0) 100%)' }}></div>
+
+                <div style={{ position: 'absolute', bottom: '20px', left: 0, width: '100%', color: 'white' }}>
+                    <div className="container" style={{ padding: '0 20px' }}>
+                        <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', fontWeight: 900, marginBottom: '10px', textShadow: '0 2px 10px rgba(0,0,0,0.5)', lineHeight: 1.1 }}>{business.name}</h1>
+
+                        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '15px', marginBottom: '15px' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '2px' }}>
                                 {[...Array(5)].map((_, i) => (
-                                    <Star key={i} size={24} fill={i < Math.floor(business.rating) ? "var(--primary)" : "none"} className={i < Math.floor(business.rating) ? "text-primary border-primary" : "text-white"} />
+                                    <Star key={i} size={18} fill={i < Math.floor(business.rating) ? "var(--primary)" : "none"} style={{ color: i < Math.floor(business.rating) ? "var(--primary)" : "rgba(255,255,255,0.5)" }} />
                                 ))}
-                                <span className="font-bold ml-2">{business.reviews} avis</span>
+                                <span style={{ fontWeight: 800, marginLeft: '8px', fontSize: '14px' }}>{business.reviews} avis</span>
                             </div>
-                            <span className="bg-primary/20 backdrop-blur-md px-3 py-1 rounded-full text-sm font-bold border border-white/30 flex items-center gap-2">
-                                <CheckCircle2 size={16} /> Confirmé
+
+                            <span style={{ backgroundColor: 'rgba(227, 27, 35, 0.2)', backdropFilter: 'blur(10px)', padding: '4px 12px', borderRadius: '50px', fontSize: '12px', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '6px', border: '1px solid rgba(255,255,255,0.2)' }}>
+                                <CheckCircle2 size={14} /> Confirmé
                             </span>
-                            <span className="font-bold">{business.price} • {business.category}</span>
+
+                            <span style={{ fontWeight: 800, fontSize: '14px', textShadow: '0 1px 4px rgba(0,0,0,0.5)' }}>{business.price} • {business.category}</span>
                         </div>
-                        <div className="flex items-center gap-2 text-sm font-bold bg-secondary/80 backdrop-blur-sm w-fit px-3 py-1 rounded text-white italic">
-                            <Clock size={16} /> Ouvert 10:00 - 22:00
+
+                        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '13px', fontWeight: 800, backgroundColor: 'rgba(242, 169, 0, 0.9)', backdropFilter: 'blur(4px)', padding: '5px 12px', borderRadius: '6px', color: '#111' }}>
+                            <Clock size={14} /> Ouvert 10:00 - 22:00
                         </div>
                     </div>
                 </div>
-                <div className="absolute bottom-6 right-12 hidden md-flex gap-3">
-                    <button className="bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/50 text-white px-5 py-3 rounded-lg font-bold flex items-center gap-2 transition-all">
-                        <Camera size={20} /> Voir toutes les photos
-                    </button>
-                </div>
             </div>
 
-            <div className="container py-8 md-py-12">
-                <div className="flex flex-col lg-flex-row gap-8 lg-gap-12">
+            <div className="container" style={{ padding: '30px 20px', maxWidth: '1200px', margin: '0 auto' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }} className="md-flex-row">
+
                     {/* Main Content */}
-                    <div className="flex-1 overflow-hidden">
-                        {/* Action Bar */}
-                        <div className="flex overflow-x-auto gap-3 mb-8 pb-2 scrollbar-hide no-scrollbar">
+                    <div style={{ flex: '1 1 65%' }}>
+
+                        {/* Action Bar (Horizontal Scroll on Mobile) */}
+                        <div style={{ display: 'flex', overflowX: 'auto', gap: '15px', paddingBottom: '10px', scrollbarWidth: 'none', WebkitOverflowScrolling: 'touch', marginBottom: '30px' }}>
                             {showReservation && (
                                 <button
                                     onClick={() => setIsReservationOpen(true)}
-                                    className="shrink-0 bg-primary hover:bg-primary-hover text-white px-6 md:px-10 py-3 md:py-4 rounded-xl font-bold flex items-center gap-2 md:gap-3 shadow-lg shadow-primary/20 transition-all active:scale-95"
+                                    className="btn-primary"
+                                    style={{ flexShrink: 0, display: 'flex', alignItems: 'center', gap: '8px', padding: '12px 24px', borderRadius: '12px', fontSize: '15px' }}
                                 >
-                                    <Clock size={20} className="md:w-6 md:h-6" /> Réserver maintenant
+                                    <Clock size={18} /> Réserver
                                 </button>
                             )}
                             <button
                                 onClick={() => setIsChatOpen(true)}
-                                className="shrink-0 bg-white border border-gray-200 hover:bg-gray-50 px-4 md:px-6 py-3 md:py-4 rounded-xl font-bold flex items-center gap-2 transition-all"
+                                style={{ flexShrink: 0, backgroundColor: 'white', border: '1px solid var(--border-color)', padding: '12px 20px', borderRadius: '12px', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '8px', color: '#333' }}
                             >
                                 <MessageSquare size={18} /> Message
                             </button>
-                            <button className="shrink-0 bg-white border border-gray-200 hover:bg-gray-50 px-4 md:px-6 py-3 md:py-4 rounded-xl font-bold flex items-center gap-2 transition-all">
-                                <Star size={18} /> Avis
+                            <button style={{ flexShrink: 0, backgroundColor: 'white', border: '1px solid var(--border-color)', padding: '12px 20px', borderRadius: '12px', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '8px', color: '#333' }}>
+                                <Camera size={18} /> Photos
                             </button>
-
-                            <button className="shrink-0 bg-white border border-gray-200 hover:bg-gray-50 px-4 md:px-6 py-3 md:py-4 rounded-xl font-bold flex items-center gap-2 transition-all">
-                                <Camera size={18} /> Photo
-                            </button>
-                            <button className="shrink-0 bg-white border border-gray-200 hover:bg-gray-50 px-4 md-px-6 py-3 md-py-4 rounded-xl font-bold flex items-center gap-2 transition-all">
+                            <button style={{ flexShrink: 0, backgroundColor: 'white', border: '1px solid var(--border-color)', padding: '12px 20px', borderRadius: '12px', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '8px', color: '#333' }}>
                                 <Share size={18} /> Partager
                             </button>
-                            <button className="shrink-0 bg-white border border-gray-200 hover:bg-gray-50 px-4 md-px-6 py-3 md-py-4 rounded-xl font-bold flex items-center gap-2 transition-all">
-                                <Bookmark size={18} /> Enregistrer
+                            <button style={{ flexShrink: 0, backgroundColor: 'white', border: '1px solid var(--border-color)', padding: '12px 20px', borderRadius: '12px', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '8px', color: '#333' }}>
+                                <Bookmark size={18} /> Sauver
                             </button>
                         </div>
 
-                        <hr className="mb-12 border-gray-100" />
+                        <hr style={{ border: 'none', borderTop: '1px solid #EEE', margin: '30px 0' }} />
 
                         {/* About Section */}
-                        <div className="mb-12">
-                            <h2 className="text-2xl font-extrabold mb-6">À propos de l'établissement</h2>
-                            <p className="text-gray-600 leading-relaxed text-lg mb-8">
-                                {business.description} Venez découvrir une expérience unique au cœur de Dakar, où la Teranga sénégalaise rencontre l'excellence culinaire et le service attentionné. Notre équipe vous accueille dans un cadre chaleureux et authentique.
+                        <div>
+                            <h2 style={{ fontSize: '24px', fontWeight: 900, marginBottom: '15px' }}>À propos</h2>
+                            <p style={{ color: '#555', lineHeight: 1.6, fontSize: '16px', marginBottom: '25px' }}>
+                                {business.description} Venez découvrir une expérience unique au cœur du Sénégal, où la Teranga rencontre l'excellence et le service attentionné. Notre équipe vous accueille dans un cadre chaleureux et authentique.
                             </p>
-                            <div className="grid grid-cols-2 gap-4">
+
+                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: '15px' }}>
                                 {business.tags.map(tag => (
-                                    <div key={tag} className="flex items-center gap-3 text-gray-700 font-medium">
-                                        <CheckCircle2 size={20} className="text-secondary" /> {tag}
+                                    <div key={tag} style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#333', fontWeight: 700, fontSize: '14px', backgroundColor: '#F9FAFB', padding: '10px', borderRadius: '8px', border: '1px solid #EEE' }}>
+                                        <CheckCircle2 size={16} color="var(--secondary)" /> {tag}
                                     </div>
                                 ))}
                             </div>
                         </div>
 
-                        <hr className="mb-12 border-gray-100" />
+                        <hr style={{ border: 'none', borderTop: '1px solid #EEE', margin: '40px 0' }} />
 
-                        {/* Review List Placeholder */}
+                        {/* Reviews */}
                         <div>
-                            <div className="flex items-center justify-between mb-8">
-                                <h2 className="text-2xl font-extrabold">Avis et commentaires</h2>
-                                <button className="text-primary font-bold flex items-center gap-1 hover:underline">
-                                    Tous les avis <ChevronRight size={20} />
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '25px' }}>
+                                <h2 style={{ fontSize: '24px', fontWeight: 900 }}>Avis récents</h2>
+                                <button style={{ color: 'var(--primary)', fontWeight: 800, display: 'flex', alignItems: 'center', background: 'none', border: 'none', fontSize: '14px' }}>
+                                    Tout voir <ChevronRight size={16} />
                                 </button>
                             </div>
 
-                            <div className="space-y-12">
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '30px' }}>
                                 {[1, 2].map(i => (
-                                    <div key={i} className="flex gap-6 pb-8 border-b border-gray-50 last-border-0">
-                                        <div className="w-16 h-16 rounded-full overflow-hidden shrink-0 border-2 border-primary/10">
-                                            <img src={i === 1 ? "https://images.unsplash.com/photo-1507152832244-10d45aec7dea?auto=format&fit=crop&q=80&w=150&h=150" : "https://images.unsplash.com/photo-1506277886164-e25aa3f4ef7f?auto=format&fit=crop&q=80&w=150&h=150"} alt="Utilisateur" className="w-full h-full object-cover" />
+                                    <div key={i} style={{ display: 'flex', gap: '15px', borderBottom: i === 1 ? '1px solid #EEE' : 'none', paddingBottom: i === 1 ? '30px' : '0' }}>
+                                        <div style={{ width: '50px', height: '50px', borderRadius: '50%', overflow: 'hidden', flexShrink: 0, border: '2px solid rgba(227, 27, 35, 0.1)' }}>
+                                            <img src={i === 1 ? "https://images.unsplash.com/photo-1507152832244-10d45aec7dea?auto=format&fit=crop&q=80&w=150&h=150" : "https://images.unsplash.com/photo-1506277886164-e25aa3f4ef7f?auto=format&fit=crop&q=80&w=150&h=150"} alt="Avatar" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                         </div>
                                         <div>
-                                            <h4 className="font-bold text-lg mb-1">Moussa Ndiaye</h4>
-                                            <div className="flex items-center gap-1 mb-3">
-                                                <div className="flex">
-                                                    {[...Array(5)].map((_, star) => (
-                                                        <Star key={star} size={14} fill={star < 4 ? "var(--primary)" : "none"} className={star < 4 ? "text-primary" : "text-gray-200"} />
-                                                    ))}
-                                                </div>
-                                                <span className="text-xs text-gray-400 font-medium ml-2">15/02/2026</span>
+                                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '5px' }}>
+                                                <h4 style={{ fontWeight: 800, fontSize: '16px', margin: 0 }}>{i === 1 ? 'Amadou Fall' : 'Sophie N.'}</h4>
+                                                <span style={{ fontSize: '12px', color: '#999', fontWeight: 600 }}>Il y a 2 jours</span>
                                             </div>
-                                            <p className="text-gray-600 leading-relaxed mb-4">
-                                                Une expérience incroyable ! Le service était impeccable et la nourriture absolument délicieuse. Je recommande vivement le Thieboudienne, c'est le meilleur que j'ai mangé à Dakar.
+                                            <div style={{ display: 'flex', gap: '2px', marginBottom: '10px' }}>
+                                                {[...Array(5)].map((_, star) => (
+                                                    <Star key={star} size={12} fill={star < (i === 1 ? 5 : 4) ? "var(--secondary)" : "none"} style={{ color: star < (i === 1 ? 5 : 4) ? "var(--secondary)" : "#DDD" }} />
+                                                ))}
+                                            </div>
+                                            <p style={{ color: '#444', lineHeight: 1.5, fontSize: '14px', margin: '0 0 15px 0' }}>
+                                                {i === 1 ? "Une expérience incroyable ! Le service était impeccable et le cadre idyllique. Je recommande vivement pour toute visite, c'est un incontournable." : "Très bon moment passé ici. L'ambiance est top et les prix sont résonnables par rapport à la qualité."}
                                             </p>
-                                            <div className="flex gap-4">
-                                                <button className="flex items-center gap-1 text-xs font-bold text-gray-400 hover:text-primary transition-colors">
-                                                    <MessageSquare size={14} /> Répondre
-                                                </button>
-                                                <button className="flex items-center gap-1 text-xs font-bold text-gray-400 hover:text-primary transition-colors">
-                                                    <Share size={14} /> Partager
-                                                </button>
-                                            </div>
                                         </div>
                                     </div>
                                 ))}
@@ -157,96 +146,97 @@ const BusinessDetail = () => {
                         </div>
                     </div>
 
-                    {/* Sidebar */}
-                    <div className="w-full lg-w-96">
-                        <div className="lg-sticky lg-top-24 space-y-6 md-space-y-8">
-                            <div className="p-5 md-p-6 border border-gray-200 rounded-2xl shadow-sm bg-white">
-                                <div className="flex items-center justify-between mb-6">
-                                    <span className="font-bold text-gray-800">Site Web</span>
-                                    <ExternalLink size={20} className="text-gray-400" />
-                                </div>
-                                <div className="flex items-center justify-between mb-6">
-                                    <span className="font-bold text-gray-800">Numéro de téléphone</span>
-                                    <Phone size={20} className="text-gray-400" />
-                                </div>
-                                <hr className="mb-6 border-gray-100" />
-                                <div className="flex items-start gap-3 mb-6">
-                                    <MapPin className="text-primary shrink-0" size={20} />
-                                    <div>
-                                        <span className="font-bold block mb-1">Y obtenir l'itinéraire</span>
-                                        <span className="text-sm text-gray-500">{business.location}, Dakar, Sénégal</span>
+                    {/* Sidebar / Informations Pratiques */}
+                    <div style={{ flex: '1 1 35%' }}>
+                        <div style={{ position: 'sticky', top: '80px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+
+                            <div style={{ backgroundColor: '#FFF', border: '1px solid #EEE', borderRadius: '16px', padding: '24px', boxShadow: '0 4px 20px rgba(0,0,0,0.03)' }}>
+                                <h3 style={{ fontSize: '18px', fontWeight: 900, marginBottom: '20px' }}>Informations</h3>
+
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '20px' }}>
+                                    <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#F3F4F6', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#555' }}>
+                                        <MapPin size={18} />
+                                    </div>
+                                    <div style={{ flex: 1 }}>
+                                        <div style={{ fontSize: '14px', fontWeight: 800 }}>Adresse</div>
+                                        <div style={{ fontSize: '13px', color: '#666' }}>{business.address || business.location}</div>
                                     </div>
                                 </div>
-                                <div className="w-full h-48 bg-gray-100 rounded-xl overflow-hidden relative border border-gray-200 mb-6">
-                                    <div className="absolute inset-0 grayscale opacity-30" style={{ backgroundImage: 'radial-gradient(#000 0.5px, transparent 0.5px)', backgroundSize: '15px 15px' }}></div>
-                                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-primary drop-shadow-lg">
-                                        <MapPin size={32} />
+
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '20px' }}>
+                                    <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#F3F4F6', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#555' }}>
+                                        <Phone size={18} />
+                                    </div>
+                                    <div style={{ flex: 1 }}>
+                                        <div style={{ fontSize: '14px', fontWeight: 800 }}>Téléphone</div>
+                                        <div style={{ fontSize: '13px', color: '#666' }}>{business.phone || "+221 33 000 00 00"}</div>
                                     </div>
                                 </div>
+
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '25px' }}>
+                                    <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#F3F4F6', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#555' }}>
+                                        <ExternalLink size={18} />
+                                    </div>
+                                    <div style={{ flex: 1 }}>
+                                        <div style={{ fontSize: '14px', fontWeight: 800 }}>Site Web</div>
+                                        <div style={{ fontSize: '13px', color: 'var(--primary)', fontWeight: 700 }}>{business.website || "Visiter le site"}</div>
+                                    </div>
+                                </div>
+
                                 {showReservation ? (
                                     <button
                                         onClick={() => setIsReservationOpen(true)}
-                                        className="w-full py-4 bg-primary text-white rounded-xl font-black uppercase tracking-widest hover:bg-primary-hover transition-all shadow-xl shadow-primary/20 mb-3"
+                                        className="btn-primary"
+                                        style={{ width: '100%', padding: '16px', borderRadius: '12px', fontSize: '16px', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '10px' }}
                                     >
-                                        Réserver (Acompte 15%)
+                                        Réserver une table
                                     </button>
                                 ) : (
-                                    <button className="w-full py-4 bg-gray-900 text-white rounded-xl font-bold hover:bg-black transition-all shadow-xl mb-3">
-                                        Contacter l'établissement
+                                    <button style={{ width: '100%', padding: '16px', backgroundColor: '#111', color: 'white', border: 'none', borderRadius: '12px', fontSize: '16px', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '10px', cursor: 'pointer' }}>
+                                        Contacter
                                     </button>
                                 )}
-                                <button className="w-full py-3 bg-white border border-gray-200 text-gray-700 rounded-xl font-bold hover:bg-gray-50 transition-all text-sm">
-                                    Afficher le menu / Services
+                                <button style={{ width: '100%', padding: '14px', backgroundColor: 'transparent', color: '#333', border: '1px solid #CCC', borderRadius: '12px', fontSize: '14px', fontWeight: 800, cursor: 'pointer' }}>
+                                    Signaler une erreur
                                 </button>
                             </div>
 
-                            <div className="p-6 bg-primary/5 rounded-2xl border border-primary/10">
-                                <h4 className="font-bold text-primary mb-4">À propos de l'établissement</h4>
-                                <ul className="space-y-4 text-sm font-medium text-gray-700">
-                                    <li className="flex items-center gap-2">
-                                        <CheckCircle2 size={16} className="text-secondary" /> Accepte les cartes
-                                    </li>
-                                    <li className="flex items-center gap-2">
-                                        <CheckCircle2 size={16} className="text-secondary" /> Wifi gratuit
-                                    </li>
-                                    <li className="flex items-center gap-2">
-                                        <CheckCircle2 size={16} className="text-secondary" /> Parking disponible
-                                    </li>
+                            <div style={{ backgroundColor: 'rgba(227, 27, 35, 0.03)', border: '1px solid rgba(227, 27, 35, 0.1)', borderRadius: '16px', padding: '24px' }}>
+                                <h4 style={{ fontWeight: 900, color: 'var(--primary)', marginBottom: '15px', fontSize: '16px' }}>Services de l'établissement</h4>
+                                <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                                    <li style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '14px', fontWeight: 700, color: '#444' }}><CheckCircle2 size={16} color="var(--primary)" /> Parking gratuit</li>
+                                    <li style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '14px', fontWeight: 700, color: '#444' }}><CheckCircle2 size={16} color="var(--primary)" /> Wifi Haut Débit</li>
+                                    <li style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '14px', fontWeight: 700, color: '#444' }}><CheckCircle2 size={16} color="var(--primary)" /> Accessible aux PMR</li>
+                                    <li style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '14px', fontWeight: 700, color: '#444' }}><CheckCircle2 size={16} color="var(--primary)" /> Paiement par carte</li>
                                 </ul>
                             </div>
+
                         </div>
                     </div>
                 </div>
             </div>
 
-            <ReservationModal
-                isOpen={isReservationOpen}
-                onClose={() => setIsReservationOpen(false)}
-                business={business}
-            />
-            <MessageInterface
-                isOpen={isChatOpen}
-                onClose={() => setIsChatOpen(false)}
-                business={business}
-            />
+            <ReservationModal isOpen={isReservationOpen} onClose={() => setIsReservationOpen(false)} business={business} />
+            <MessageInterface isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} business={business} />
 
-            {/* Mobile Fixed Action Bar */}
-            <div className="md:hidden fixed bottom-0 left-0 w-full bg-white/95 backdrop-blur-xl border-t border-gray-200/50 p-4 pb-safe flex gap-3 z-50 shadow-[0_-10px_30px_rgba(0,0,0,0.05)]">
+            {/* Mobile Fixed Bottom Action Bar */}
+            <div className="md-hidden" style={{ position: 'fixed', bottom: 0, left: 0, width: '100%', backgroundColor: 'rgba(255,255,255,0.95)', backdropFilter: 'blur(10px)', borderTop: '1px solid #EEE', padding: '10px 15px', paddingBottom: 'calc(10px + env(safe-area-inset-bottom))', display: 'flex', gap: '10px', zIndex: 100, boxShadow: '0 -4px 20px rgba(0,0,0,0.05)' }}>
                 <button
                     onClick={() => setIsChatOpen(true)}
-                    className="flex-1 max-w-[80px] py-4 bg-gray-100 text-gray-700 rounded-xl font-bold flex flex-col items-center justify-center gap-1 active:scale-95 transition-all"
+                    style={{ flexShrink: 0, width: '60px', height: '54px', backgroundColor: '#F3F4F6', color: '#333', border: 'none', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                 >
-                    <MessageSquare size={20} />
+                    <MessageSquare size={22} />
                 </button>
                 {showReservation ? (
                     <button
                         onClick={() => setIsReservationOpen(true)}
-                        className="flex-1 py-4 bg-primary text-white rounded-xl font-black uppercase tracking-widest hover:bg-primary-hover shadow-xl shadow-primary/20 active:scale-95 transition-all"
+                        className="btn-primary"
+                        style={{ flex: 1, height: '54px', fontSize: '15px', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '1px', borderRadius: '12px' }}
                     >
                         Réserver
                     </button>
                 ) : (
-                    <button className="flex-1 py-4 bg-gray-900 text-white rounded-xl font-black uppercase tracking-widest shadow-xl active:scale-95 transition-all">
+                    <button style={{ flex: 1, height: '54px', backgroundColor: '#111', color: 'white', border: 'none', fontSize: '15px', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '1px', borderRadius: '12px' }}>
                         Contacter
                     </button>
                 )}
