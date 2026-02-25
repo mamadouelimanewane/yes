@@ -29,7 +29,10 @@ import {
     Save,
     FileText,
     Send,
-    MailCheck
+    MailCheck,
+    Crown,
+    CreditCard,
+    Zap
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { businesses } from '../data';
@@ -56,6 +59,7 @@ const AdminDashboard = () => {
         { id: 'overview', icon: LayoutDashboard, label: "Vue d'ensemble" },
         { id: 'finance', icon: TrendingUp, label: "Comptabilité & Commissions" },
         { id: 'billing', icon: FileText, label: "Facturation Partenaires" },
+        { id: 'subscriptions', icon: Crown, label: "Abonnements PRO (SaaS)" },
         { id: 'businesses', icon: Store, label: "Gérer les établissements" },
         { id: 'users', icon: Users, label: "Utilisateurs & CRM" },
         { id: 'moderation', icon: ShieldAlert, label: "Avis & Modération" },
@@ -626,6 +630,82 @@ const AdminDashboard = () => {
                                         </div>
                                     </div>
                                 ))}
+                            </div>
+                        </div>
+                    )}
+
+                    {activeMenu === 'subscriptions' && (
+                        <div className="max-w-7xl mx-auto space-y-8 pb-20">
+                            <div className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                                <div>
+                                    <h2 className="text-2xl font-black text-gray-900 mb-2">Gestion des Abonnements PRO</h2>
+                                    <p className="text-gray-500 font-medium">Suivez les revenus récurrents (MRR) de vos partenaires Premium.</p>
+                                </div>
+                                <div className="flex gap-3">
+                                    <div className="bg-amber-100 text-amber-700 font-black px-4 py-2 rounded-xl text-xs flex items-center gap-2 border border-amber-200">
+                                        <Zap size={16} /> MRR: 425,000 FCFA
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div className="bg-white p-6 rounded-3xl border-2 border-primary shadow-xl relative overflow-hidden group">
+                                    <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:scale-150 transition-transform">
+                                        <Crown size={80} className="text-primary" />
+                                    </div>
+                                    <h3 className="font-black text-lg mb-1">PRO Elite</h3>
+                                    <div className="text-3xl font-black text-gray-900 mb-4">25,000 <span className="text-xs">FCFA/mois</span></div>
+                                    <ul className="text-xs font-bold text-gray-500 space-y-2 mb-6">
+                                        <li className="flex items-center gap-2 text-green-600"><CheckCircle2 size={14} /> Positionnement TOP #1</li>
+                                        <li className="flex items-center gap-2 text-green-600"><CheckCircle2 size={14} /> Badge "Elite" Vérifié</li>
+                                        <li className="flex items-center gap-2 text-green-600"><CheckCircle2 size={14} /> Commissions réduites (10%)</li>
+                                    </ul>
+                                    <div className="text-sm font-black text-primary">12 Partenaires actifs</div>
+                                </div>
+
+                                <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm relative overflow-hidden group">
+                                    <h3 className="font-black text-lg mb-1">PRO Starter</h3>
+                                    <div className="text-3xl font-black text-gray-900 mb-4">10,000 <span className="text-xs">FCFA/mois</span></div>
+                                    <ul className="text-xs font-bold text-gray-500 space-y-2 mb-6">
+                                        <li className="flex items-center gap-2 text-green-600"><CheckCircle2 size={14} /> Statistiques Visiteurs</li>
+                                        <li className="flex items-center gap-2 text-green-600"><CheckCircle2 size={14} /> 5 Photos HD autorisées</li>
+                                        <li className="flex items-center gap-2 text-gray-400"><XCircle size={14} /> Positionnement TOP</li>
+                                    </ul>
+                                    <div className="text-sm font-black text-gray-900">28 Partenaires actifs</div>
+                                </div>
+
+                                <div className="bg-gray-50 p-6 rounded-3xl border-2 border-dashed border-gray-200 flex flex-col items-center justify-center text-center">
+                                    <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm mb-3">
+                                        <Percent size={20} className="text-gray-400" />
+                                    </div>
+                                    <h4 className="font-bold text-gray-400 text-sm">Nouveau Plan</h4>
+                                    <button className="mt-2 text-xs font-black text-primary uppercase tracking-widest">+ Créer une offre</button>
+                                </div>
+                            </div>
+
+                            <div className="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden">
+                                <div className="p-6 border-b border-gray-100 font-extrabold">Derniers Paiements d'Abonnements</div>
+                                <div className="divide-y divide-gray-100">
+                                    {[
+                                        { name: "Pullman Dakar", plan: "PRO Elite", date: "il y a 2h", amount: "25,000 FCFA" },
+                                        { name: "La Téranga Almadies", plan: "PRO Starter", date: "Hier", amount: "10,000 FCFA" },
+                                        { name: "Radisson Blu", plan: "PRO Elite", date: "24 Fév.", amount: "25,000 FCFA" },
+                                    ].map((sub, i) => (
+                                        <div key={i} className="p-6 flex items-center justify-between hover:bg-gray-50 transition-colors">
+                                            <div className="flex items-center gap-4">
+                                                <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-primary"><CreditCard size={18} /></div>
+                                                <div>
+                                                    <div className="font-black text-gray-900">{sub.name}</div>
+                                                    <div className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">{sub.plan}</div>
+                                                </div>
+                                            </div>
+                                            <div className="text-right">
+                                                <div className="font-black text-green-600">{sub.amount}</div>
+                                                <div className="text-[10px] font-bold text-gray-400">{sub.date}</div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
                         </div>
                     )}
