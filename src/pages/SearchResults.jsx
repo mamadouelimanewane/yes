@@ -10,14 +10,12 @@ const SearchResults = () => {
     const params = new URLSearchParams(location.search);
     const queryParam = params.get('q') || '';
     const cityParam = params.get('city') || 'Toutes';
-    const viewParam = params.get('view');
 
     const [search] = useState(queryParam);
     const [selectedCity, setSelectedCity] = useState(cityParam);
     const [selectedCategory, setSelectedCategory] = useState('Toutes');
     const [selectedBusiness, setSelectedBusiness] = useState(null);
-    const [isFullMap, setIsFullMap] = useState(viewParam === 'map');
-    const [viewMode, setViewMode] = useState(viewParam === 'map' ? 'map' : 'list');
+    const [viewMode, setViewMode] = useState('list');
 
     const filtered = businesses.filter(b => {
         const matchSearch = !search || b.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -28,170 +26,74 @@ const SearchResults = () => {
         return matchSearch && matchCity && matchCat;
     });
 
-    const allCategories = ['Toutes', ...categories.map(c => c.name)];
-
-    const getDirectionsUrl = (business) => {
-        return `https://www.google.com/maps/dir/?api=1&destination=${business.lat},${business.lng}&travelmode=driving`;
-    };
-
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', height: 'calc(100vh - 72px)' }}>
-            {/* Filtres Header */}
-            <div className="bg-white border-b border-gray-200 p-3 md-p-4 sticky top-0 z-40 flex flex-nowrap items-center gap-2 overflow-x-auto">
-                {/* Filtre Villes */}
-                <select
-                    value={selectedCity}
-                    onChange={e => setSelectedCity(e.target.value)}
-                    className="shrink-0 px-4 py-2 rounded-full border border-gray-200 font-bold text-sm outline-none cursor-pointer transition-colors"
-                    style={{
-                        background: selectedCity !== 'Toutes' ? 'var(--primary)' : 'white',
-                        color: selectedCity !== 'Toutes' ? 'white' : '#374151',
-                    }}
-                >
-                    {cities.map(c => <option key={c} value={c}>{c}</option>)}
-                </select>
-
-                {/* Filtre Catégories - Scrollable on mobile */}
-                <div className="flex gap-2 overflow-x-auto scrollbar-hide">
-                    {allCategories.map(cat => (
+        <div style={{ paddingBottom: '70px', background: 'white', minHeight: '100vh' }}>
+            {/* Header / FILTERS */}
+            <div style={{ position: 'sticky', top: '60px', zIndex: 100, background: 'white', borderBottom: '1px solid #EEE', padding: '12px' }}>
+                <div style={{ display: 'flex', gap: '8px', overflowX: 'auto', scrollbarWidth: 'none' }}>
+                    <select
+                        value={selectedCity}
+                        onChange={e => setSelectedCity(e.target.value)}
+                        style={{ padding: '8px 16px', borderRadius: '50px', background: '#F3F4F6', border: 'none', fontWeight: 700 }}
+                    >
+                        {cities.map(c => <option key={c} value={c}>{c}</option>)}
+                    </select>
+                    {['Toutes', ...categories.map(c => c.name)].map(cat => (
                         <button
                             key={cat}
                             onClick={() => setSelectedCategory(cat)}
-                            className="shrink-0 px-4 py-2 rounded-full border border-gray-200 font-bold text-sm transition-all whitespace-nowrap"
                             style={{
-                                background: selectedCategory === cat ? 'var(--primary)' : 'white',
-                                color: selectedCategory === cat ? 'white' : '#374151',
+                                padding: '8px 20px',
+                                whiteSpace: 'nowrap',
+                                borderRadius: '50px',
+                                background: selectedCategory === cat ? 'red' : '#F3F4F6',
+                                color: selectedCategory === cat ? 'white' : 'black',
+                                border: 'none',
+                                fontWeight: 800,
+                                fontSize: '13px'
                             }}
                         >
                             {cat}
                         </button>
                     ))}
                 </div>
+            </div>
 
-                <div className="ml-auto flex gap-2 items-center mobile-hide">
-                    <span className="text-sm text-gray-400 font-bold">
-                        {filtered.length} résultats
-                    </span>
-                    <button
-                        onClick={() => setIsFullMap(!isFullMap)}
-                        className="px-4 py-2 rounded-lg border border-gray-200 font-bold text-sm bg-white hover:bg-gray-50 flex items-center gap-2"
-                        style={{
-                            background: isFullMap ? '#111827' : 'white',
-                            color: isFullMap ? 'white' : '#374151',
-                        }}
-                    >
-                        <MapPin size={14} /> {isFullMap ? 'Masquer' : 'Carte'}
-                    </button>
+            <div style={{ padding: '20px' }}>
+                <h2 style={{ fontSize: '1.4rem', fontWeight: 900, marginBottom: '20px' }}>
+                    {filtered.length} résultats trouvés
+                </h2>
+
+                <div className="cards-grid">
+                    {filtered.map(b => (
+                        <Link to={`/business/${b.id}`} key={b.id} style={{ display: 'flex', gap: '15px', textDecoration: 'none', color: 'inherit', borderBottom: '1px solid #EEE', paddingBottom: '15px', marginBottom: '15px' }}>
+                            <img src={b.image} alt={b.name} style={{ width: '100px', height: '100px', objectFit: 'cover', borderRadius: '12px' }} />
+                            <div>
+                                <h3 style={{ fontSize: '1.1rem', fontWeight: 800 }}>{b.name}</h3>
+                                <div style={{ display: 'flex', gap: '2px', color: 'red', margin: '4px 0' }}>
+                                    {[...Array(5)].map((_, i) => <Star key={i} size={11} fill={i < Math.floor(b.rating) ? 'red' : 'none'} />)}
+                                </div>
+                                <div style={{ fontSize: '12px', fontWeight: 600, color: '#666' }}>
+                                    <MapPin size={10} /> {b.location}
+                                </div>
+                                <div style={{ fontSize: '12px', fontWeight: 900, color: 'green', marginTop: '6px' }}>{b.price} • {b.category}</div>
+                            </div>
+                        </Link>
+                    ))}
                 </div>
             </div>
 
-            {/* Main Content */}
-            <div className="flex flex-1 overflow-hidden relative">
-                {/* Liste des résultats */}
-                <div
-                    className={`overflow-y-auto transition-all duration-300 p-4 md-p-6 ${viewMode === 'map' ? 'mobile-hide' : 'w-full'} ${isFullMap ? 'md-hidden' : 'md-w-50'}`}
-                >
-                    <h1 className="text-xl md-text-2xl font-extrabold mb-6 text-gray-900 leading-tight">
-                        {selectedCity === 'Toutes' ? 'Établissements au Sénégal' : `Établissements à ${selectedCity}`}
-                    </h1>
-
-                    {filtered.length === 0 && (
-                        <div className="text-center py-20 text-gray-400">
-                            <MapPin size={48} className="mx-auto mb-4 opacity-20" />
-                            <p className="font-bold">Aucun résultat trouvé</p>
-                            <p className="text-sm">Essayez d'autres filtres</p>
-                        </div>
-                    )}
-
-                    <div className="flex flex-col gap-4">
-                        {filtered.map((business, idx) => (
-                            <motion.div
-                                key={business.id}
-                                initial={{ opacity: 0, y: 15 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: idx * 0.05 }}
-                                onClick={() => {
-                                    setSelectedBusiness(business);
-                                    if (window.innerWidth < 768) setViewMode('map');
-                                }}
-                                className={`flex gap-3 md-gap-4 bg-white rounded-2xl overflow-hidden border transition-all cursor-pointer ${selectedBusiness?.id === business.id ? 'border-primary ring-4 ring-primary/10' : 'border-gray-100 shadow-sm hover:shadow-md'}`}
-                            >
-                                {/* Image */}
-                                <div className="w-24 md-w-40 shrink-0 relative overflow-hidden h-24 md-h-auto">
-                                    <img
-                                        src={business.image}
-                                        alt={business.name}
-                                        className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
-                                    />
-                                    {business.featured && (
-                                        <div className="absolute top-2 left-2 bg-accent text-[0.6rem] font-black uppercase px-1.5 py-0.5 rounded shadow-sm text-gray-900">
-                                            Elite
-                                        </div>
-                                    )}
-                                </div>
-
-                                {/* Info */}
-                                <div className="flex-1 py-3 pr-3 md-py-4 md-pr-4">
-                                    <div className="flex justify-between items-start mb-1">
-                                        <Link to={`/business/${business.id}`} className="text-base md-text-lg font-extrabold text-gray-900 hover:text-primary transition-colors" onClick={e => e.stopPropagation()}>
-                                            {business.name}
-                                        </Link>
-                                    </div>
-
-                                    <div className="flex items-center gap-1.5 mb-2">
-                                        <div className="flex text-primary">
-                                            {[...Array(5)].map((_, i) => (
-                                                <Star key={i} size={12} fill={i < Math.floor(business.rating) ? 'currentColor' : 'none'} className={i < Math.floor(business.rating) ? '' : 'text-gray-200'} />
-                                            ))}
-                                        </div>
-                                        <span className="text-xs font-bold text-gray-500">{business.rating}</span>
-                                    </div>
-
-                                    <div className="flex items-center gap-3 text-xs text-gray-400 mb-2 font-medium">
-                                        <div className="flex items-center gap-1">
-                                            <MapPin size={12} className="text-primary" /> {business.location}
-                                        </div>
-                                    </div>
-
-                                    <p className="hidden md-block text-gray-500 text-sm line-clamp-2 mb-3 leading-relaxed">
-                                        {business.description}
-                                    </p>
-
-                                    <div className="flex items-center justify-between mt-auto">
-                                        <div className="flex gap-2">
-                                            {business.tags.slice(0, 2).map(tag => (
-                                                <span key={tag} className="text-[0.65rem] font-bold uppercase tracking-tight bg-gray-50 text-gray-400 px-2 py-0.5 rounded">
-                                                    {tag}
-                                                </span>
-                                            ))}
-                                        </div>
-                                        <a href={getDirectionsUrl(business)} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()} className="md-hidden w-8 h-8 flex items-center justify-center bg-secondary text-white rounded-full shadow-lg">
-                                            <Navigation size={14} />
-                                        </a>
-                                    </div>
-                                </div>
-                            </motion.div>
-                        ))}
-                    </div>
-                </div>
-
-                {/* Carte Interactive */}
-                <div className={`flex-1 sticky top-0 h-full transition-all duration-300 z-10 ${viewMode === 'list' ? 'mobile-hide' : 'w-full'}`}>
-                    <MapView
-                        businesses={filtered}
-                        selectedBusiness={selectedBusiness}
-                        onSelectBusiness={setSelectedBusiness}
-                    />
-                </div>
-
-                {/* Mobile View Toggle Button */}
-                <button
-                    onClick={() => setViewMode(viewMode === 'list' ? 'map' : 'list')}
-                    className="md-hidden fixed bottom-24 left-1/2 -translate-x-1/2 z-[60] bg-gray-900 border-2 border-white/20 text-white px-8 py-4 rounded-full font-black uppercase tracking-widest shadow-[0_10px_25px_rgba(0,0,0,0.3)] flex items-center gap-3 active:scale-95 transition-all w-max whitespace-nowrap"
-                >
-                    {viewMode === 'list' ? <><MapPin size={22} className="text-accent" /> Voir la carte</> : <><Filter size={22} className="text-accent" /> Voir la liste</>}
-                </button>
-            </div>
+            {/* View toggle */}
+            <button
+                onClick={() => setViewMode(viewMode === 'list' ? 'map' : 'list')}
+                style={{
+                    position: 'fixed', bottom: '90px', left: '50%', transform: 'translateX(-50%)',
+                    background: '#111', color: 'white', padding: '12px 30px', borderRadius: '50px',
+                    fontWeight: 900, display: 'flex', alignItems: 'center', gap: '8px', zIndex: 1000
+                }}
+            >
+                <Filter size={18} /> {viewMode === 'list' ? 'CARTE' : 'LISTE'}
+            </button>
         </div>
     );
 };
