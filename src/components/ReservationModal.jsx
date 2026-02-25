@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { X, Calendar, Users, Clock, CreditCard, CheckCircle, Info } from 'lucide-react';
+import React, { useState } from 'react';
+import { X, Calendar, Users, Clock, CreditCard, CheckCircle, Info, ChevronRight, Wallet } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const ReservationModal = ({ isOpen, onClose, business }) => {
@@ -12,18 +12,17 @@ const ReservationModal = ({ isOpen, onClose, business }) => {
     });
 
     // Simulated prices
-    const isHotel = business.category === 'Hôtels';
-    const isRestaurant = business.category === 'Restaurants';
+    const isHotel = business?.category === 'Hôtels';
 
     // Extract base price from string like "180 000 - 400 000 FCFA" or default
     const extractPrice = (priceStr) => {
         if (!priceStr) return isHotel ? 50000 : 15000;
-        const matches = priceStr.match(/(\d+[\s\d]*)/);
+        const matches = String(priceStr).match(/(\d+[\s\d]*)/);
         return matches ? parseInt(matches[0].replace(/\s/g, '')) : (isHotel ? 50000 : 15000);
     };
 
-    const basePrice = extractPrice(business.price);
-    const totalPrice = isHotel ? basePrice * (formData.people || 1) : basePrice * (formData.people || 1);
+    const basePrice = business ? extractPrice(business.price) : 0;
+    const totalPrice = basePrice * (formData.people || 1);
     const depositAmount = Math.round(totalPrice * 0.15);
 
     const handleConfirmInfo = (e) => {
@@ -35,179 +34,334 @@ const ReservationModal = ({ isOpen, onClose, business }) => {
         setStep(3);
     };
 
-    if (!isOpen) return null;
+    if (!isOpen || !business) return null;
+
+    // --- STYLES EN LIGNE (Vanilla Premium) ---
+    const overlayStyle = {
+        position: 'fixed',
+        inset: 0,
+        backgroundColor: 'rgba(0, 0, 0, 0.65)',
+        backdropFilter: 'blur(8px)',
+        zIndex: 9999,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '20px'
+    };
+
+    const modalStyle = {
+        backgroundColor: 'white',
+        width: '100%',
+        maxWidth: '500px',
+        borderRadius: '24px',
+        overflow: 'hidden',
+        boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+        display: 'flex',
+        flexDirection: 'column',
+        maxHeight: '90vh'
+    };
+
+    const headerStyle = {
+        position: 'relative',
+        backgroundColor: '#111',
+        color: 'white',
+        padding: '25px',
+        overflow: 'hidden'
+    };
+
+    const headerBgStyle = {
+        position: 'absolute',
+        inset: 0,
+        background: 'linear-gradient(135deg, rgba(227, 27, 35, 0.2) 0%, rgba(0,0,0,0) 100%)',
+        zIndex: 0
+    };
+
+    const inputGroupStyle = {
+        position: 'relative',
+        marginBottom: '20px'
+    };
+
+    const labelStyle = {
+        display: 'block',
+        fontSize: '12px',
+        fontWeight: 900,
+        textTransform: 'uppercase',
+        letterSpacing: '1px',
+        color: '#666',
+        marginBottom: '8px'
+    };
+
+    const inputWrapperStyle = {
+        position: 'relative',
+        display: 'flex',
+        alignItems: 'center',
+        backgroundColor: '#F3F4F6',
+        borderRadius: '16px',
+        border: '2px solid transparent',
+        transition: 'all 0.3s ease',
+        overflow: 'hidden'
+    };
+
+    const inputIconStyle = {
+        position: 'absolute',
+        left: '16px',
+        color: 'var(--primary)',
+        zIndex: 2
+    };
+
+    const inputFieldStyle = {
+        width: '100%',
+        padding: '16px 16px 16px 50px',
+        backgroundColor: 'transparent',
+        border: 'none',
+        outline: 'none',
+        fontSize: '16px',
+        fontWeight: 800,
+        color: '#111'
+    };
+
+    const paymentButtonStyle = (color) => ({
+        padding: '20px',
+        border: `2px solid #EEE`,
+        borderRadius: '20px',
+        backgroundColor: 'white',
+        cursor: 'pointer',
+        transition: 'all 0.3s ease',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: '10px'
+    });
 
     return (
         <AnimatePresence>
-            <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+            <div style={overlayStyle}>
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     onClick={onClose}
-                    className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+                    style={{ position: 'absolute', inset: 0 }}
                 />
 
                 <motion.div
-                    initial={{ scale: 0.9, opacity: 0, y: 20 }}
+                    initial={{ scale: 0.95, opacity: 0, y: 20 }}
                     animate={{ scale: 1, opacity: 1, y: 0 }}
-                    exit={{ scale: 0.9, opacity: 0, y: 20 }}
-                    className="relative bg-white w-full max-w-lg rounded-3xl overflow-hidden shadow-2xl"
+                    exit={{ scale: 0.95, opacity: 0, y: 20 }}
+                    style={modalStyle}
                 >
                     {/* Header */}
-                    <div className="bg-gray-900 p-6 text-white flex justify-between items-center relative overflow-hidden">
-                        <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20"></div>
-                        <div className="relative z-10">
-                            <h2 className="text-xl font-black uppercase tracking-widest leading-none mb-1">
-                                {isHotel ? 'Réservation de Chambre' : 'Réservation de Table'}
-                            </h2>
-                            <p className="text-gray-400 text-xs font-bold truncate max-w-[250px]">{business.name}</p>
+                    <div style={headerStyle}>
+                        <div style={headerBgStyle}></div>
+                        <div style={{ position: 'relative', zIndex: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                            <div>
+                                <h2 style={{ fontSize: '20px', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '4px', lineHeight: 1.2 }}>
+                                    {isHotel ? 'Réserver une chambre' : 'Demande de table'}
+                                </h2>
+                                <p style={{ color: '#AAA', fontSize: '14px', fontWeight: 600, margin: 0 }}>
+                                    {business.name}
+                                </p>
+                            </div>
+                            <button
+                                onClick={onClose}
+                                style={{ background: 'rgba(255,255,255,0.1)', border: 'none', borderRadius: '50%', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', cursor: 'pointer' }}
+                            >
+                                <X size={20} />
+                            </button>
                         </div>
-                        <button onClick={onClose} className="relative z-10 bg-white/10 p-2 rounded-full hover:bg-white/20 transition-all">
-                            <X size={20} />
-                        </button>
                     </div>
 
-                    <div className="p-8">
+                    {/* Scrollable Body */}
+                    <div style={{ padding: '30px', overflowY: 'auto', flex: 1, backgroundColor: 'white' }}>
+
                         {step === 1 && (
-                            <form onSubmit={handleConfirmInfo} className="space-y-6">
-                                <div className="grid grid-cols-2 gap-4">
-                                    <div className="col-span-2">
-                                        <label className="block text-xs font-black uppercase tracking-widest text-gray-400 mb-2">Date {isHotel ? "d'arrivée" : ""}</label>
-                                        <div className="relative group">
-                                            <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 text-primary" size={20} />
+                            <form onSubmit={handleConfirmInfo}>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+
+                                    <div style={inputGroupStyle}>
+                                        <label style={labelStyle}>Date {isHotel ? "d'arrivée" : ""}</label>
+                                        <div style={inputWrapperStyle} className="input-focus-ring">
+                                            <Calendar size={20} style={inputIconStyle} />
                                             <input
                                                 type="date"
                                                 required
-                                                className="w-full pl-12 pr-4 py-4 bg-gray-50 border-2 border-transparent rounded-2xl focus:border-primary/50 focus:bg-white outline-none font-bold transition-all"
+                                                style={inputFieldStyle}
                                                 onChange={(e) => setFormData({ ...formData, date: e.target.value })}
                                             />
                                         </div>
                                     </div>
 
                                     {isHotel ? (
-                                        <div className="col-span-2">
-                                            <label className="block text-xs font-black uppercase tracking-widest text-gray-400 mb-2">Date de départ</label>
-                                            <div className="relative group">
-                                                <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 text-primary" size={20} />
+                                        <div style={inputGroupStyle}>
+                                            <label style={labelStyle}>Date de départ</label>
+                                            <div style={inputWrapperStyle} className="input-focus-ring">
+                                                <Calendar size={20} style={inputIconStyle} />
                                                 <input
                                                     type="date"
                                                     required
-                                                    className="w-full pl-12 pr-4 py-4 bg-gray-50 border-2 border-transparent rounded-2xl focus:border-primary/50 focus:bg-white outline-none font-bold transition-all"
+                                                    style={inputFieldStyle}
                                                     onChange={(e) => setFormData({ ...formData, endDate: e.target.value })}
                                                 />
                                             </div>
                                         </div>
                                     ) : (
-                                        <div className="col-span-1">
-                                            <label className="block text-xs font-black uppercase tracking-widest text-gray-400 mb-2">Heure</label>
-                                            <div className="relative group">
-                                                <Clock className="absolute left-4 top-1/2 -translate-y-1/2 text-primary" size={20} />
+                                        <div style={inputGroupStyle}>
+                                            <label style={labelStyle}>Heure d'arrivée</label>
+                                            <div style={inputWrapperStyle} className="input-focus-ring">
+                                                <Clock size={20} style={inputIconStyle} />
                                                 <input
                                                     type="time"
+                                                    required
                                                     defaultValue="20:00"
-                                                    className="w-full pl-12 pr-4 py-4 bg-gray-50 border-2 border-transparent rounded-2xl focus:border-primary/50 focus:bg-white outline-none font-bold transition-all"
+                                                    style={inputFieldStyle}
                                                     onChange={(e) => setFormData({ ...formData, time: e.target.value })}
                                                 />
                                             </div>
                                         </div>
                                     )}
 
-                                    <div className={isHotel ? "col-span-2" : "col-span-1"}>
-                                        <label className="block text-xs font-black uppercase tracking-widest text-gray-400 mb-2">{isHotel ? "Chambres / Voyageurs" : "Personnes"}</label>
-                                        <div className="relative group">
-                                            <Users className="absolute left-4 top-1/2 -translate-y-1/2 text-primary" size={20} />
+                                    <div style={inputGroupStyle}>
+                                        <label style={labelStyle}>{isHotel ? "Nombre de Chambres" : "Nombre de Personnes"}</label>
+                                        <div style={inputWrapperStyle} className="input-focus-ring">
+                                            <Users size={20} style={inputIconStyle} />
                                             <input
                                                 type="number"
                                                 min="1"
+                                                required
                                                 defaultValue="2"
-                                                className="w-full pl-12 pr-4 py-4 bg-gray-50 border-2 border-transparent rounded-2xl focus:border-primary/50 focus:bg-white outline-none font-bold transition-all"
+                                                style={inputFieldStyle}
                                                 onChange={(e) => setFormData({ ...formData, people: parseInt(e.target.value) || 1 })}
                                             />
                                         </div>
                                     </div>
                                 </div>
 
-                                <div className="bg-primary/5 border border-primary/10 rounded-2xl p-5">
-                                    <div className="flex justify-between items-center mb-2">
-                                        <span className="text-gray-500 font-bold text-sm">Estimation totale</span>
-                                        <span className="font-extrabold text-gray-900">{totalPrice.toLocaleString()} FCFA</span>
+                                <div style={{ backgroundColor: 'rgba(227, 27, 35, 0.05)', borderRadius: '20px', padding: '20px', border: '1px solid rgba(227, 27, 35, 0.1)', margin: '20px 0 30px 0' }}>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+                                        <span style={{ color: '#555', fontSize: '14px', fontWeight: 800 }}>Estimation totale</span>
+                                        <span style={{ fontWeight: 900, color: '#111', fontSize: '16px' }}>{totalPrice.toLocaleString()} FCFA</span>
                                     </div>
-                                    <div className="flex justify-between items-center text-primary">
-                                        <span className="font-black text-xs uppercase tracking-widest">Acompte requis (15%)</span>
-                                        <span className="font-black text-xl">{depositAmount.toLocaleString()} FCFA</span>
+                                    <hr style={{ border: 'none', borderTop: '1px dashed rgba(227, 27, 35, 0.2)', margin: '10px 0' }} />
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: 'var(--primary)' }}>
+                                        <span style={{ fontSize: '13px', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '1px' }}>Acompte requis (15%)</span>
+                                        <span style={{ fontWeight: 900, fontSize: '22px' }}>{depositAmount.toLocaleString()} FCFA</span>
                                     </div>
                                 </div>
 
-                                <button type="submit" className="w-full py-5 bg-primary text-white rounded-2xl font-black uppercase tracking-[0.2em] shadow-xl shadow-primary/30 hover:shadow-primary/40 hover:-translate-y-1 transition-all active:scale-95">
-                                    Suivant
+                                <button
+                                    type="submit"
+                                    className="btn-primary"
+                                    style={{ width: '100%', padding: '20px', borderRadius: '16px', fontSize: '16px', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '2px', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '10px' }}
+                                >
+                                    Valider et Payer <ChevronRight size={20} />
                                 </button>
                             </form>
                         )}
 
                         {step === 2 && (
-                            <div className="space-y-8 text-center">
-                                <div className="flex justify-center">
-                                    <div className="w-20 h-20 bg-accent/20 rounded-full flex items-center justify-center text-accent animate-pulse">
-                                        <CreditCard size={40} />
-                                    </div>
+                            <div style={{ textAlign: 'center', padding: '10px 0' }}>
+                                <div style={{ width: '80px', height: '80px', backgroundColor: 'rgba(242, 169, 0, 0.1)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px auto', color: 'var(--secondary)' }}>
+                                    <Wallet size={40} />
                                 </div>
-                                <div className="space-y-2">
-                                    <h3 className="text-2xl font-black text-gray-900">Paiement de l'acompte</h3>
-                                    <p className="text-gray-500 font-medium italic">Veuillez finaliser le paiement de <b>{depositAmount.toLocaleString()} FCFA</b> via Orange Money ou Wave pour confirmer.</p>
+                                <h3 style={{ fontSize: '24px', fontWeight: 900, color: '#111', marginBottom: '10px' }}>Paiement de l'acompte</h3>
+                                <p style={{ color: '#666', fontSize: '15px', lineHeight: 1.5, marginBottom: '30px', fontWeight: 500 }}>
+                                    Le montant à régler pour confirmer votre réservation est de <br />
+                                    <strong style={{ color: '#111', fontSize: '18px', fontWeight: 900 }}>{depositAmount.toLocaleString()} FCFA</strong>.
+                                </p>
+
+                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', marginBottom: '30px' }}>
+                                    <button
+                                        onClick={handlePayment}
+                                        style={paymentButtonStyle('#FF7900')}
+                                        onMouseOver={(e) => { e.currentTarget.style.borderColor = '#FF7900'; e.currentTarget.style.backgroundColor = 'rgba(255, 121, 0, 0.05)'; }}
+                                        onMouseOut={(e) => { e.currentTarget.style.borderColor = '#EEE'; e.currentTarget.style.backgroundColor = 'white'; }}
+                                    >
+                                        <div style={{ width: '100%', padding: '15px 0', backgroundColor: '#FF7900', borderRadius: '12px', color: 'white', fontWeight: 900, fontSize: '14px', textTransform: 'uppercase', letterSpacing: '1px' }}>
+                                            Orange
+                                        </div>
+                                        <span style={{ color: '#111', fontWeight: 800, fontSize: '13px' }}>Payer</span>
+                                    </button>
+
+                                    <button
+                                        onClick={handlePayment}
+                                        style={paymentButtonStyle('#1ca1ff')}
+                                        onMouseOver={(e) => { e.currentTarget.style.borderColor = '#1ca1ff'; e.currentTarget.style.backgroundColor = 'rgba(28, 161, 255, 0.05)'; }}
+                                        onMouseOut={(e) => { e.currentTarget.style.borderColor = '#EEE'; e.currentTarget.style.backgroundColor = 'white'; }}
+                                    >
+                                        <div style={{ width: '100%', padding: '15px 0', backgroundColor: '#1ca1ff', borderRadius: '12px', color: 'white', fontWeight: 900, fontSize: '14px', textTransform: 'uppercase', letterSpacing: '1px' }}>
+                                            Wave
+                                        </div>
+                                        <span style={{ color: '#111', fontWeight: 800, fontSize: '13px' }}>Payer</span>
+                                    </button>
                                 </div>
 
-                                <div className="grid grid-cols-2 gap-4">
-                                    <button onClick={handlePayment} className="p-4 border-2 border-gray-100 rounded-2xl hover:border-[#FF7900] hover:bg-[#FF7900]/5 transition-all group">
-                                        <div className="w-full aspect-video bg-[#FF7900] rounded-lg mb-2 flex items-center justify-center font-black text-xs text-white uppercase tracking-widest shadow-inner">Orange Money</div>
-                                        <span className="text-black font-bold text-sm">Sélectionner</span>
-                                    </button>
-                                    <button onClick={handlePayment} className="p-4 border-2 border-gray-100 rounded-2xl hover:border-[#1ca1ff] hover:bg-[#1ca1ff]/5 transition-all group">
-                                        <div className="w-full aspect-video bg-[#1ca1ff] rounded-lg mb-2 flex items-center justify-center font-black text-xs text-white uppercase tracking-widest shadow-inner">Wave</div>
-                                        <span className="text-black font-bold text-sm">Sélectionner</span>
-                                    </button>
-                                </div>
-
-                                <div className="flex items-center gap-3 text-xs text-gray-400 bg-gray-50 p-4 rounded-xl border border-gray-100">
-                                    <Info size={16} className="shrink-0" />
-                                    <p className="text-left leading-relaxed">Le paiement est sécurisé par <b>Sen-Pay</b>. L'acompte de 15% est déductible du montant final lors de votre passage.</p>
+                                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', padding: '15px', backgroundColor: '#F9FAFB', borderRadius: '12px', border: '1px solid #EEE' }}>
+                                    <Info size={18} color="#999" style={{ flexShrink: 0, marginTop: '2px' }} />
+                                    <p style={{ margin: 0, textAlign: 'left', fontSize: '12px', color: '#666', lineHeight: 1.5, fontWeight: 500 }}>
+                                        Paiement sécurisé. Cet acompte garantit votre place et sera déduit de votre facture finale sur place.
+                                    </p>
                                 </div>
                             </div>
                         )}
 
                         {step === 3 && (
-                            <div className="space-y-8 text-center py-6">
+                            <div style={{ textAlign: 'center', padding: '20px 0' }}>
                                 <motion.div
                                     initial={{ scale: 0 }}
                                     animate={{ scale: 1 }}
-                                    className="flex justify-center"
+                                    transition={{ type: 'spring', bounce: 0.5 }}
+                                    style={{ display: 'flex', justifyContent: 'center', marginBottom: '25px' }}
                                 >
-                                    <div className="w-24 h-24 bg-green-500 rounded-full flex items-center justify-center text-white shadow-2xl shadow-green-200">
-                                        <CheckCircle size={56} />
+                                    <div style={{ width: '100px', height: '100px', backgroundColor: '#10B981', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', boxShadow: '0 10px 30px rgba(16, 185, 129, 0.3)' }}>
+                                        <CheckCircle size={50} />
                                     </div>
                                 </motion.div>
-                                <div className="space-y-3">
-                                    <h3 className="text-3xl font-black text-gray-900 leading-tight">Confirmation <br /><span className="text-green-500">Réussie !</span></h3>
-                                    <p className="text-gray-500 font-medium">Votre demande a été transmise à <b>{business.name}</b>. Un SMS de confirmation vous a été envoyé.</p>
-                                </div>
-                                <div className="bg-gray-50 border-2 border-dashed border-gray-200 rounded-3xl p-6">
-                                    <div className="flex justify-between items-center text-xs font-black uppercase tracking-widest text-gray-400 mb-4">
-                                        <span>Reçu de réservation</span>
-                                        <span>#YA-{Math.floor(Math.random() * 90000 + 10000)}</span>
+
+                                <h3 style={{ fontSize: '28px', fontWeight: 900, color: '#111', marginBottom: '10px' }}>C'est validé !</h3>
+                                <p style={{ color: '#666', fontSize: '15px', lineHeight: 1.5, marginBottom: '30px', fontWeight: 500 }}>
+                                    Votre réservation chez <strong style={{ color: '#111' }}>{business.name}</strong> est confirmée. Vous allez recevoir un SMS avec votre reçu.
+                                </p>
+
+                                <div style={{ backgroundColor: '#F9FAFB', border: '2px dashed #E5E7EB', borderRadius: '24px', padding: '25px', marginBottom: '30px' }}>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+                                        <span style={{ fontSize: '11px', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '1px', color: '#888' }}>Numéro de reçu</span>
+                                        <span style={{ fontSize: '14px', fontWeight: 900, color: '#111' }}>#YA-{Math.floor(Math.random() * 90000 + 10000)}</span>
                                     </div>
-                                    <div className="space-y-2 text-left">
-                                        <div className="flex justify-between font-bold"><span className="text-gray-400">Date :</span> <span>{formData.date}</span></div>
-                                        <div className="flex justify-between font-bold"><span className="text-gray-400">Acompte :</span> <span className="text-primary">{depositAmount.toLocaleString()} FCFA</span></div>
+                                    <hr style={{ border: 'none', borderTop: '1px solid #EEE', margin: '0 0 15px 0' }} />
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', textAlign: 'left' }}>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '14px' }}>
+                                            <span style={{ color: '#666', fontWeight: 700 }}>Date prévue</span>
+                                            <span style={{ color: '#111', fontWeight: 800 }}>{formData.date}</span>
+                                        </div>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '14px' }}>
+                                            <span style={{ color: '#666', fontWeight: 700 }}>Acompte réglé</span>
+                                            <span style={{ color: 'var(--primary)', fontWeight: 900 }}>{depositAmount.toLocaleString()} FCFA</span>
+                                        </div>
                                     </div>
                                 </div>
-                                <button onClick={onClose} className="w-full py-5 bg-gray-900 text-white rounded-2xl font-black uppercase tracking-widest shadow-xl hover:bg-black transition-all">
-                                    Fermer
+
+                                <button
+                                    onClick={onClose}
+                                    style={{ width: '100%', padding: '20px', backgroundColor: '#111', color: 'white', borderRadius: '16px', fontSize: '16px', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '2px', border: 'none', cursor: 'pointer' }}
+                                >
+                                    Retourner à l'accueil
                                 </button>
                             </div>
                         )}
+
                     </div>
                 </motion.div>
             </div>
+
+            <style>
+                {`
+                .input-focus-ring:focus-within {
+                    border-color: var(--primary) !important;
+                    background-color: white !important;
+                    box-shadow: 0 0 0 4px rgba(227, 27, 35, 0.1);
+                }
+                `}
+            </style>
         </AnimatePresence>
     );
 };
