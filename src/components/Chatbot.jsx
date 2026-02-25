@@ -57,12 +57,22 @@ const Chatbot = () => {
             'luxe': ['palace', 'chic', 'premium', 'étoiles', 'plus cher', 'haut de gamme'],
             'pas cher': ['économique', 'abordable', 'bon marché', 'moins cher', 'budget'],
             'mer': ['plage', 'vue', 'océan', 'corniche', 'eau'],
+            'famille': ['enfant', 'enfants', 'familial', 'tranquille'],
+            'romantique': ['couple', 'amoureux', 'intime', 'charme', 'date'],
+            'affaires': ['travail', 'réunion', 'wifi', 'calme', 'pro', 'coworking', 'conférence'],
+            'rapide': ['fast', 'express', 'sur le pouce', 'dibi', 'pizza', 'sandwich']
         };
 
         // Price Intent Detection
         const wantCheap = q.includes('moins cher') || q.includes('pas cher') || q.includes('abordable') || q.includes('budget') || q.includes('économique');
         const wantExpensive = q.includes('plus cher') || q.includes('luxe') || q.includes('palace');
         const wantCompare = q.includes('comparer') || q.includes('prix') || q.includes('comparaison');
+
+        // Context / Vibe Intent Detection
+        const wantFamily = q.includes('famille') || q.includes('enfant');
+        const wantRomantic = q.includes('romantique') || q.includes('couple') || q.includes('amoureux');
+        const wantBusiness = q.includes('affaire') || q.includes('travail') || q.includes('wifi') || q.includes('pro');
+        const wantFast = q.includes('rapide') || q.includes('vite');
 
         // Inject synonyms into the search query
         Object.keys(synonyms).forEach(key => {
@@ -106,6 +116,14 @@ const Chatbot = () => {
         let customMessage = null;
         if (results.length > 1 && wantCompare) {
             customMessage = `Voici une comparaison des options. Les prix varient de ${results[results.length - 1].price} à ${results[0].price} :`;
+        } else if (results.length > 0 && wantRomantic) {
+            customMessage = "Voici des adresses pleines de charme, parfaites pour une sortie en amoureux :";
+        } else if (results.length > 0 && wantFamily) {
+            customMessage = "Voici de superbes recommandations, adaptées pour une sortie en famille :";
+        } else if (results.length > 0 && wantBusiness) {
+            customMessage = "Voici d'excellentes options pour vos rendez-vous professionnels ou pour travailler au calme :";
+        } else if (results.length > 0 && wantFast) {
+            customMessage = "Si vous êtes pressé, voici des endroits parfaits pour faire vite et bien :";
         } else if (results.length > 0 && wantCheap) {
             customMessage = "Voici les meilleures options économiques que j'ai pu trouver :";
         } else if (results.length > 0 && wantExpensive) {
