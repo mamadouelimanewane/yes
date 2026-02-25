@@ -64,23 +64,34 @@ const SearchResults = () => {
                     {filtered.length} résultats trouvés
                 </h2>
 
-                <div className="cards-grid">
-                    {filtered.map(b => (
-                        <Link to={`/business/${b.id}`} key={b.id} style={{ display: 'flex', gap: '15px', textDecoration: 'none', color: 'inherit', borderBottom: '1px solid #EEE', paddingBottom: '15px', marginBottom: '15px' }}>
-                            <img src={b.image} alt={b.name} style={{ width: '100px', height: '100px', objectFit: 'cover', borderRadius: '12px' }} />
-                            <div>
-                                <h3 style={{ fontSize: '1.1rem', fontWeight: 800 }}>{b.name}</h3>
-                                <div style={{ display: 'flex', gap: '2px', color: 'red', margin: '4px 0' }}>
-                                    {[...Array(5)].map((_, i) => <Star key={i} size={11} fill={i < Math.floor(b.rating) ? 'red' : 'none'} />)}
+                {viewMode === 'list' ? (
+                    <div className="cards-grid">
+                        {filtered.map(b => (
+                            <Link to={`/business/${b.id}`} key={b.id} className="card" style={{ display: 'flex', flexDirection: 'column', textDecoration: 'none', color: 'inherit', marginBottom: '15px' }}>
+                                <div style={{ position: 'relative' }}>
+                                    <img src={b.image} alt={b.name} className="card-img" />
+                                    <div style={{ position: 'absolute', top: '10px', right: '10px', background: 'var(--primary)', color: 'white', padding: '4px 8px', borderRadius: '4px', fontSize: '12px', fontWeight: 900 }}>
+                                        {Math.floor(b.rating)}.0
+                                    </div>
                                 </div>
-                                <div style={{ fontSize: '12px', fontWeight: 600, color: '#666' }}>
-                                    <MapPin size={10} /> {b.location}
+                                <div className="card-body">
+                                    <h3 style={{ fontSize: '1.2rem', fontWeight: 800 }}>{b.name}</h3>
+                                    <div style={{ display: 'flex', gap: '2px', color: 'var(--primary)', margin: '4px 0' }}>
+                                        {[...Array(5)].map((_, i) => <Star key={i} size={14} fill={i < Math.floor(b.rating) ? 'var(--primary)' : 'none'} />)}
+                                    </div>
+                                    <div style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-muted)' }}>
+                                        <MapPin size={12} /> {b.location}
+                                    </div>
+                                    <div style={{ fontSize: '13px', fontWeight: 900, color: 'var(--secondary)', marginTop: '6px' }}>{b.price} • {b.category}</div>
                                 </div>
-                                <div style={{ fontSize: '12px', fontWeight: 900, color: 'green', marginTop: '6px' }}>{b.price} • {b.category}</div>
-                            </div>
-                        </Link>
-                    ))}
-                </div>
+                            </Link>
+                        ))}
+                    </div>
+                ) : (
+                    <div style={{ height: 'calc(100vh - 200px)', borderRadius: 'var(--radius-lg)', overflow: 'hidden', border: '1px solid var(--border-color)' }}>
+                        <MapView businesses={filtered} selectedBusiness={selectedBusiness} onSelectBusiness={setSelectedBusiness} />
+                    </div>
+                )}
             </div>
 
             {/* View toggle */}
