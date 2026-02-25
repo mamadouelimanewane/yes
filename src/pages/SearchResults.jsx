@@ -10,12 +10,22 @@ const SearchResults = () => {
     const params = new URLSearchParams(location.search);
     const queryParam = params.get('q') || '';
     const cityParam = params.get('city') || 'Toutes';
+    const catParam = params.get('category') || 'Toutes';
+    const viewParam = params.get('view') || 'list';
 
     const [search] = useState(queryParam);
     const [selectedCity, setSelectedCity] = useState(cityParam);
-    const [selectedCategory, setSelectedCategory] = useState('Toutes');
+    const [selectedCategory, setSelectedCategory] = useState(catParam);
     const [selectedBusiness, setSelectedBusiness] = useState(null);
-    const [viewMode, setViewMode] = useState('list');
+    const [viewMode, setViewMode] = useState(viewParam);
+
+    // Sync state with URL params when they change
+    React.useEffect(() => {
+        const newParams = new URLSearchParams(location.search);
+        setSelectedCity(newParams.get('city') || 'Toutes');
+        setSelectedCategory(newParams.get('category') || 'Toutes');
+        setViewMode(newParams.get('view') || 'list');
+    }, [location.search]);
 
     const filtered = businesses.filter(b => {
         const matchSearch = !search || b.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -101,11 +111,13 @@ const SearchResults = () => {
                 onClick={() => setViewMode(viewMode === 'list' ? 'map' : 'list')}
                 style={{
                     position: 'fixed', bottom: '90px', left: '50%', transform: 'translateX(-50%)',
-                    background: '#111', color: 'white', padding: '12px 30px', borderRadius: '50px',
-                    fontWeight: 900, display: 'flex', alignItems: 'center', gap: '8px', zIndex: 1000
+                    background: '#111', color: 'white', padding: '14px 34px', borderRadius: '50px',
+                    fontWeight: 900, display: 'flex', alignItems: 'center', gap: '8px', zIndex: 1000,
+                    boxShadow: '0 10px 25px rgba(0,0,0,0.3)', border: 'none', cursor: 'pointer'
                 }}
             >
-                <Filter size={18} /> {viewMode === 'list' ? 'CARTE' : 'LISTE'}
+                {viewMode === 'list' ? <Navigation size={20} fill="white" /> : <SlidersHorizontal size={20} />}
+                {viewMode === 'list' ? 'VOIR LA CARTE' : 'VOIR LA LISTE'}
             </button>
         </div>
     );

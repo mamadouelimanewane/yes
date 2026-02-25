@@ -45,9 +45,21 @@ const Navbar = () => {
           <Link to="/pro/register" style={{ color: 'var(--primary)', fontWeight: 900 }}>Devenir Partenaire</Link>
           <Link to="/dashboard">Pro</Link>
         </div>
-        <div style={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
-          <Link to="/search" style={{ padding: '8px', display: 'flex', alignItems: 'center', gap: '4px', textDecoration: 'none', color: '#111', fontWeight: 800, fontSize: '14px' }}>
-            <MapPin size={20} color="var(--primary)" />
+        <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+          <Link to="/search?view=map" style={{
+            padding: '8px 16px',
+            background: 'var(--primary)',
+            borderRadius: '50px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '6px',
+            textDecoration: 'none',
+            color: 'white',
+            fontWeight: 900,
+            fontSize: '13px',
+            boxShadow: '0 4px 12px rgba(227, 27, 35, 0.2)'
+          }}>
+            <MapPin size={18} color="white" />
             <span>Map</span>
           </Link>
           <Link to="/search" style={{ padding: '8px', color: '#111' }}><Search size={22} /></Link>
@@ -68,9 +80,22 @@ const MobileNav = () => {
         <HomeIcon size={24} />
         <span>ACCUEIL</span>
       </Link>
-      <Link to="/search" className={`mobile-nav-item ${location.pathname === '/search' ? 'active' : ''}`}>
-        <Search size={24} />
-        <span>EXPLORER</span>
+      <Link to="/search?view=map" className={`mobile-nav-item ${location.search.includes('view=map') ? 'active' : ''}`} style={{ position: 'relative' }}>
+        <div style={{
+          background: 'var(--primary)',
+          color: 'white',
+          width: '42px',
+          height: '42px',
+          borderRadius: '12px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          boxShadow: '0 4px 15px rgba(227, 27, 35, 0.3)',
+          marginBottom: '4px'
+        }}>
+          <MapPin size={22} />
+        </div>
+        <span style={{ fontSize: '9px', fontWeight: 900 }}>CARTE</span>
       </Link>
 
       <div className="lexi-btn-container">
@@ -145,7 +170,7 @@ const Home = () => {
           {categories.map(cat => {
             const Icon = catIcons[cat.id];
             return (
-              <Link to={`/search?category=${cat.name}`} key={cat.id} className="category-item" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link to={`/search?category=${encodeURIComponent(cat.name)}`} key={cat.id} className="category-item" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <div className="category-icon">{Icon && <Icon size={24} />}</div>
                 <span style={{ fontSize: '10px', fontWeight: 900, textTransform: 'uppercase' }}>{cat.name}</span>
               </Link>
