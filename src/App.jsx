@@ -26,6 +26,7 @@ import Talk from './pages/Talk';
 import BusinessDashboard from './pages/BusinessDashboard';
 import BusinessRegister from './pages/BusinessRegister';
 import AdminDashboard from './pages/AdminDashboard';
+import Login from './pages/Login';
 import Chatbot from './components/Chatbot';
 import heroImage from './assets/hero.jpg';
 
@@ -169,6 +170,10 @@ const Home = () => {
 
 // --- APP ---
 function AppContent() {
+  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(
+    localStorage.getItem('isAdminAuthenticated') === 'true'
+  );
+
   return (
     <div className="min-h-screen">
       <Navbar />
@@ -180,7 +185,11 @@ function AppContent() {
           <Route path="/pro/register" element={<BusinessRegister />} />
           <Route path="/talk" element={<Talk />} />
           <Route path="/dashboard" element={<BusinessDashboard />} />
-          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/login" element={<Login setAuth={setIsAdminAuthenticated} />} />
+          <Route
+            path="/admin"
+            element={isAdminAuthenticated ? <AdminDashboard /> : <Login setAuth={setIsAdminAuthenticated} />}
+          />
         </Routes>
       </main>
       <MobileNav />
