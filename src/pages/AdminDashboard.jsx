@@ -23,7 +23,11 @@ import {
     Eye,
     Filter,
     AlertTriangle,
-    CheckCircle2
+    CheckCircle2,
+    Percent,
+    Tag,
+    ChevronDown,
+    Save
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { businesses } from '../data';
@@ -32,6 +36,12 @@ const AdminDashboard = () => {
     const [activeMenu, setActiveMenu] = useState('overview');
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
+    const [localBusinesses, setLocalBusinesses] = useState(businesses.map(b => ({
+        ...b,
+        commissionRate: b.commissionRate || 15,
+        promotion: b.promotion || null
+    })));
+    const [editingBusiness, setEditingBusiness] = useState(null);
 
     const stats = [
         { title: "Utilisateurs Actifs", value: "8,409", trend: "+14%", trendUp: true },
@@ -116,6 +126,83 @@ const AdminDashboard = () => {
 
             {/* Main Content */}
             <div className="flex-1 flex flex-col h-full overflow-hidden relative w-full">
+                {/* Modal Edition Commission/Promotion */}
+                <AnimatePresence>
+                    {editingBusiness && (
+                        <>
+                            <motion.div
+                                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                                className="fixed inset-0 bg-black/60 z-[60] backdrop-blur-sm"
+                                onClick={() => setEditingBusiness(null)}
+                            />
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                                animate={{ opacity: 1, scale: 1, y: 0 }}
+                                exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                                className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-lg bg-white rounded-3xl z-[70] shadow-2xl overflow-hidden"
+                            >
+                                <div className="p-8">
+                                    <div className="flex justify-between items-center mb-6">
+                                        <h3 className="text-xl font-black text-gray-900">Configurer {editingBusiness.name}</h3>
+                                        <button onClick={() => setEditingBusiness(null)} className="p-2 hover:bg-gray-100 rounded-full transition-colors"><X size={20} /></button>
+                                    </div>
+
+                                    <div className="space-y-6">
+                                        {/* Commission Rate */}
+                                        <div className="space-y-2">
+                                            <label className="text-xs font-black uppercase tracking-widest text-gray-400 flex items-center gap-2">
+                                                <Percent size={14} /> Taux de Commission (%)
+                                            </label>
+                                            <div className="relative">
+                                                <input
+                                                    type="number"
+                                                    value={editingBusiness.commissionRate}
+                                                    onChange={(e) => setEditingBusiness({ ...editingBusiness, commissionRate: parseInt(e.target.value) })}
+                                                    className="w-full bg-gray-50 border-2 border-transparent focus:border-primary/30 focus:bg-white p-4 rounded-2xl outline-none font-bold transition-all text-lg"
+                                                />
+                                                <div className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 font-bold">%</div>
+                                            </div>
+                                            <p className="text-[10px] text-gray-500 font-medium">Ce taux sera appliqué sur chaque transaction future pour ce client.</p>
+                                        </div>
+
+                                        {/* Promotion Management for Restaurants */}
+                                        {editingBusiness.category === 'Restaurants' && (
+                                            <div className="space-y-2">
+                                                <label className="text-xs font-black uppercase tracking-widest text-gray-400 flex items-center gap-2">
+                                                    <Tag size={14} /> Promotion en cours
+                                                </label>
+                                                <div className="relative">
+                                                    <input
+                                                        type="text"
+                                                        placeholder="Ex: -20% sur la carte"
+                                                        value={editingBusiness.promotion || ''}
+                                                        onChange={(e) => setEditingBusiness({ ...editingBusiness, promotion: e.target.value })}
+                                                        className="w-full bg-gray-50 border-2 border-transparent focus:border-primary/30 focus:bg-white p-4 rounded-2xl outline-none font-bold transition-all"
+                                                    />
+                                                </div>
+                                                <p className="text-[10px] text-gray-500 font-medium whitespace-pre-line">
+                                                    Laissez vide pour retirer la promotion.
+                                                    Apparaîtra sous forme de badge "Flash" sur l'application mobile.
+                                                </p>
+                                            </div>
+                                        )}
+
+                                        <button
+                                            onClick={() => {
+                                                setLocalBusinesses(localBusinesses.map(b => b.id === editingBusiness.id ? editingBusiness : b));
+                                                setEditingBusiness(null);
+                                            }}
+                                            className="w-full py-4 bg-gray-900 text-white rounded-2xl font-black uppercase tracking-widest text-sm shadow-xl hover:shadow-gray-900/20 active:scale-95 transition-all flex items-center justify-center gap-2"
+                                        >
+                                            <Save size={18} /> Appliquer les changements
+                                        </button>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        </>
+                    )}
+                </AnimatePresence>
+
                 {/* Topbar */}
                 <header className="bg-white border-b border-gray-200 h-20 shrink-0 flex items-center justify-between px-4 lg:px-8 z-10 shadow-sm">
                     <div className="flex items-center gap-4">
@@ -273,8 +360,8 @@ const AdminDashboard = () => {
                                             <tr className="bg-gray-50/80 border-b border-gray-100 text-sm">
                                                 <th className="p-4 font-bold text-gray-500 whitespace-nowrap">Établissement</th>
                                                 <th className="p-4 font-bold text-gray-500 whitespace-nowrap">Catégorie</th>
-                                                <th className="p-4 font-bold text-gray-500 whitespace-nowrap">Note Globale</th>
-                                                <th className="p-4 font-bold text-gray-500 whitespace-nowrap">Statut / Grade</th>
+                                                <th className="p-4 font-bold text-gray-500 whitespace-nowrap">Com. (%)</th>
+                                                <th className="p-4 font-bold text-gray-500 whitespace-nowrap">Promo Aktive</th>
                                                 <th className="p-4 font-bold text-gray-500 text-right whitespace-nowrap">Actions</th>
                                             </tr>
                                         </thead>
@@ -298,26 +385,25 @@ const AdminDashboard = () => {
                                                         <span className="bg-gray-100 text-gray-600 px-3 py-1 rounded-md text-[10px] font-black uppercase tracking-widest">{bus.category}</span>
                                                     </td>
                                                     <td className="p-4">
-                                                        <div className="flex items-center gap-1.5 font-bold text-gray-700 bg-gray-50 w-fit px-2 py-1 rounded-md border border-gray-200">
-                                                            <Star size={14} className="text-primary fill-primary" /> {bus.rating}
+                                                        <div className="flex items-center gap-2 font-black text-primary bg-primary/5 w-fit px-3 py-1 rounded-lg border border-primary/10">
+                                                            {bus.commissionRate}%
                                                         </div>
                                                     </td>
                                                     <td className="p-4">
-                                                        {bus.featured ? (
-                                                            <span className="inline-flex items-center gap-1 px-3 py-1 rounded-md text-[10px] font-black uppercase tracking-widest bg-green-100 text-green-700 border border-green-200">
-                                                                <CheckCircle2 size={12} /> Elite
+                                                        {bus.promotion ? (
+                                                            <span className="inline-flex items-center gap-1 px-3 py-1 rounded-md text-[10px] font-black uppercase tracking-widest bg-red-100 text-red-700 border border-red-200 animate-pulse">
+                                                                <Tag size={12} /> {bus.promotion}
                                                             </span>
                                                         ) : (
-                                                            <span className="inline-flex items-center gap-1 px-3 py-1 rounded-md text-[10px] font-black uppercase tracking-widest bg-gray-100 text-gray-600 border border-gray-200">
-                                                                Standard
-                                                            </span>
+                                                            <span className="text-[10px] font-bold text-gray-300">Aucune</span>
                                                         )}
                                                     </td>
                                                     <td className="p-4 text-right">
                                                         <div className="flex items-center justify-end gap-1 opacity-100 md:opacity-50 group-hover:opacity-100 transition-opacity">
-                                                            <button className="p-2 text-gray-400 hover:text-blue-500 hover:bg-blue-50 rounded-lg transition-colors" title="Voir la fiche"><Eye size={18} /></button>
+                                                            <button
+                                                                onClick={() => setEditingBusiness(bus)}
+                                                                className="p-2 text-gray-400 hover:text-primary hover:bg-primary/5 rounded-lg transition-colors" title="Fixer Taux & Promos"><Settings size={18} /></button>
                                                             <button className="p-2 text-gray-400 hover:text-green-500 hover:bg-green-50 rounded-lg transition-colors" title="Modifier"><Edit size={18} /></button>
-                                                            <button className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors" title="Supprimer"><Trash2 size={18} /></button>
                                                         </div>
                                                     </td>
                                                 </tr>
