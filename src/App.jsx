@@ -42,8 +42,12 @@ const Navbar = () => {
           <Link to="/talk">Talk</Link>
           <Link to="/dashboard">Pro</Link>
         </div>
-        <div style={{ display: 'flex', gap: '10px' }}>
-          <Link to="/search" style={{ padding: '8px' }}><Search size={22} /></Link>
+        <div style={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
+          <Link to="/search" style={{ padding: '8px', display: 'flex', alignItems: 'center', gap: '4px', textDecoration: 'none', color: '#111', fontWeight: 800, fontSize: '14px' }}>
+            <MapPin size={20} color="var(--primary)" />
+            <span>Map</span>
+          </Link>
+          <Link to="/search" style={{ padding: '8px', color: '#111' }}><Search size={22} /></Link>
         </div>
       </div>
     </nav>
