@@ -59,10 +59,12 @@ const SearchResults = () => {
                 </div>
             </div>
 
-            <div style={{ padding: '20px' }}>
-                <h2 style={{ fontSize: '1.4rem', fontWeight: 900, marginBottom: '20px' }}>
-                    {filtered.length} résultats trouvés
-                </h2>
+            <div style={{ padding: viewMode === 'list' ? '20px' : '0' }}>
+                {viewMode === 'list' && (
+                    <h2 style={{ fontSize: '1.4rem', fontWeight: 900, marginBottom: '20px' }}>
+                        {filtered.length} résultats trouvés
+                    </h2>
+                )}
 
                 {viewMode === 'list' ? (
                     <div className="cards-grid">
@@ -88,7 +90,7 @@ const SearchResults = () => {
                         ))}
                     </div>
                 ) : (
-                    <div style={{ height: 'calc(100vh - 200px)', borderRadius: 'var(--radius-lg)', overflow: 'hidden', border: '1px solid var(--border-color)' }}>
+                    <div style={{ height: 'calc(100vh - 130px)', width: '100vw', margin: '0', marginLeft: '-20px' }}>
                         <MapView businesses={filtered} selectedBusiness={selectedBusiness} onSelectBusiness={setSelectedBusiness} />
                     </div>
                 )}
