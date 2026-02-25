@@ -29,7 +29,13 @@ import {
     Zap,
     Download,
     Printer,
-    FileCheck
+    FileCheck,
+    Briefcase,
+    Phone,
+    Globe,
+    Calendar,
+    Image as ImageIcon,
+    Clock
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { businesses } from '../data';
@@ -45,6 +51,7 @@ const AdminDashboard = () => {
     })));
     const [editingBusiness, setEditingBusiness] = useState(null);
     const [viewingInvoice, setViewingInvoice] = useState(null);
+    const [selectedPartner, setSelectedPartner] = useState(null);
 
     const stats = [
         { title: "Utilisateurs Actifs", value: "8,409", trend: "+14%", trendUp: true },
@@ -316,6 +323,100 @@ const AdminDashboard = () => {
                     )}
                 </AnimatePresence>
 
+                {/* Modal Profil Complet du Partenaire */}
+                <AnimatePresence>
+                    {selectedPartner && (
+                        <>
+                            <motion.div
+                                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                                className="fixed inset-0 bg-black/60 z-[60] backdrop-blur-sm"
+                                onClick={() => setSelectedPartner(null)}
+                            />
+                            <motion.div
+                                initial={{ opacity: 0, x: 100 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: 100 }}
+                                className="fixed top-0 right-0 h-full w-full max-w-2xl bg-white z-[70] shadow-2xl flex flex-col"
+                            >
+                                <div className="p-8 overflow-y-auto flex-1">
+                                    <div className="flex justify-between items-start mb-10">
+                                        <div className="flex gap-6 items-center">
+                                            <img src={selectedPartner.image} className="w-24 h-24 rounded-3xl object-cover shadow-xl border-4 border-white" />
+                                            <div>
+                                                <h3 className="text-3xl font-black text-gray-900">{selectedPartner.name}</h3>
+                                                <p className="flex items-center gap-1 text-primary font-black uppercase tracking-widest text-xs mt-1">
+                                                    <Crown size={14} /> Partenaire {selectedPartner.featured ? 'Elite' : 'Standard'}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <button onClick={() => setSelectedPartner(null)} className="p-3 bg-gray-100 rounded-2xl hover:bg-gray-200 transition-colors"><X size={24} /></button>
+                                    </div>
+
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+                                        <div className="bg-gray-50 p-6 rounded-3xl border border-gray-100">
+                                            <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-4">Contact & Localisation</p>
+                                            <ul className="space-y-4">
+                                                <li className="flex items-center gap-3 text-sm font-bold text-gray-700">
+                                                    <div className="w-8 h-8 bg-white rounded-xl flex items-center justify-center text-primary shadow-sm"><Phone size={14} /></div>
+                                                    {selectedPartner.phone || '+221 33 000 00 00'}
+                                                </li>
+                                                <li className="flex items-center gap-3 text-sm font-bold text-gray-700">
+                                                    <div className="w-8 h-8 bg-white rounded-xl flex items-center justify-center text-primary shadow-sm"><Globe size={14} /></div>
+                                                    {selectedPartner.website || 'www.partner.sn'}
+                                                </li>
+                                                <li className="flex items-center gap-3 text-sm font-bold text-gray-700">
+                                                    <div className="w-8 h-8 bg-white rounded-xl flex items-center justify-center text-primary shadow-sm"><MapPin size={14} /></div>
+                                                    {selectedPartner.location}
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                        <div className="bg-gray-50 p-6 rounded-3xl border border-gray-100">
+                                            <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-4">Informations Business</p>
+                                            <ul className="space-y-4">
+                                                <li className="flex items-center gap-3 text-sm font-bold text-gray-700">
+                                                    <div className="w-8 h-8 bg-white rounded-xl flex items-center justify-center text-primary shadow-sm"><Clock size={14} /></div>
+                                                    {selectedPartner.hours || '09h - 22h'}
+                                                </li>
+                                                <li className="flex items-center gap-3 text-sm font-bold text-gray-700">
+                                                    <div className="w-8 h-8 bg-white rounded-xl flex items-center justify-center text-primary shadow-sm"><Briefcase size={14} /></div>
+                                                    {selectedPartner.category}
+                                                </li>
+                                                <li className="flex items-center gap-3 text-sm font-bold text-gray-700">
+                                                    <div className="w-8 h-8 bg-white rounded-xl flex items-center justify-center text-primary shadow-sm"><Star size={14} /></div>
+                                                    {selectedPartner.rating} / 5 ({selectedPartner.reviews} avis)
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div className="space-y-6">
+                                        <h4 className="font-black text-lg text-gray-900 flex items-center gap-2">
+                                            <ImageIcon size={20} className="text-primary" /> Bibliothèque Médias
+                                        </h4>
+                                        <div className="grid grid-cols-3 gap-3">
+                                            <img src={selectedPartner.image} className="aspect-square rounded-2xl object-cover border-2 border-primary/20 p-1" />
+                                            <div className="aspect-square rounded-2xl bg-gray-100 flex items-center justify-center border-2 border-dashed border-gray-200">
+                                                <button className="text-[10px] font-black text-gray-400 uppercase">+ Photo</button>
+                                            </div>
+                                            <div className="aspect-square rounded-2xl bg-gray-100 flex items-center justify-center border-2 border-dashed border-gray-200">
+                                                <button className="text-[10px] font-black text-gray-400 uppercase">+ Photo</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="mt-10 pt-10 border-t border-gray-100">
+                                        <div className="flex gap-4">
+                                            <button className="flex-1 py-4 bg-gray-900 text-white rounded-2xl font-black uppercase tracking-widest text-xs">Modifier les infos</button>
+                                            <button className="px-8 py-4 bg-red-50 text-red-600 rounded-2xl font-black uppercase tracking-widest text-xs">Désactiver</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        </>
+                    )}
+                </AnimatePresence>
+
                 {/* Topbar */}
                 <header className="bg-white border-b border-gray-200 h-20 shrink-0 flex items-center justify-between px-4 lg:px-8 z-10 shadow-sm">
                     <div className="flex items-center gap-4">
@@ -479,7 +580,7 @@ const AdminDashboard = () => {
                                             </tr>
                                         </thead>
                                         <tbody className="divide-y divide-gray-100">
-                                            {businesses.map((bus) => (
+                                            {localBusinesses.map((bus) => (
                                                 <tr key={bus.id} className="hover:bg-gray-50 transition-colors group">
                                                     <td className="p-4">
                                                         <div className="flex items-center gap-3">
@@ -513,6 +614,9 @@ const AdminDashboard = () => {
                                                     </td>
                                                     <td className="p-4 text-right">
                                                         <div className="flex items-center justify-end gap-1 opacity-100 md:opacity-50 group-hover:opacity-100 transition-opacity">
+                                                            <button
+                                                                onClick={() => setSelectedPartner(bus)}
+                                                                className="p-2 text-gray-400 hover:text-blue-500 hover:bg-blue-50 rounded-lg transition-colors" title="Profil Partenaire"><Eye size={18} /></button>
                                                             <button
                                                                 onClick={() => setEditingBusiness(bus)}
                                                                 className="p-2 text-gray-400 hover:text-primary hover:bg-primary/5 rounded-lg transition-colors" title="Fixer Taux & Promos"><Settings size={18} /></button>
