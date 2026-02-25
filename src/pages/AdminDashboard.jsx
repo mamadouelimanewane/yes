@@ -36,12 +36,13 @@ const AdminDashboard = () => {
     const stats = [
         { title: "Utilisateurs Actifs", value: "8,409", trend: "+14%", trendUp: true },
         { title: "Établissements Partenaires", value: businesses.length.toString(), trend: "+5%", trendUp: true },
-        { title: "CA Généré (Est.)", value: "14.2M FCFA", trend: "+22%", trendUp: true },
-        { title: "Signalements", value: "3", trend: "-12%", trendUp: false }
+        { title: "Volume d'Affaire (GMV)", value: "14.2M FCFA", trend: "+22%", trendUp: true },
+        { title: "Commissions Récoltées", value: "2.1M FCFA", trend: "+18%", trendUp: true }
     ];
 
     const menuItems = [
         { id: 'overview', icon: LayoutDashboard, label: "Vue d'ensemble" },
+        { id: 'finance', icon: TrendingUp, label: "Comptabilité & Commissions" },
         { id: 'businesses', icon: Store, label: "Gérer les établissements" },
         { id: 'users', icon: Users, label: "Utilisateurs & CRM" },
         { id: 'moderation', icon: ShieldAlert, label: "Avis & Modération" },
@@ -395,6 +396,95 @@ const AdminDashboard = () => {
                                     <div className="bg-gray-50 p-6 sm:border-l border-gray-100 flex flex-row sm:flex-col gap-3 justify-center">
                                         <button className="w-full py-3 px-6 bg-amber-500 text-white font-bold rounded-xl shadow-lg shadow-amber-500/20 hover:bg-amber-600 active:scale-95 transition-all whitespace-nowrap">Avertir par email</button>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {activeMenu === 'finance' && (
+                        <div className="max-w-7xl mx-auto space-y-8 pb-20">
+                            <div className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                                <div>
+                                    <h2 className="text-2xl font-black text-gray-900 mb-2">Comptabilité & Commissions</h2>
+                                    <p className="text-gray-500 font-medium">Suivez les revenus générés par les réservations (15% de commission par défaut).</p>
+                                </div>
+                                <div className="flex gap-4">
+                                    <button className="px-6 py-3 bg-gray-900 text-white rounded-xl font-bold active:scale-95 transition-all">Télécharger Rapport Fiscal</button>
+                                </div>
+                            </div>
+
+                            {/* Revenue Stats Grid */}
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-8 rounded-3xl text-white shadow-xl">
+                                    <span className="text-gray-400 font-bold text-xs uppercase tracking-widest block mb-4">Total Commissions Encaissées</span>
+                                    <div className="text-4xl font-black mb-2">2,135,000 <span className="text-xl">FCFA</span></div>
+                                    <div className="text-green-400 text-sm font-bold flex items-center gap-2">
+                                        <TrendingUp size={16} /> +12.5% vs mois dernier
+                                    </div>
+                                </div>
+                                <div className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm">
+                                    <span className="text-gray-400 font-bold text-xs uppercase tracking-widest block mb-4">Commission en attente (Escrow)</span>
+                                    <div className="text-3xl font-black text-gray-900 mb-2">485,200 <span className="text-lg">FCFA</span></div>
+                                    <div className="text-gray-500 text-sm font-medium">Réservations non encore consommées</div>
+                                </div>
+                                <div className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm">
+                                    <span className="text-gray-400 font-bold text-xs uppercase tracking-widest block mb-4">Taux de Commission Moyen</span>
+                                    <div className="text-3xl font-black text-primary mb-2">15.0 <span className="text-lg">%</span></div>
+                                    <div className="text-gray-500 text-sm font-medium">Configurable par partenaire</div>
+                                </div>
+                            </div>
+
+                            {/* Transaction Table */}
+                            <div className="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden">
+                                <div className="p-6 border-b border-gray-100 flex justify-between items-center">
+                                    <h3 className="font-extrabold text-lg">Dernières Commissions (Flash Report)</h3>
+                                    <div className="flex gap-2">
+                                        <button className="p-2 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors"><Filter size={18} /></button>
+                                        <button className="p-2 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors"><Search size={18} /></button>
+                                    </div>
+                                </div>
+                                <div className="overflow-x-auto">
+                                    <table className="w-full text-left">
+                                        <thead>
+                                            <tr className="bg-gray-50/50 text-[11px] font-black uppercase tracking-widest text-gray-400">
+                                                <th className="p-6">Date</th>
+                                                <th className="p-6">Établissement</th>
+                                                <th className="p-6">Volume Vente (GMV)</th>
+                                                <th className="p-6">Commission (15%)</th>
+                                                <th className="p-6">Type</th>
+                                                <th className="p-6">Statut</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="divide-y divide-gray-100">
+                                            {[
+                                                { date: "25 Fév. 2026", name: "Terrou-Bi", amount: "450 000 FCFA", comm: "67 500 FCFA", type: "Hôtel", status: "Payé" },
+                                                { date: "25 Fév. 2026", name: "Chez Loutcha", amount: "25 000 FCFA", comm: "3 750 FCFA", type: "Restau", status: "Payé" },
+                                                { date: "24 Fév. 2026", name: "Pullman Dakar", amount: "180 000 FCFA", comm: "27 000 FCFA", type: "Hôtel", status: "En attente" },
+                                                { date: "24 Fév. 2026", name: "Le Lagon", amount: "120 000 FCFA", comm: "18 000 FCFA", type: "Restau", status: "Payé" },
+                                            ].map((row, i) => (
+                                                <tr key={i} className="hover:bg-gray-50/80 transition-colors">
+                                                    <td className="p-6 text-sm font-bold text-gray-500">{row.date}</td>
+                                                    <td className="p-6">
+                                                        <div className="font-black text-gray-900">{row.name}</div>
+                                                        <div className="text-xs text-gray-400 font-bold">{row.type}</div>
+                                                    </td>
+                                                    <td className="p-6 font-extrabold text-gray-900 text-sm">{row.amount}</td>
+                                                    <td className="p-6 text-primary font-black text-base">{row.comm}</td>
+                                                    <td className="p-6">
+                                                        <span className={`text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full ${row.type === 'Hôtel' ? 'bg-indigo-50 text-indigo-600 border border-indigo-100' : 'bg-orange-50 text-orange-600 border border-orange-100'}`}>
+                                                            {row.type}
+                                                        </span>
+                                                    </td>
+                                                    <td className="p-6">
+                                                        <div className="flex items-center gap-2">
+                                                            <div className={`w-2 h-2 rounded-full ${row.status === 'Payé' ? 'bg-green-500' : 'bg-amber-500'}`}></div>
+                                                            <span className="text-sm font-bold text-gray-700">{row.status}</span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
