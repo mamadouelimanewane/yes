@@ -110,6 +110,11 @@ const BusinessCard = ({ business }) => (
       {business.featured && (
         <div style={{ position: 'absolute', top: '10px', left: '10px', background: 'var(--accent)', padding: '4px 8px', borderRadius: '4px', fontSize: '10px', fontWeight: 900 }}>ELITE</div>
       )}
+      {business.promotion && (
+        <div style={{ position: 'absolute', top: '10px', right: '10px', background: '#E31B23', color: 'white', padding: '4px 10px', borderRadius: '20px', fontSize: '10px', fontWeight: 900, boxShadow: '0 4px 10px rgba(227, 27, 35, 0.3)', animation: 'pulse 2s infinite' }}>
+          FLASH: {business.promotion}
+        </div>
+      )}
     </div>
     <div className="card-body">
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>

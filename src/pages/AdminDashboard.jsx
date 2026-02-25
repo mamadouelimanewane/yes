@@ -13,7 +13,6 @@ import {
     Bell,
     Menu,
     X,
-    MoreVertical,
     LogOut,
     ArrowUpRight,
     MapPin,
@@ -27,7 +26,10 @@ import {
     Percent,
     Tag,
     ChevronDown,
-    Save
+    Save,
+    FileText,
+    Send,
+    MailCheck
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { businesses } from '../data';
@@ -53,6 +55,7 @@ const AdminDashboard = () => {
     const menuItems = [
         { id: 'overview', icon: LayoutDashboard, label: "Vue d'ensemble" },
         { id: 'finance', icon: TrendingUp, label: "Comptabilité & Commissions" },
+        { id: 'billing', icon: FileText, label: "Facturation Partenaires" },
         { id: 'businesses', icon: Store, label: "Gérer les établissements" },
         { id: 'users', icon: Users, label: "Utilisateurs & CRM" },
         { id: 'moderation', icon: ShieldAlert, label: "Avis & Modération" },
@@ -572,6 +575,57 @@ const AdminDashboard = () => {
                                         </tbody>
                                     </table>
                                 </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {activeMenu === 'billing' && (
+                        <div className="max-w-7xl mx-auto space-y-8 pb-20">
+                            <div className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                                <div>
+                                    <h2 className="text-2xl font-black text-gray-900 mb-2">Cycle de Facturation Mensuel</h2>
+                                    <p className="text-gray-500 font-medium">Générez et envoyez les factures de commissions à vos {localBusinesses.length} partenaires.</p>
+                                </div>
+                                <button
+                                    onClick={() => alert('Processus de facturation globale lancé pour tous les partenaires.')}
+                                    className="px-6 py-4 bg-primary text-white rounded-xl font-black uppercase tracking-widest text-xs shadow-lg shadow-primary/20 flex items-center gap-2 hover:scale-105 transition-all"
+                                >
+                                    <Send size={18} /> Tout Envoyer (Fév. 2026)
+                                </button>
+                            </div>
+
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                                {localBusinesses.slice(0, 6).map(bus => (
+                                    <div key={bus.id} className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-all group">
+                                        <div className="flex justify-between items-start mb-6">
+                                            <div className="flex items-center gap-4">
+                                                <img src={bus.image} className="w-14 h-14 rounded-2xl object-cover border border-gray-100" />
+                                                <div>
+                                                    <h4 className="font-black text-gray-900">{bus.name}</h4>
+                                                    <span className="text-[10px] font-black uppercase tracking-widest text-gray-400 bg-gray-50 px-2 py-0.5 rounded italic">Réf: INV-2026-02-{bus.id}</span>
+                                                </div>
+                                            </div>
+                                            <div className="text-right">
+                                                <div className="text-lg font-black text-gray-900">{(Math.random() * 50000 + 10000).toFixed(0).toLocaleString()} <span className="text-xs">FCFA</span></div>
+                                                <span className="text-[10px] font-bold text-gray-400">Commission due</span>
+                                            </div>
+                                        </div>
+
+                                        <div className="bg-gray-50 rounded-2xl p-4 mb-6 flex justify-between items-center border border-gray-100">
+                                            <div className="flex items-center gap-2 text-sm font-bold text-gray-600">
+                                                <Percent size={14} className="text-primary" /> Taux: {bus.commissionRate}%
+                                            </div>
+                                            <div className="flex items-center gap-2 text-sm font-bold text-green-600">
+                                                <MailCheck size={16} /> Prêt à l'envoi
+                                            </div>
+                                        </div>
+
+                                        <div className="flex gap-3">
+                                            <button className="flex-1 py-3 bg-gray-900 text-white rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-black transition-colors">Visualiser PDF</button>
+                                            <button className="px-5 py-3 border-2 border-primary text-primary rounded-xl font-black text-xs uppercase tracking-widest hover:bg-primary hover:text-white transition-all">Envoyer</button>
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
                         </div>
                     )}

@@ -16,7 +16,8 @@ export const businesses = [
     website: "www.chezloutcha.sn", hours: "Lun-Dim 11h-22h", lat: 14.6937, lng: -17.4441,
     image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&q=80&w=800",
     description: "Le meilleur Thieboudienne de Dakar dans un cadre authentique depuis 1983.",
-    tags: ["Thieboudienne", "Cuisine locale", "Authentique"], featured: true
+    tags: ["Thieboudienne", "Cuisine locale", "Authentique"], featured: true,
+    promotion: "-20% ce soir"
   },
   {
     id: 2, name: "La Téranga Almadies", category: "Restaurants", rating: "4.6", reviews: 312,
