@@ -17,6 +17,7 @@ const Chatbot = () => {
     const [messages, setMessages] = useState(initialMessages);
     const [inputValue, setInputValue] = useState('');
     const [isTyping, setIsTyping] = useState(false);
+    const [isListening, setIsListening] = useState(false);
     const messagesEndRef = useRef(null);
 
     const scrollToBottom = () => {
@@ -44,6 +45,36 @@ const Chatbot = () => {
         window.addEventListener('open-chatbot', handleOpen);
         return () => window.removeEventListener('open-chatbot', handleOpen);
     }, []);
+
+    // Speech to Text Logic
+    const startListening = () => {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!SpeechRecognition) {
+            alert("Désolé, la reconnaissance vocale n'est pas supportée sur ce navigateur.");
+            return;
+        }
+
+        const recognition = new SpeechRecognition();
+        recognition.lang = 'fr-FR';
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+
+        recognition.onstart = () => setIsListening(true);
+        recognition.onend = () => setIsListening(false);
+        recognition.onerror = (e) => {
+            console.error(e);
+            setIsListening(false);
+        };
+
+        recognition.onresult = (event) => {
+            const transcript = event.results[0][0].transcript;
+            setInputValue(transcript);
+            // On envoie directement le contenu après avoir parlé
+            setTimeout(() => handleSend(transcript), 500);
+        };
+
+        recognition.start();
+    };
 
     // Advanced NLP Matcher
     const findMatches = (query) => {
@@ -269,15 +300,31 @@ const Chatbot = () => {
 
                     {/* Input Area */}
                     <div style={{ padding: '16px', background: 'white', borderTop: '1px solid var(--border-color)', display: 'flex', gap: '10px', alignItems: 'center', paddingBottom: 'calc(16px + env(safe-area-inset-bottom))' }}>
-                        <div style={{ flex: 1, display: 'flex', alignItems: 'center', background: '#F3F4F6', borderRadius: '50px', padding: '4px 16px', border: '1px solid #E5E7EB' }}>
+                        <div style={{ flex: 1, display: 'flex', alignItems: 'center', background: '#F3F4F6', borderRadius: '50px', padding: '4px 16px', border: '1px solid #E5E7EB', position: 'relative' }}>
                             <input
                                 value={inputValue}
                                 onChange={e => setInputValue(e.target.value)}
                                 onKeyPress={e => e.key === 'Enter' && handleSend()}
-                                placeholder="Posez votre question..."
+                                placeholder={isListening ? "Je vous écoute..." : "Posez votre question..."}
                                 style={{ flex: 1, padding: '12px 0', border: 'none', background: 'transparent', fontSize: '15px', fontWeight: 600, outline: 'none' }}
+                                disabled={isListening}
                             />
-                            <Mic size={18} color="#9CA3AF" />
+                            <button
+                                onClick={startListening}
+                                style={{
+                                    background: 'none', border: 'none', padding: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                    color: isListening ? 'var(--primary)' : '#9CA3AF'
+                                }}
+                            >
+                                {isListening && (
+                                    <motion.span
+                                        animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
+                                        transition={{ repeat: Infinity, duration: 1 }}
+                                        style={{ position: 'absolute', right: '16px', width: '20px', height: '20px', background: 'var(--primary)', borderRadius: '50%', opacity: 0.2 }}
+                                    />
+                                )}
+                                <Mic size={20} style={{ position: 'relative', zIndex: 10 }} />
+                            </button>
                         </div>
                         <button
                             onClick={() => handleSend()}
