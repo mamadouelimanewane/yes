@@ -24,6 +24,7 @@ import SearchResults from './pages/SearchResults';
 import BusinessDetail from './pages/BusinessDetail';
 import Talk from './pages/Talk';
 import BusinessDashboard from './pages/BusinessDashboard';
+import BusinessRegister from './pages/BusinessRegister';
 import AdminDashboard from './pages/AdminDashboard';
 import Chatbot from './components/Chatbot';
 import heroImage from './assets/hero.jpg';
@@ -40,6 +41,7 @@ const Navbar = () => {
         <div className="desktop-only" style={{ display: 'flex', gap: '20px', fontWeight: 700 }}>
           <Link to="/search">Explorer</Link>
           <Link to="/talk">Talk</Link>
+          <Link to="/pro/register" style={{ color: 'var(--primary)', fontWeight: 900 }}>Devenir Partenaire</Link>
           <Link to="/dashboard">Pro</Link>
         </div>
         <div style={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
@@ -170,6 +172,7 @@ function AppContent() {
           <Route path="/" element={<Home />} />
           <Route path="/search" element={<SearchResults />} />
           <Route path="/business/:id" element={<BusinessDetail />} />
+          <Route path="/pro/register" element={<BusinessRegister />} />
           <Route path="/talk" element={<Talk />} />
           <Route path="/dashboard" element={<BusinessDashboard />} />
           <Route path="/admin" element={<AdminDashboard />} />
