@@ -11,35 +11,52 @@ const categories = [
 
 const images = {
     Restaurants: [
-        "/assets/restaurant.png",
-        "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&q=80&w=800", // Thieb
-        "https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&q=80&w=800", // African food
-        "https://images.unsplash.com/photo-1588964895597-cfccd6e2dbf9?auto=format&fit=crop&q=80&w=800", // African soup
-        "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&q=80&w=800", // Food plate
+        "/assets/african_rest.png",
+        "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1588964895597-cfccd6e2dbf9?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1604328698692-f76ea9498e76?auto=format&fit=crop&q=80&w=800"
     ],
     Hôtels: [
-        "/assets/hotel.png",
-        "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=800", // Pool
-        "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&q=80&w=800", // Resort
-        "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&q=80&w=800", // Beach resort
+        "/assets/african_hotel.png",
+        "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1498503182468-3b51cbb6cb24?auto=format&fit=crop&q=80&w=800"
     ],
     Shopping: [
-        "/assets/shopping.png",
-        "https://images.unsplash.com/photo-1506617420240-0529f4d78da5?auto=format&fit=crop&q=80&w=800", // African fabric
-        "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?auto=format&fit=crop&q=80&w=800", // African clothes
-        "https://images.unsplash.com/photo-1599839619722-39751411ea63?auto=format&fit=crop&q=80&w=800", // African market lady
+        "/assets/african_shop.png",
+        "https://images.unsplash.com/photo-1506617420240-0529f4d78da5?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1599839619722-39751411ea63?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1620668041300-4d5dc29f4d7b?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1505022610485-0249ba5b3675?auto=format&fit=crop&q=80&w=800"
     ],
     'Vie Nocturne': [
-        "/assets/nightlife.png",
-        "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80", // Club drinks
-        "https://images.unsplash.com/photo-1521360096-7bb2a5ad625a?auto=format&fit=crop&q=80&w=800", // Black musician
+        "/assets/african_night.png",
+        "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1521360096-7bb2a5ad625a?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1545128485-c400e7702796?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1470229722913-7c092bbac93b?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1557800636-8ab370ac32ec?auto=format&fit=crop&q=80&w=800"
     ],
     Automobile: [
-        "/assets/auto.png",
-        "https://images.unsplash.com/photo-1534067980590-fde85cdcaed3?auto=format&fit=crop&q=80&w=800", // Black mechanic
+        "/assets/african_auto.png",
+        "https://images.unsplash.com/photo-1534067980590-fde85cdcaed3?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1493238792000-8113da705763?auto=format&fit=crop&q=80&w=800"
     ],
     'Beauté & Spa': [
-        "/assets/beauty.png"
+        "/assets/african_spa.png",
+        "https://images.unsplash.com/photo-1562322140-8baeececf3ce?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1516975080661-46bd8dc66be4?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&q=80&w=800"
     ]
 };
 
@@ -59,8 +76,9 @@ const otherCities = [
 function getUniqueImage(cat) {
     if (!images[cat] || images[cat].length === 0) return "https://images.unsplash.com/photo-1547949003-9792a18a2601?auto=format&fit=crop&q=80&w=800";
 
-    // Pick a random image from the pool instead of popping, to allow more businesses than images
-    return images[cat][Math.floor(Math.random() * images[cat].length)];
+    // Pick a random image from the pool and remove it to guarantee absolutely zero duplicates
+    const index = Math.floor(Math.random() * images[cat].length);
+    return images[cat].splice(index, 1)[0];
 }
 
 let businesses = [];
@@ -186,7 +204,7 @@ generateCategory(
         "Restaurant proposant des plats typiques et revisités pour émerveiller vos papilles.",
         "Un havre de paix pour savourer un jus de bissap et un bon plat de Yassa poulet."
     ],
-    { dakar: 40, autres: 15 }
+    { dakar: 4, autres: 2 }
 );
 
 generateCategory(
@@ -200,7 +218,7 @@ generateCategory(
         "Hôtel moderne avec piscine, chambres spacieuses et un service client aux petits soins.",
         "Résidence calme et sécurisée, idéale pour les familles en visite."
     ],
-    { dakar: 25, autres: 15 }
+    { dakar: 4, autres: 2 }
 );
 
 generateCategory(
@@ -214,7 +232,7 @@ generateCategory(
         "Le paradis des épices locales, du bissap, du pain de singe et de l'encens (thiouraye).",
         "Tailleur réputé pour des créations sur-mesure rapides et élégantes."
     ],
-    { dakar: 20, autres: 10 }
+    { dakar: 4, autres: 2 }
 );
 
 generateCategory(
@@ -228,7 +246,7 @@ generateCategory(
         "Club exclusif fréquenté par la jeunesse branchée et la Jet Set sénégalaise.",
         "Concerts live tous les week-ends avec les grands noms de la scène musicale sénégalaise."
     ],
-    { dakar: 25, autres: 5 }
+    { dakar: 4, autres: 2 }
 );
 
 generateCategory(
@@ -241,7 +259,7 @@ generateCategory(
         "Spécialiste de la climatisation auto, essentiel pour affronter la chaleur sénégalaise.",
         "Dépannage rapide partout dans la région et mécaniciens qualifiés sur toutes les marques."
     ],
-    { dakar: 20, autres: 5 }
+    { dakar: 4, autres: 2 }
 );
 
 generateCategory(
@@ -255,7 +273,7 @@ generateCategory(
         "Barbershop très stylé pour des coupes afros nettes, dégradés et soins de la barbe.",
         "Un oasis de bien-être pour vous détendre et vous ressourcer."
     ],
-    { dakar: 25, autres: 5 }
+    { dakar: 4, autres: 2 }
 );
 
 const existingContent = "export const categories = " + JSON.stringify(categories, null, 2) + ";\n\n" +
