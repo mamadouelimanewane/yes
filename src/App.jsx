@@ -28,7 +28,7 @@ import BusinessRegister from './pages/BusinessRegister';
 import AdminDashboard from './pages/AdminDashboard';
 import Login from './pages/Login';
 import Chatbot from './components/Chatbot';
-import heroImage from './assets/hero.jpg';
+import heroImage from './assets/hero_new.jpg';
 
 // --- SHARED COMPONENTS ---
 const ChatbotTrigger = ({ className }) => (
