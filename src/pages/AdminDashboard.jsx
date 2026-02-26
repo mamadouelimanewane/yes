@@ -32,6 +32,9 @@ import {
     FileCheck,
     FileText,
     Briefcase,
+    Tag,
+    Save,
+    Percent,
     Phone,
     Globe,
     Calendar,
@@ -40,6 +43,200 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { businesses } from '../data';
+
+const GlobalStyles = () => (
+    <style dangerouslySetInnerHTML={{ __html: `
+        .flex { display: flex; }
+        .flex-col { flex-direction: column; }
+        .flex-row { flex-direction: row; }
+        .items-center { align-items: center; }
+        .items-start { align-items: flex-start; }
+        .items-end { align-items: flex-end; }
+        .justify-between { justify-content: space-between; }
+        .justify-center { justify-content: center; }
+        .justify-end { justify-content: flex-end; }
+        .gap-1 { gap: 4px; }
+        .gap-2 { gap: 8px; }
+        .gap-3 { gap: 12px; }
+        .gap-4 { gap: 16px; }
+        .gap-6 { gap: 24px; }
+        .gap-8 { gap: 32px; }
+        .grid { display: grid; }
+        .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+        .w-full { width: 100%; }
+        .w-10 { width: 40px; }
+        .w-12 { width: 48px; }
+        .w-16 { width: 64px; }
+        .w-24 { width: 96px; }
+        .w-64 { width: 256px; }
+        .h-full { height: 100%; }
+        .h-10 { height: 40px; }
+        .h-12 { height: 48px; }
+        .h-16 { height: 64px; }
+        .h-24 { height: 96px; }
+        .h-20 { height: 80px; }
+        .min-h-screen { min-height: 100vh; }
+        .bg-white { background-color: #ffffff; }
+        .bg-black { background-color: #000000; }
+        .bg-gray-50 { background-color: #F9FAFB; }
+        .bg-gray-100 { background-color: #F3F4F6; }
+        .bg-gray-200 { background-color: #E5E7EB; }
+        .bg-gray-900 { background-color: #111827; }
+        .bg-primary { background-color: var(--primary); }
+        .bg-red-50 { background-color: #FEF2F2; }
+        .bg-red-100 { background-color: #FEE2E2; }
+        .bg-green-50 { background-color: #ECFDF5; }
+        .bg-green-100 { background-color: #D1FAE5; }
+        .bg-amber-50 { background-color: #FFFBEB; }
+        .bg-amber-100 { background-color: #FEF3C7; }
+        .text-white { color: #ffffff; }
+        .text-gray-400 { color: #9CA3AF; }
+        .text-gray-500 { color: #6B7280; }
+        .text-gray-600 { color: #4B5563; }
+        .text-gray-700 { color: #374151; }
+        .text-gray-900 { color: #111827; }
+        .text-primary { color: var(--primary); }
+        .text-red-400 { color: #F87171; }
+        .text-red-500 { color: #EF4444; }
+        .text-red-600 { color: #DC2626; }
+        .text-green-600 { color: #059669; }
+        .text-green-700 { color: #047857; }
+        .text-amber-600 { color: #D97706; }
+        .rounded-lg { border-radius: 8px; }
+        .rounded-xl { border-radius: 12px; }
+        .rounded-2xl { border-radius: 16px; }
+        .rounded-3xl { border-radius: 24px; }
+        .rounded-full { border-radius: 9999px; }
+        .shadow-sm { box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); }
+        .shadow-md { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
+        .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+        .shadow-xl { box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
+        .shadow-2xl { box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); }
+        .border { border: 1px solid #E5E7EB; }
+        .border-2 { border-width: 2px; }
+        .border-transparent { border-color: transparent; }
+        .border-gray-100 { border-color: #F3F4F6; }
+        .border-gray-200 { border-color: #E5E7EB; }
+        .border-white\\/10 { border-color: rgba(255,255,255,0.1); }
+        .p-1 { padding: 4px; }
+        .p-2 { padding: 8px; }
+        .p-3 { padding: 12px; }
+        .p-4 { padding: 16px; }
+        .p-6 { padding: 24px; }
+        .p-8 { padding: 32px; }
+        .p-12 { padding: 48px; }
+        .px-2 { padding-left: 8px; padding-right: 8px; }
+        .px-3 { padding-left: 12px; padding-right: 12px; }
+        .px-4 { padding-left: 16px; padding-right: 16px; }
+        .px-5 { padding-left: 20px; padding-right: 20px; }
+        .px-6 { padding-left: 24px; padding-right: 24px; }
+        .px-8 { padding-left: 32px; padding-right: 32px; }
+        .py-1 { padding-top: 4px; padding-bottom: 4px; }
+        .py-2 { padding-top: 8px; padding-bottom: 8px; }
+        .py-3 { padding-top: 12px; padding-bottom: 12px; }
+        .py-4 { padding-top: 16px; padding-bottom: 16px; }
+        .py-6 { padding-top: 24px; padding-bottom: 24px; }
+        .pb-20 { padding-bottom: 80px; }
+        .mb-1 { margin-bottom: 4px; }
+        .mb-2 { margin-bottom: 8px; }
+        .mb-4 { margin-bottom: 16px; }
+        .mb-6 { margin-bottom: 24px; }
+        .mb-8 { margin-bottom: 32px; }
+        .mb-10 { margin-bottom: 40px; }
+        .mt-1 { margin-top: 4px; }
+        .mt-3 { margin-top: 12px; }
+        .mx-auto { margin-left: auto; margin-right: auto; }
+        .font-medium { font-weight: 500; }
+        .font-bold { font-weight: 700; }
+        .font-extrabold { font-weight: 800; }
+        .font-black { font-weight: 900; }
+        .text-xs { font-size: 12px; }
+        .text-sm { font-size: 14px; }
+        .text-base { font-size: 16px; }
+        .text-lg { font-size: 18px; }
+        .text-xl { font-size: 20px; }
+        .text-2xl { font-size: 24px; }
+        .text-3xl { font-size: 30px; }
+        .text-4xl { font-size: 36px; }
+        .uppercase { text-transform: uppercase; }
+        .italic { font-style: italic; }
+        .tracking-wide { letter-spacing: 0.025em; }
+        .tracking-tight { letter-spacing: -0.025em; }
+        .tracking-widest { letter-spacing: 0.1em; }
+        .truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .text-right { text-align: right; }
+        .border-collapse { border-collapse: collapse; }
+        .whitespace-nowrap { white-space: nowrap; }
+        .whitespace-pre-line { white-space: pre-line; }
+        .transition-all { transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1); }
+        .transition-colors { transition: background-color 150ms, border-color 150ms, color 150ms; }
+        .duration-500 { transition-duration: 500ms; }
+        .overflow-hidden { overflow: hidden; }
+        .overflow-y-auto { overflow-y: auto; }
+        .overflow-x-auto { overflow-x: auto; }
+        .shrink-0 { flex-shrink: 0; }
+        .flex-1 { flex: 1 1 0%; }
+        .sticky { position: sticky; }
+        .top-0 { top: 0; }
+        .inset-0 { position: absolute; top: 0; right: 0; bottom: 0; left: 0; }
+        .z-10 { z-index: 10; }
+        .z-20 { z-index: 20; }
+        .z-40 { z-index: 40; }
+        .z-50 { z-index: 50; }
+        .aspect-square { aspect-ratio: 1 / 1; }
+        .object-cover { object-fit: cover; }
+        .opacity-50 { opacity: 0.5; }
+        .opacity-100 { opacity: 1; }
+        .animate-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
+        
+        .space-y-2 > * + * { margin-top: 8px; }
+        .space-y-4 > * + * { margin-top: 16px; }
+        .space-y-6 > * + * { margin-top: 24px; }
+        .space-y-8 > * + * { margin-top: 32px; }
+        .space-y-10 > * + * { margin-top: 40px; }
+        .divide-y > * + * { border-top-width: 1px; }
+        .divide-gray-100 > * + * { border-color: #F3F4F6; }
+        
+        .max-w-md { max-width: 448px; }
+        .max-w-lg { max-width: 512px; }
+        .max-w-2xl { max-width: 672px; }
+        .max-w-7xl { max-width: 1280px; }
+
+        @media (min-width: 640px) {
+            .sm\\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .sm\\:flex-row { flex-direction: row; }
+            .sm\\:flex-col { flex-direction: column; }
+            .sm\\:items-center { align-items: center; }
+            .sm\\:mt-0 { margin-top: 0; }
+            .sm\\:w-auto { width: auto; }
+        }
+        @media (min-width: 768px) {
+            .md\\:block { display: block; }
+            .md\\:flex { display: flex; }
+            .md\\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .md\\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+            .md\\:opacity-50 { opacity: 0.5; }
+        }
+        @media (min-width: 1024px) {
+            .lg\\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+            .lg\\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+            .lg\\:col-span-2 { grid-column: span 2 / span 2; }
+            .lg\\:block { display: block; }
+            .lg\\:hidden { display: none; }
+        }
+        
+        button:active { transform: scale(0.95); }
+        .group:hover .group-hover\\:scale-110 { transform: scale(1.1); }
+        .group:hover .group-hover\\:text-primary { color: var(--primary); }
+        .group:hover .group-hover\\:opacity-100 { opacity: 1; }
+        
+        .bg-primary\\/5 { background-color: rgba(227, 27, 35, 0.05); }
+        .bg-primary\\/10 { background-color: rgba(227, 27, 35, 0.1); }
+        .border-primary\\/10 { border-color: rgba(227, 27, 35, 0.1); }
+        .shadow-primary\\/20 { box-shadow: 0 10px 15px -3px rgba(227, 27, 35, 0.2); }
+    ` }} />
+);
 
 const AdminDashboard = () => {
     const [activeMenu, setActiveMenu] = useState('overview');
@@ -75,51 +272,61 @@ const AdminDashboard = () => {
     const pendingBusinesses = businesses.slice(0, 3).map(b => ({ ...b, status: 'en_attente' }));
 
     const Sidebar = () => (
-        <div className="w-64 bg-gray-900 text-white h-full flex flex-col">
-            <div className="p-6 flex items-center gap-3">
-                <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center font-black text-xl shadow-lg border border-white/10">
+        <div style={{ width: '280px', background: '#111827', color: 'white', height: '100%', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ padding: '24px', display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <div style={{ width: '40px', height: '40px', background: 'var(--primary)', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, fontSize: '20px', boxShadow: '0 4px 12px rgba(227, 27, 35, 0.3)', border: '1px solid rgba(255,255,255,0.1)' }}>
                     Y
                 </div>
                 <div>
-                    <span className="font-extrabold text-xl tracking-tight block">Yes-Africa</span>
-                    <span className="text-[10px] font-black uppercase tracking-widest text-primary">Super Admin</span>
+                    <span style={{ fontWeight: 800, fontSize: '20px', letterSpacing: '-0.5px', display: 'block' }}>Yes-Africa</span>
+                    <span style={{ fontSize: '10px', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--primary)' }}>Super Admin</span>
                 </div>
             </div>
 
-            <nav className="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
+            <nav style={{ flex: 1, padding: '24px 16px', display: 'flex', flexDirection: 'column', gap: '8px', overflowY: 'auto' }}>
                 {menuItems.map(item => (
                     <button
                         key={item.id}
                         onClick={() => { setActiveMenu(item.id); setIsSidebarOpen(false); }}
-                        className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold transition-all ${activeMenu === item.id
-                            ? 'bg-primary text-white shadow-lg shadow-primary/20'
-                            : 'text-gray-400 hover:bg-white/5 hover:text-white'
-                            }`}
+                        style={{
+                            width: '100%', display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 16px', borderRadius: '12px', border: 'none',
+                            fontWeight: 700, transition: 'all 0.2s', cursor: 'pointer', textAlign: 'left',
+                            background: activeMenu === item.id ? 'var(--primary)' : 'transparent',
+                            color: activeMenu === item.id ? 'white' : '#9CA3AF',
+                        }}
+                        onMouseEnter={(e) => { if (activeMenu !== item.id) e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; e.currentTarget.style.color = 'white'; }}
+                        onMouseLeave={(e) => { if (activeMenu !== item.id) e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = activeMenu === item.id ? 'white' : '#9CA3AF'; }}
                     >
-                        <item.icon size={20} className={activeMenu === item.id ? 'text-white' : ''} />
-                        {item.label}
+                        <item.icon size={20} />
+                        <span style={{ fontSize: '14px' }}>{item.label}</span>
                     </button>
                 ))}
             </nav>
 
-            <div className="p-4 border-t border-white/10">
+            <div style={{ padding: '16px', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
                 <button
                     onClick={() => {
                         localStorage.removeItem('isAdminAuthenticated');
                         window.location.href = '/login';
                     }}
-                    className="w-full flex items-center gap-3 px-4 py-3 text-red-400 hover:bg-white/5 rounded-xl font-bold transition-all"
+                    style={{
+                        width: '100%', display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 16px', borderRadius: '12px', border: 'none',
+                        fontWeight: 700, color: '#F87171', background: 'transparent', cursor: 'pointer', transition: 'all 0.2s'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(248,113,113,0.05)'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
                 >
-                    <LogOut size={20} /> Déconnexion
+                    <LogOut size={20} /> <span style={{ fontSize: '14px' }}>Déconnexion</span>
                 </button>
             </div>
         </div>
     );
 
     return (
-        <div className="min-h-screen bg-gray-50 flex h-screen overflow-hidden">
+        <div style={{ minHeight: '100vh', backgroundColor: '#F9FAFB', display: 'flex', height: '100vh', overflow: 'hidden', fontFamily: "'Inter', sans-serif" }}>
+            <GlobalStyles />
             {/* Desktop Sidebar */}
-            <div className="hidden lg:block shrink-0 shadow-2xl z-20">
+            <div style={{ display: typeof window !== 'undefined' && window.innerWidth < 1024 ? 'none' : 'block', flexShrink: 0, boxShadow: '4px 0 24px rgba(0,0,0,0.05)', zIndex: 20 }}>
                 <Sidebar />
             </div>
 
@@ -129,12 +336,12 @@ const AdminDashboard = () => {
                     <>
                         <motion.div
                             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                            className="lg:hidden fixed inset-0 bg-black/60 z-40 backdrop-blur-sm"
+                            style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.6)', zIndex: 40, backdropFilter: 'blur(4px)' }}
                             onClick={() => setIsSidebarOpen(false)}
                         />
                         <motion.div
                             initial={{ x: '-100%' }} animate={{ x: 0 }} exit={{ x: '-100%' }} transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                            className="lg:hidden fixed inset-y-0 left-0 w-64 z-50 shadow-2xl"
+                            style={{ position: 'fixed', insetY: 0, left: 0, width: '280px', zIndex: 50, boxShadow: '8px 0 32px rgba(0,0,0,0.2)' }}
                         >
                             <Sidebar />
                         </motion.div>
@@ -143,7 +350,7 @@ const AdminDashboard = () => {
             </AnimatePresence>
 
             {/* Main Content */}
-            <div className="flex-1 flex flex-col h-full overflow-hidden relative w-full">
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden', position: 'relative', width: '100%' }}>
                 {/* Modal Edition Commission/Promotion */}
                 <AnimatePresence>
                     {editingBusiness && (
@@ -424,58 +631,53 @@ const AdminDashboard = () => {
                 </AnimatePresence>
 
                 {/* Topbar */}
-                <header className="bg-white border-b border-gray-200 h-20 shrink-0 flex items-center justify-between px-4 lg:px-8 z-10 shadow-sm">
-                    <div className="flex items-center gap-4">
-                        <button onClick={() => setIsSidebarOpen(true)} className="lg:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-lg">
+                <header style={{ background: 'white', borderBottom: '1px solid #E5E7EB', height: '80px', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 32px', zIndex: 10, boxShadow: '0 2px 4px rgba(0,0,0,0.02)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                        <button onClick={() => setIsSidebarOpen(true)} style={{ display: typeof window !== 'undefined' && window.innerWidth < 1024 ? 'flex' : 'none', padding: '8px', border: 'none', background: 'transparent', cursor: 'pointer', color: '#4B5563', alignItems: 'center', justifyContent: 'center' }}>
                             <Menu size={24} />
                         </button>
-                        <h1 className="text-xl md:text-2xl font-black text-gray-900 hidden sm:block">
+                        <h1 style={{ fontSize: '24px', fontStretch: 'condensed', fontWeight: 900, color: '#111827', margin: 0 }}>
                             {menuItems.find(m => m.id === activeMenu)?.label}
                         </h1>
                     </div>
 
-                    <div className="flex items-center gap-4 md:gap-6">
-                        <div className="hidden md:flex items-center gap-2 bg-gray-100 px-4 py-2.5 rounded-full w-64 xl:w-96 border border-transparent focus-within:bg-white focus-within:border-primary/30 focus-within:ring-4 focus-within:ring-primary/10 transition-all">
-                            <Search size={18} className="text-gray-400 shrink-0" />
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
+                        <div style={{ display: typeof window !== 'undefined' && window.innerWidth < 768 ? 'none' : 'flex', alignItems: 'center', gap: '8px', background: '#F3F4F6', padding: '10px 20px', borderRadius: '50px', width: '300px', border: '1px solid transparent', transition: 'all 0.2s' }}>
+                            <Search size={18} style={{ color: '#9CA3AF', flexShrink: 0 }} />
                             <input
                                 type="text"
-                                placeholder="Rechercher utilisateur, lieu..."
-                                className="bg-transparent border-none outline-none text-sm w-full font-medium"
+                                placeholder="Rechercher..."
+                                style={{ background: 'transparent', border: 'none', outline: 'none', fontSize: '14px', width: '100%', fontWeight: 500 }}
                                 value={searchQuery}
                                 onChange={e => setSearchQuery(e.target.value)}
                             />
                         </div>
 
-                        <button className="relative p-2 text-gray-400 hover:text-gray-900 transition-colors">
+                        <button style={{ position: 'relative', padding: '8px', border: 'none', background: 'transparent', cursor: 'pointer', color: '#9CA3AF', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             <Bell size={24} />
-                            <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-primary rounded-full border-2 border-white"></span>
+                            <span style={{ position: 'absolute', top: '8px', right: '8px', width: '10px', height: '10px', background: 'var(--primary)', borderRadius: '50%', border: '2px solid white' }}></span>
                         </button>
 
-                        <div className="flex items-center gap-3 pl-4 md:pl-6 border-l border-gray-200">
-                            <div className="w-10 h-10 rounded-full bg-gray-900 text-white flex items-center justify-center font-bold shadow-md">
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', paddingLeft: '24px', borderLeft: '1px solid #E5E7EB' }}>
+                            <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: '#111827', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, boxShadow: '0 4px 10px rgba(0,0,0,0.1)' }}>
                                 MA
                             </div>
-                            <div className="hidden md:block">
-                                <span className="block text-sm font-bold text-gray-900">Mamadou Admin</span>
-                                <span className="block text-xs font-medium text-gray-500">SuperAdministrateur</span>
+                            <div style={{ display: typeof window !== 'undefined' && window.innerWidth < 768 ? 'none' : 'block' }}>
+                                <span style={{ display: 'block', fontSize: '13px', fontWeight: 800, color: '#111827' }}>Mamadou Admin</span>
+                                <span style={{ display: 'block', fontSize: '10px', fontWeight: 700, color: 'var(--primary)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Super Admin</span>
                             </div>
                         </div>
                     </div>
                 </header>
 
                 {/* Dashboard Scrollable Area */}
-                <main className="flex-1 overflow-y-auto p-4 lg:p-8 bg-gray-50/50 relative">
+                <main style={{ flex: 1, overflowY: 'auto', padding: '32px', background: '#F9FAFB', position: 'relative' }}>
                     {activeMenu === 'overview' && (
-                        <div className="max-w-7xl mx-auto space-y-8 pb-20">
+                        <div style={{ maxWidth: '1280px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '32px', paddingBottom: '80px' }}>
 
                             {/* Stats Grid */}
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '24px' }}>
                                 {stats.map((stat, idx) => (
-                                    <div key={idx} className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                                        <h3 className="text-sm font-bold text-gray-500 mb-2 uppercase tracking-wide">{stat.title}</h3>
-                                        <div className="flex items-end justify-between">
-                                            <span className="text-3xl font-black text-gray-900">{stat.value}</span>
-                                            <span className={`flex items-center gap-1 text-sm font-bold px-2 py-1 rounded-md ${stat.trendUp ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
                                                 {stat.trendUp ? <TrendingUp size={14} /> : <TrendingUp size={14} className="rotate-180" />}
                                                 {stat.trend}
                                             </span>
