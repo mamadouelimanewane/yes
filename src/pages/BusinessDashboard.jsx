@@ -45,7 +45,7 @@ const mockReviews = [
 const GlobalStyles = () => (
     <style dangerouslySetInnerHTML={{ __html: `
         .dashboard-container { display: flex; height: 100vh; background: #F9FAFB; overflow: hidden; font-family: 'Inter', sans-serif; }
-        .sidebar { width: 280px; background: #111; color: white; display: flex; flexDirection: column; flex-shrink: 0; }
+        .sidebar { width: 280px; background: #111; color: white; display: flex; flex-direction: column; flex-shrink: 0; }
         .main-content { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
         .topbar { height: 80px; background: white; border-bottom: 1px solid #E5E7EB; border-left: 1px solid #E5E7EB; display: flex; align-items: center; justify-content: space-between; padding: 0 32px; flex-shrink: 0; }
         .content-area { flex: 1; overflow-y: auto; padding: 32px; }
@@ -53,11 +53,11 @@ const GlobalStyles = () => (
         .stat-card { background: white; padding: 24px; border-radius: 24px; border: 1px solid #E5E7EB; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); }
         .btn-primary { background: var(--primary); color: white; border: none; padding: 12px 24px; border-radius: 12px; font-weight: 800; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 8px; }
         .btn-outline { background: white; color: #374151; border: 1px solid #E5E7EB; padding: 12px 24px; border-radius: 12px; font-weight: 800; cursor: pointer; transition: all 0.2s; }
-        .nav-link { display: flex; align-items: center; gap: 12px; padding: 14px 20px; border-radius: 14px; color: #9CA3AF; text-decoration: none; font-weight: 700; transition: all 0.2s; cursor: pointer; border: none; background: transparent; width: 100%; }
+        .nav-link { display: flex; align-items: center; justify-content: flex-start; text-align: left; gap: 12px; padding: 14px 20px; border-radius: 14px; color: #9CA3AF; text-decoration: none; font-weight: 700; transition: all 0.2s; cursor: pointer; border: none; background: transparent; width: 100%; }
         .nav-link.active { background: var(--primary); color: white; }
         .nav-link:hover:not(.active) { background: rgba(255,255,255,0.05); color: white; }
         
-        .badge { padding: 4px 10px; border-radius: 50px; fontSize: 10px; fontWeight: 900; text-transform: uppercase; letter-spacing: 0.5px; }
+        .badge { padding: 4px 10px; border-radius: 50px; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px; }
         .badge-pending { background: #FEF3C7; color: #D97706; }
         .badge-confirmed { background: #ECFDF5; color: #059669; }
         .badge-admin-review { background: #DBEAFE; color: #2563EB; }
