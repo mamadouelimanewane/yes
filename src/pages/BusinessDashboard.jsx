@@ -53,13 +53,17 @@ const GlobalStyles = () => (
         .stat-card { background: white; padding: 24px; border-radius: 24px; border: 1px solid #E5E7EB; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); }
         .btn-primary { background: var(--primary); color: white; border: none; padding: 12px 24px; border-radius: 12px; font-weight: 800; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 8px; }
         .btn-outline { background: white; color: #374151; border: 1px solid #E5E7EB; padding: 12px 24px; border-radius: 12px; font-weight: 800; cursor: pointer; transition: all 0.2s; }
-        .nav-link { display: flex; align-items: center; gap: 12px; padding: 14px 20px; border-radius: 14px; color: #9CA3AF; text-decoration: none; font-weight: 700; transition: all 0.2s; cursor: pointer; border: none; background: transparent; width: 100%; text-align: left; }
+        .nav-link { display: flex; align-items: center; gap: 12px; padding: 14px 20px; border-radius: 14px; color: #9CA3AF; text-decoration: none; font-weight: 700; transition: all 0.2s; cursor: pointer; border: none; background: transparent; width: 100%; }
         .nav-link.active { background: var(--primary); color: white; }
         .nav-link:hover:not(.active) { background: rgba(255,255,255,0.05); color: white; }
         
         .badge { padding: 4px 10px; border-radius: 50px; fontSize: 10px; fontWeight: 900; text-transform: uppercase; letter-spacing: 0.5px; }
         .badge-pending { background: #FEF3C7; color: #D97706; }
         .badge-confirmed { background: #ECFDF5; color: #059669; }
+        .badge-admin-review { background: #DBEAFE; color: #2563EB; }
+        
+        .table-input { border: 1px solid #E5E7EB; border-radius: 8px; padding: 8px 12px; width: 100%; font-size: 14px; }
+        .table-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 2px rgba(227, 27, 35, 0.1); }
         
         @media (max-width: 1024px) {
             .sidebar { position: fixed; left: -280px; z-index: 1000; transition: all 0.3s; }
@@ -87,11 +91,29 @@ const BusinessDashboard = () => {
     const menuItems = [
         { id: 'overview', icon: LayoutDashboard, label: 'Tableau de bord' },
         { id: 'bookings', icon: CalendarCheck, label: 'Réservations' },
+        { id: 'catalogue', icon: Utensils, label: 'Carte & Prix' },
+        { id: 'hours', icon: Clock, label: 'Horaires' },
         { id: 'establishment', icon: Store, label: 'Établissement' },
         { id: 'reviews', icon: Star, label: 'Avis Clients' },
         { id: 'promote', icon: Tag, label: 'Promotions' },
         { id: 'settings', icon: Settings, label: 'Paramètres' },
     ];
+
+    const [products, setProducts] = useState([
+        { id: 1, name: "Thieboudienne Pilon", price: "4.500", category: "Plats", status: "validated" },
+        { id: 2, name: "Yassa au Poulet", price: "3.500", category: "Plats", status: "validated" },
+        { id: 3, name: "Jus de Bissap Maison", price: "1.200", category: "Boissons", status: "pending_review" }
+    ]);
+
+    const [hours, setHours] = useState([
+        { day: "Lundi", open: "11:00", close: "23:00", closed: false },
+        { day: "Mardi", open: "11:00", close: "23:00", closed: false },
+        { day: "Mercredi", open: "11:00", close: "23:00", closed: false },
+        { day: "Jeudi", open: "11:00", close: "23:00", closed: false },
+        { day: "Vendredi", open: "11:00", close: "02:00", closed: false },
+        { day: "Samedi", open: "11:00", close: "02:00", closed: false },
+        { day: "Dimanche", open: "12:00", close: "22:00", closed: false },
+    ]);
 
     const stats = [
         { title: "Vues (30j)", value: "2,450", trend: "+15%", color: 'var(--primary)' },
@@ -315,6 +337,94 @@ const BusinessDashboard = () => {
                                         </div>
                                     ))}
                                 </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {activeMenu === 'catalogue' && (
+                        <div className="card">
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+                                <h2 style={{ fontSize: '20px', fontWeight: 900, color: '#111827' }}>Catalogue (Produits & Prix)</h2>
+                                <button className="btn-primary"><Plus size={18} /> Ajouter un produit</button>
+                            </div>
+                            <div style={{ overflowX: 'auto' }}>
+                                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                                    <thead>
+                                        <tr style={{ textAlign: 'left', borderBottom: '1px solid #F3F4F6' }}>
+                                            <th style={{ padding: '12px 16px', fontSize: '12px', color: '#9CA3AF', textTransform: 'uppercase' }}>Produit</th>
+                                            <th style={{ padding: '12px 16px', fontSize: '12px', color: '#9CA3AF', textTransform: 'uppercase' }}>Catégorie</th>
+                                            <th style={{ padding: '12px 16px', fontSize: '12px', color: '#9CA3AF', textTransform: 'uppercase' }}>Prix (FCFA)</th>
+                                            <th style={{ padding: '12px 16px', fontSize: '12px', color: '#9CA3AF', textTransform: 'uppercase' }}>Statut Admin</th>
+                                            <th style={{ padding: '12px 16px', fontSize: '12px', color: '#9CA3AF', textTransform: 'uppercase' }}>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {products.map(p => (
+                                            <tr key={p.id} style={{ borderBottom: '1px solid #F3F4F6' }}>
+                                                <td style={{ padding: '16px', fontWeight: 700, fontSize: '14px' }}>{p.name}</td>
+                                                <td style={{ padding: '16px', fontSize: '13px' }}>{p.category}</td>
+                                                <td style={{ padding: '16px', fontSize: '14px', fontWeight: 800 }}>{p.price}</td>
+                                                <td style={{ padding: '16px' }}>
+                                                    <span className={`badge ${p.status === 'validated' ? 'badge-confirmed' : 'badge-admin-review'}`}>
+                                                        {p.status === 'validated' ? 'Validé' : 'En révision'}
+                                                    </span>
+                                                </td>
+                                                <td style={{ padding: '16px' }}>
+                                                    <button style={{ background: 'none', border: 'none', color: '#6B7280', cursor: 'pointer' }}><Edit size={16} /></button>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p style={{ fontSize: '12px', color: '#6B7280', marginTop: '20px' }}>
+                                * Tout nouveau produit ou changement de prix doit être validé par l'équipe Yes-Africa pour assurer la cohérence des prix sur la plateforme.
+                            </p>
+                        </div>
+                    )}
+
+                    {activeMenu === 'hours' && (
+                        <div className="card" style={{ maxWidth: '800px' }}>
+                            <h2 style={{ fontSize: '20px', fontWeight: 900, color: '#111827', marginBottom: '24px' }}>Horaires d'ouverture</h2>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                                {hours.map((h, i) => (
+                                    <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '20px', padding: '12px', borderRadius: '12px', background: h.closed ? '#F9FAFB' : 'white', border: h.closed ? '1px solid transparent' : '1px solid #F3F4F6' }}>
+                                        <div style={{ width: '100px', fontWeight: 800, fontSize: '14px' }}>{h.day}</div>
+                                        <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                            {!h.closed ? (
+                                                <>
+                                                    <input type="time" value={h.open} onChange={(e) => {
+                                                        const newHours = [...hours];
+                                                        newHours[i].open = e.target.value;
+                                                        setHours(newHours);
+                                                    }} className="table-input" style={{ width: '120px' }} />
+                                                    <span>à</span>
+                                                    <input type="time" value={h.close} onChange={(e) => {
+                                                        const newHours = [...hours];
+                                                        newHours[i].close = e.target.value;
+                                                        setHours(newHours);
+                                                    }} className="table-input" style={{ width: '120px' }} />
+                                                </>
+                                            ) : (
+                                                <span style={{ fontSize: '13px', color: '#9CA3AF', fontWeight: 700 }}>FERMÉ</span>
+                                            )}
+                                        </div>
+                                        <button 
+                                            onClick={() => {
+                                                const newHours = [...hours];
+                                                newHours[i].closed = !newHours[i].closed;
+                                                setHours(newHours);
+                                            }}
+                                            className="btn-outline" 
+                                            style={{ padding: '6px 12px', fontSize: '11px', background: h.closed ? '#111' : 'white', color: h.closed ? 'white' : '#374151' }}
+                                        >
+                                            {h.closed ? 'Ouvrir' : 'Fermer'}
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
+                            <div style={{ marginTop: '32px', display: 'flex', justifyContent: 'flex-end' }}>
+                                <button className="btn-primary">Mettre à jour les horaires</button>
                             </div>
                         </div>
                     )}
