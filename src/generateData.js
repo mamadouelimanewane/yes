@@ -267,5 +267,5 @@ const existingContent = "export const categories = " + JSON.stringify(categories
     "export const businesses = " + JSON.stringify(businesses, null, 2) + ";\n" +
     "\nexport const cities = Array.from(new Set(businesses.map(b => b.city))).sort();\n";
 
-fs.writeFileSync('./data.js', existingContent);
+fs.writeFileSync('./src/data.js', existingContent);
 console.log('data.js generated successfully with ' + businesses.length + ' businesses!');
