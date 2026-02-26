@@ -221,7 +221,7 @@ const Chatbot = () => {
                         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                             <button onClick={() => setIsOpen(false)} style={{ background: 'rgba(255,255,255,0.1)', border: 'none', color: 'white', width: '36px', height: '36px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><ArrowLeft size={20} /></button>
                             <div style={{ position: 'relative' }}>
-                                <img src="https://images.unsplash.com/photo-1531123897727-8f129e1bf98c?auto=format&fit=crop&q=80&w=150&h=150" style={{ width: '42px', height: '42px', borderRadius: '50%', objectFit: 'cover', border: '2px solid white' }} />
+                                <img src="/assets/lexi.png" style={{ width: '42px', height: '42px', borderRadius: '50%', objectFit: 'cover', border: '2px solid white' }} />
                                 <div style={{ position: 'absolute', bottom: 0, right: 0, width: '12px', height: '12px', background: '#4ADE80', borderRadius: '50%', border: '2px solid #111' }}></div>
                             </div>
                             <div>
@@ -240,7 +240,7 @@ const Chatbot = () => {
                                     <button
                                         key={action}
                                         onClick={() => handleSend(action)}
-                                        style={{ background: 'white', border: '1px solid var(--border-color)', padding: '8px 16px', borderRadius: '50px', fontSize: '12px', fontWeight: 700, color: 'var(--primary)', boxShadow: '0 2px 5px rgba(0,0,0,0.02)' }}
+                                        style={{ background: 'white', border: '1px solid var(--border-color)', padding: '8px 16px', borderRadius: '50px', fontSize: '12px', fontWeight: 700, color: '#111', boxShadow: '0 2px 5px rgba(0,0,0,0.02)' }}
                                     >
                                         {action}
                                     </button>
@@ -255,7 +255,7 @@ const Chatbot = () => {
                                     animate={{ opacity: 1, scale: 1, y: 0 }}
                                     style={{
                                         maxWidth: '85%', padding: '14px 18px', borderRadius: '20px', fontSize: '14px', lineHeight: '1.5',
-                                        background: msg.type === 'user' ? 'var(--primary)' : 'white',
+                                        background: msg.type === 'user' ? 'var(--whatsapp)' : 'white',
                                         color: msg.type === 'user' ? 'white' : '#111',
                                         fontWeight: 600,
                                         border: msg.type === 'bot' ? '1px solid var(--border-color)' : 'none',
@@ -279,7 +279,7 @@ const Chatbot = () => {
                                                 <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                                                     <div style={{ fontSize: '14px', fontWeight: 800, marginBottom: '2px' }}>{bus.name}</div>
                                                     <div style={{ fontSize: '11px', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 600 }}>
-                                                        <MapPin size={10} color="var(--primary)" /> {bus.location}
+                                                        <MapPin size={10} color="var(--whatsapp)" /> {bus.location}
                                                     </div>
                                                 </div>
                                             </Link>
@@ -313,14 +313,14 @@ const Chatbot = () => {
                                 onClick={startListening}
                                 style={{
                                     background: 'none', border: 'none', padding: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                    color: isListening ? 'var(--primary)' : '#9CA3AF'
+                                    color: isListening ? 'var(--whatsapp)' : '#9CA3AF'
                                 }}
                             >
                                 {isListening && (
                                     <motion.span
                                         animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
                                         transition={{ repeat: Infinity, duration: 1 }}
-                                        style={{ position: 'absolute', right: '16px', width: '20px', height: '20px', background: 'var(--primary)', borderRadius: '50%', opacity: 0.2 }}
+                                        style={{ position: 'absolute', right: '16px', width: '20px', height: '20px', background: 'var(--whatsapp)', borderRadius: '50%', opacity: 0.2 }}
                                     />
                                 )}
                                 <Mic size={20} style={{ position: 'relative', zIndex: 10 }} />
@@ -329,7 +329,7 @@ const Chatbot = () => {
                         <button
                             onClick={() => handleSend()}
                             disabled={!inputValue.trim()}
-                            style={{ background: inputValue.trim() ? 'var(--primary)' : '#E5E7EB', color: 'white', border: 'none', width: '45px', height: '45px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'background 0.3s' }}
+                            style={{ background: inputValue.trim() ? 'var(--whatsapp)' : '#E5E7EB', color: 'white', border: 'none', width: '45px', height: '45px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'background 0.3s' }}
                         >
                             <Send size={18} />
                         </button>

@@ -11,48 +11,37 @@ const categories = [
 
 const images = {
     Restaurants: [
+        "/assets/restaurant.png",
         "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&q=80&w=800", // Thieb
         "https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&q=80&w=800", // African food
-        "https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?auto=format&fit=crop&q=80&w=800", // Dinner setting
-        "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=800", // Restaurant dark
         "https://images.unsplash.com/photo-1588964895597-cfccd6e2dbf9?auto=format&fit=crop&q=80&w=800", // African soup
         "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&q=80&w=800", // Food plate
-        "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=800", // Grill
-        "https://images.unsplash.com/photo-1530469912745-a215c6b256ea?auto=format&fit=crop&q=80&w=800", // Seafood
     ],
     Hôtels: [
+        "/assets/hotel.png",
         "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=800", // Pool
         "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&q=80&w=800", // Resort
-        "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&q=80&w=800", // Luxury pool
-        "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&q=80&w=800", // Colonial exterior
-        "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&q=80&w=800", // Room
         "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&q=80&w=800", // Beach resort
     ],
     Shopping: [
+        "/assets/shopping.png",
         "https://images.unsplash.com/photo-1506617420240-0529f4d78da5?auto=format&fit=crop&q=80&w=800", // African fabric
         "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?auto=format&fit=crop&q=80&w=800", // African clothes
-        "https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&q=80&w=800", // Jewelry
-        "https://images.unsplash.com/photo-1591457824888-c9c14c0f96cd?auto=format&fit=crop&q=80&w=800", // Spices
         "https://images.unsplash.com/photo-1599839619722-39751411ea63?auto=format&fit=crop&q=80&w=800", // African market lady
-        "https://images.unsplash.com/photo-1542485547-19416ee97ba0?auto=format&fit=crop&q=80&w=800" // African patterns
     ],
     'Vie Nocturne': [
+        "/assets/nightlife.png",
         "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80", // Club drinks
-        "https://images.unsplash.com/photo-1566417713940-fe7c737a9ef2?auto=format&fit=crop&q=80&w=800", // Bar setup
-        "https://images.unsplash.com/photo-1545128485-c400ce7b23d5?auto=format&fit=crop&q=80&w=800", // Crowd dark
-        "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&q=80&w=800", // DJ
         "https://images.unsplash.com/photo-1521360096-7bb2a5ad625a?auto=format&fit=crop&q=80&w=800", // Black musician
     ],
     Automobile: [
-        "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&q=80&w=800", // Car repair general
-        "https://images.unsplash.com/photo-1503376712341-ea080ddf4879?auto=format&fit=crop&q=80", // Car bottom
+        "/assets/auto.png",
         "https://images.unsplash.com/photo-1534067980590-fde85cdcaed3?auto=format&fit=crop&q=80&w=800", // Black mechanic
-        "https://images.unsplash.com/photo-1620865766861-f0bd29ed31db?auto=format&fit=crop&q=80&w=800", // Tires
     ],
     'Beauté & Spa': [
+        "/assets/beauty.png",
         "https://images.unsplash.com/photo-1580618672591-eb180b1a973f?auto=format&fit=crop&q=80&w=800", // Braids african
         "https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?auto=format&fit=crop&q=80&w=800", // Black woman spa/massage
-        "https://images.unsplash.com/photo-1556228578-8d89b6acd8f1?auto=format&fit=crop&q=80&w=800", // Shea butter / oils
         "https://images.unsplash.com/photo-1531123414780-f74242c2b052?auto=format&fit=crop&q=80&w=800", // Black woman makeup/beauty
         "https://images.unsplash.com/photo-1552559560-4b8c9d0121ed?auto=format&fit=crop&q=80&w=800", // African braiding
         "https://images.unsplash.com/photo-1505944270255-72b8c68c6a70?auto=format&fit=crop&q=80&w=800", // Black male barber
@@ -74,7 +63,9 @@ const otherCities = [
 
 function getUniqueImage(cat) {
     if (!images[cat] || images[cat].length === 0) return "https://images.unsplash.com/photo-1547949003-9792a18a2601?auto=format&fit=crop&q=80&w=800";
-    return images[cat].pop();
+
+    // Pick a random image from the pool instead of popping, to allow more businesses than images
+    return images[cat][Math.floor(Math.random() * images[cat].length)];
 }
 
 let businesses = [];
@@ -83,7 +74,7 @@ let idCounter = 1;
 // Helper to generate businesses until images run out
 function generateCategory(category, namePrefixes, tagsPool, descriptions, cityCounts) {
     const totalBusinesses = cityCounts.dakar + cityCounts.autres;
-    const items = Math.min(totalBusinesses, images[category] ? images[category].length : 0);
+    const items = totalBusinesses;
 
     for (let i = 0; i < items; i++) {
         const isDakar = i < cityCounts.dakar;
@@ -104,25 +95,87 @@ function createBiz(category, name, location, city, tagsPool, descriptions) {
         if (!tags.includes(t)) tags.push(t);
     }
 
+    // Coordonnées précises décalées vers l'intérieur pour éviter la mer
+    const locationCoords = {
+        "Plateau, Dakar": { lat: 14.672, lng: -17.436 },
+        "Almadies, Dakar": { lat: 14.745, lng: -17.512 },
+        "Ngor, Dakar": { lat: 14.742, lng: -17.505 },
+        "Point E, Dakar": { lat: 14.692, lng: -17.452 },
+        "Médina, Dakar": { lat: 14.685, lng: -17.445 },
+        "Fann Résidence, Dakar": { lat: 14.688, lng: -17.458 },
+        "Ouakam, Dakar": { lat: 14.718, lng: -17.485 },
+        "Sacré-Cœur, Dakar": { lat: 14.712, lng: -17.465 },
+        "Yoff, Dakar": { lat: 14.755, lng: -17.462 },
+        "Mamelles, Dakar": { lat: 14.725, lng: -17.502 },
+        "Gorée, Dakar": { lat: 14.667, lng: -17.398 },
+        "Parcelles Assainies, Dakar": { lat: 14.758, lng: -17.438 },
+        "HLM, Dakar": { lat: 14.708, lng: -17.442 },
+        "Liberté 6, Dakar": { lat: 14.722, lng: -17.455 },
+        "Mermoz, Dakar": { lat: 14.702, lng: -17.468 },
+        "Hann Maristes, Dakar": { lat: 14.738, lng: -17.428 },
+        "Guédiawaye, Dakar": { lat: 14.772, lng: -17.388 },
+        "Pikine, Dakar": { lat: 14.742, lng: -17.388 },
+        "Rufisque, Dakar": { lat: 14.712, lng: -17.268 },
+        "Fass, Dakar": { lat: 14.692, lng: -17.442 },
+        "Saint-Louis": { lat: 16.02, lng: -16.50 },
+        "Saly, Mbour": { lat: 14.44, lng: -16.99 },
+        "Touba": { lat: 14.86, lng: -15.87 },
+        "Kaolack": { lat: 14.14, lng: -16.07 },
+        "Ziguinchor": { lat: 12.56, lng: -16.27 },
+        "Cap Skirring": { lat: 12.36, lng: -16.73 },
+        "Somone": { lat: 14.48, lng: -17.07 },
+        "Sine Saloum": { lat: 13.88, lng: -16.52 },
+        "Joal-Fadiouth": { lat: 14.16, lng: -16.85 },
+        "Kédougou": { lat: 12.55, lng: -12.17 }
+    };
+
+    const baseCoords = locationCoords[location] || { lat: 14.7, lng: -17.4 };
+
+    // Jitter beaucoup plus petit (environ 100-200m) pour éviter de sortir du quartier ou aller en mer
+    // Pas de jitter pour l'île de Gorée (trop petite)
+    const isGoree = location.includes("Gorée");
+    const jitterVal = isGoree ? 0 : 0.002;
+    const jitter = () => (Math.random() - 0.5) * jitterVal;
+
     return {
         id: idCounter++,
         name: name,
         category: category,
         rating: (Math.random() * 1.5 + 3.5).toFixed(1), // 3.5 to 5.0
         reviews: Math.floor(Math.random() * 500) + 10,
-        price: ["€", "€€", "€€€", "€€€€"][Math.floor(Math.random() * 4)],
+        price: (function () {
+            if (category === 'Restaurants') {
+                const ranges = ["2 500 - 7 500 FCFA", "7 500 - 15 000 FCFA", "15 000 - 35 000 FCFA", "35 000 - 75 000 FCFA"];
+                return ranges[Math.floor(Math.random() * ranges.length)];
+            } else if (category === 'Hôtels') {
+                const ranges = ["25 000 - 45 000 FCFA", "45 000 - 95 000 FCFA", "95 000 - 250 000 FCFA", "250 000 - 650 000 FCFA"];
+                return ranges[Math.floor(Math.random() * ranges.length)];
+            } else if (category === 'Shopping') {
+                const ranges = ["1 500 - 15 000 FCFA", "15 000 - 50 000 FCFA", "50 000 - 150 000 FCFA", "Varié"];
+                return ranges[Math.floor(Math.random() * ranges.length)];
+            } else if (category === 'Vie Nocturne') {
+                const ranges = ["5 000 - 20 000 FCFA", "20 000 - 50 000 FCFA", "50 000 - 150 000 FCFA"];
+                return ranges[Math.floor(Math.random() * ranges.length)];
+            } else if (category === 'Automobile') {
+                const ranges = ["3 500 - 15 000 FCFA", "15 000 - 85 000 FCFA", "85 000 - 500 000 FCFA"];
+                return ranges[Math.floor(Math.random() * ranges.length)];
+            } else { // Beauté & Spa
+                const ranges = ["2 500 - 12 500 FCFA", "12 500 - 45 000 FCFA", "45 000 - 120 000 FCFA"];
+                return ranges[Math.floor(Math.random() * ranges.length)];
+            }
+        })(),
         location: location,
         city: city,
         address: "Rue " + Math.floor(Math.random() * 100) + ", " + location,
         phone: "+221 " + ['77', '78', '76', '33'][Math.floor(Math.random() * 4)] + " " + (Math.floor(Math.random() * 900) + 100) + " " + (Math.floor(Math.random() * 90) + 10) + " " + (Math.floor(Math.random() * 90) + 10),
         website: "www." + name.toLowerCase().replace(/[^a-z0-9]/g, '') + ".sn",
         hours: "Lun-Dim 09h-22h",
-        lat: isDakar ? (14.6 + Math.random() * 0.2) : (12.0 + Math.random() * 4.0),
-        lng: isDakar ? (-17.5 + Math.random() * 0.2) : (-16.5 + Math.random() * 1.0),
+        lat: baseCoords.lat + jitter(),
+        lng: baseCoords.lng + jitter(),
         image: getUniqueImage(category),
         description: descriptions[Math.floor(Math.random() * descriptions.length)],
         tags: tags,
-        featured: Math.random() > 0.5 // INCREASE FEATURED ODDS to make sure we have enough since we have fewer items
+        featured: Math.random() > 0.5
     };
 }
 

@@ -9,7 +9,7 @@ const Events = () => {
             title: "Dakar Fashion Week 2026",
             date: "15-20 Mars 2026",
             location: "Radisson Blu, Almadies",
-            image: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&q=80&w=800",
+            image: "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?auto=format&fit=crop&q=80&w=800",
             category: "Mode",
             attendees: 1200
         },
@@ -18,7 +18,7 @@ const Events = () => {
             title: "Festival de Jazz de Saint-Louis",
             date: "24-28 Mai 2026",
             location: "Île de Saint-Louis",
-            image: "https://images.unsplash.com/photo-1511192336575-5a79af67a629?auto=format&fit=crop&q=80&w=800",
+            image: "https://images.unsplash.com/photo-1521360096-7bb2a5ad625a?auto=format&fit=crop&q=80&w=800",
             category: "Musique",
             attendees: 5000
         },

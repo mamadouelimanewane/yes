@@ -124,7 +124,7 @@ const BusinessDetail = () => {
                                 {[1, 2].map(i => (
                                     <div key={i} style={{ display: 'flex', gap: '15px', borderBottom: i === 1 ? '1px solid #EEE' : 'none', paddingBottom: i === 1 ? '30px' : '0' }}>
                                         <div style={{ width: '50px', height: '50px', borderRadius: '50%', overflow: 'hidden', flexShrink: 0, border: '2px solid rgba(227, 27, 35, 0.1)' }}>
-                                            <img src={i === 1 ? "https://images.unsplash.com/photo-1507152832244-10d45aec7dea?auto=format&fit=crop&q=80&w=150&h=150" : "https://images.unsplash.com/photo-1506277886164-e25aa3f4ef7f?auto=format&fit=crop&q=80&w=150&h=150"} alt="Avatar" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                            <img src={i === 1 ? "https://images.unsplash.com/photo-1507152832244-10d45aec7dea?auto=format&fit=crop&q=80&w=150&h=150" : "https://images.unsplash.com/photo-1531123414780-f74242c2b052?auto=format&fit=crop&q=80&w=150&h=150"} alt="Avatar" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                         </div>
                                         <div>
                                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '5px' }}>
