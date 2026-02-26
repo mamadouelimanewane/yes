@@ -39,12 +39,7 @@ const images = {
         "https://images.unsplash.com/photo-1534067980590-fde85cdcaed3?auto=format&fit=crop&q=80&w=800", // Black mechanic
     ],
     'Beauté & Spa': [
-        "/assets/beauty.png",
-        "https://images.unsplash.com/photo-1580618672591-eb180b1a973f?auto=format&fit=crop&q=80&w=800", // Braids african
-        "https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?auto=format&fit=crop&q=80&w=800", // Black woman spa/massage
-        "https://images.unsplash.com/photo-1531123414780-f74242c2b052?auto=format&fit=crop&q=80&w=800", // Black woman makeup/beauty
-        "https://images.unsplash.com/photo-1552559560-4b8c9d0121ed?auto=format&fit=crop&q=80&w=800", // African braiding
-        "https://images.unsplash.com/photo-1505944270255-72b8c68c6a70?auto=format&fit=crop&q=80&w=800", // Black male barber
+        "/assets/beauty.png"
     ]
 };
 
