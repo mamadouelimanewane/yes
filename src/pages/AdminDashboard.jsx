@@ -30,6 +30,7 @@ import {
     Download,
     Printer,
     FileCheck,
+    FileText,
     Briefcase,
     Phone,
     Globe,
