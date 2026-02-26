@@ -678,6 +678,11 @@ const AdminDashboard = () => {
                             {/* Stats Grid */}
                             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '24px' }}>
                                 {stats.map((stat, idx) => (
+                                    <div key={idx} className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                                        <h3 className="text-sm font-bold text-gray-500 mb-2 uppercase tracking-wide">{stat.title}</h3>
+                                        <div className="flex items-end justify-between">
+                                            <span className="text-3xl font-black text-gray-900">{stat.value}</span>
+                                            <span className={`flex items-center gap-1 text-sm font-bold px-2 py-1 rounded-md ${stat.trendUp ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
                                                 {stat.trendUp ? <TrendingUp size={14} /> : <TrendingUp size={14} className="rotate-180" />}
                                                 {stat.trend}
                                             </span>
