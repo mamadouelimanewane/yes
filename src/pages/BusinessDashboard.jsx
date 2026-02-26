@@ -26,6 +26,7 @@ import {
     Eye,
     Plus,
     Utensils,
+    Bed,
     Camera
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -88,11 +89,13 @@ const BusinessDashboard = () => {
         status: "Active"
     });
 
+    const isAccommodation = ["Hotels", "Auberges"].includes(establishmentInfo.category);
+
     const menuItems = [
         { id: 'overview', icon: LayoutDashboard, label: 'Tableau de bord' },
         { id: 'bookings', icon: CalendarCheck, label: 'Réservations' },
-        { id: 'catalogue', icon: Utensils, label: 'Carte & Prix' },
-        { id: 'hours', icon: Clock, label: 'Horaires' },
+        { id: 'catalogue', icon: isAccommodation ? Bed : Utensils, label: isAccommodation ? 'Chambres & Tarifs' : 'Carte & Prix' },
+        { id: 'hours', icon: Clock, label: isAccommodation ? 'Check-in/out' : 'Horaires' },
         { id: 'establishment', icon: Store, label: 'Établissement' },
         { id: 'reviews', icon: Star, label: 'Avis Clients' },
         { id: 'promote', icon: Tag, label: 'Promotions' },
@@ -248,7 +251,7 @@ const BusinessDashboard = () => {
                                                 <tr style={{ textAlign: 'left', borderBottom: '1px solid #F3F4F6' }}>
                                                     <th style={{ padding: '12px 16px', fontSize: '12px', color: '#9CA3AF', textTransform: 'uppercase' }}>Client</th>
                                                     <th style={{ padding: '12px 16px', fontSize: '12px', color: '#9CA3AF', textTransform: 'uppercase' }}>Date</th>
-                                                    <th style={{ padding: '12px 16px', fontSize: '12px', color: '#9CA3AF', textTransform: 'uppercase' }}>Taille</th>
+                                                    <th style={{ padding: '12px 16px', fontSize: '12px', color: '#9CA3AF', textTransform: 'uppercase' }}>{isAccommodation ? 'Nuits / Type' : 'Taille'}</th>
                                                     <th style={{ padding: '12px 16px', fontSize: '12px', color: '#9CA3AF', textTransform: 'uppercase' }}>Statut</th>
                                                 </tr>
                                             </thead>
@@ -257,7 +260,7 @@ const BusinessDashboard = () => {
                                                     <tr key={b.id} style={{ borderBottom: '1px solid #F3F4F6' }}>
                                                         <td style={{ padding: '16px', fontWeight: 700, fontSize: '14px' }}>{b.name}</td>
                                                         <td style={{ padding: '16px', fontSize: '13px', color: '#4B5563' }}>{b.date}</td>
-                                                        <td style={{ padding: '16px', fontSize: '13px', fontWeight: 800 }}>{b.guests} pers.</td>
+                                                        <td style={{ padding: '16px', fontSize: '13px', fontWeight: 800 }}>{isAccommodation ? `${b.guests} nuits (${b.type})` : `${b.guests} pers.`}</td>
                                                         <td style={{ padding: '16px' }}>
                                                             <span className={`badge badge-${b.status}`}>{b.status === 'confirmed' ? 'Confirmé' : 'En attente'}</span>
                                                         </td>
@@ -312,13 +315,17 @@ const BusinessDashboard = () => {
                                                 </div>
                                                 <div>
                                                     <h4 style={{ fontSize: '16px', fontWeight: 800, margin: 0 }}>{booking.name}</h4>
-                                                    <span style={{ fontSize: '12px', color: '#6B7280' }}>{booking.phone} • {booking.guests} invités</span>
+                                                    <span style={{ fontSize: '12px', color: '#6B7280' }}>
+                                                        {booking.phone} • {isAccommodation ? `${booking.guests} nuits` : `${booking.guests} invités`}
+                                                    </span>
                                                 </div>
                                             </div>
                                             
                                             <div style={{ textAlign: 'center' }}>
                                                 <span style={{ display: 'block', fontSize: '14px', fontWeight: 800, color: '#111827' }}>{booking.date}</span>
-                                                <span style={{ fontSize: '11px', color: '#9CA3AF', textTransform: 'uppercase', fontWeight: 700 }}>{booking.type}</span>
+                                                <span style={{ fontSize: '11px', color: '#9CA3AF', textTransform: 'uppercase', fontWeight: 700 }}>
+                                                    {isAccommodation ? `Chambre: ${booking.type}` : booking.type}
+                                                </span>
                                             </div>
 
                                             <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
@@ -344,16 +351,16 @@ const BusinessDashboard = () => {
                     {activeMenu === 'catalogue' && (
                         <div className="card">
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
-                                <h2 style={{ fontSize: '20px', fontWeight: 900, color: '#111827' }}>Catalogue (Produits & Prix)</h2>
-                                <button className="btn-primary"><Plus size={18} /> Ajouter un produit</button>
+                                <h2 style={{ fontSize: '20px', fontWeight: 900, color: '#111827' }}>{isAccommodation ? 'Gestion des Chambres' : 'Catalogue (Produits & Prix)'}</h2>
+                                <button className="btn-primary"><Plus size={18} /> {isAccommodation ? 'Ajouter une chambre' : 'Ajouter un produit'}</button>
                             </div>
                             <div style={{ overflowX: 'auto' }}>
                                 <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                                     <thead>
                                         <tr style={{ textAlign: 'left', borderBottom: '1px solid #F3F4F6' }}>
-                                            <th style={{ padding: '12px 16px', fontSize: '12px', color: '#9CA3AF', textTransform: 'uppercase' }}>Produit</th>
-                                            <th style={{ padding: '12px 16px', fontSize: '12px', color: '#9CA3AF', textTransform: 'uppercase' }}>Catégorie</th>
-                                            <th style={{ padding: '12px 16px', fontSize: '12px', color: '#9CA3AF', textTransform: 'uppercase' }}>Prix (FCFA)</th>
+                                            <th style={{ padding: '12px 16px', fontSize: '12px', color: '#9CA3AF', textTransform: 'uppercase' }}>{isAccommodation ? 'Type de Chambre' : 'Produit'}</th>
+                                            <th style={{ padding: '12px 16px', fontSize: '12px', color: '#9CA3AF', textTransform: 'uppercase' }}>{isAccommodation ? 'Capacité' : 'Catégorie'}</th>
+                                            <th style={{ padding: '12px 16px', fontSize: '12px', color: '#9CA3AF', textTransform: 'uppercase' }}>{isAccommodation ? 'Prix / Nuit' : 'Prix (FCFA)'}</th>
                                             <th style={{ padding: '12px 16px', fontSize: '12px', color: '#9CA3AF', textTransform: 'uppercase' }}>Statut Admin</th>
                                             <th style={{ padding: '12px 16px', fontSize: '12px', color: '#9CA3AF', textTransform: 'uppercase' }}>Action</th>
                                         </tr>
@@ -385,7 +392,7 @@ const BusinessDashboard = () => {
 
                     {activeMenu === 'hours' && (
                         <div className="card" style={{ maxWidth: '800px' }}>
-                            <h2 style={{ fontSize: '20px', fontWeight: 900, color: '#111827', marginBottom: '24px' }}>Horaires d'ouverture</h2>
+                            <h2 style={{ fontSize: '20px', fontWeight: 900, color: '#111827', marginBottom: '24px' }}>{isAccommodation ? "Horaires de Check-in / Check-out" : "Horaires d'ouverture"}</h2>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                                 {hours.map((h, i) => (
                                     <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '20px', padding: '12px', borderRadius: '12px', background: h.closed ? '#F9FAFB' : 'white', border: h.closed ? '1px solid transparent' : '1px solid #F3F4F6' }}>
